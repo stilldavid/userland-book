@@ -1,5 +1,5 @@
-chapter a: the command line as a literary environment
-=====================================================
+the command line as a literary environment
+==========================================
 
 Writing, particularly writing of any real scope or complexity, is very much a
 technical task.  It makes demands, both physical and psychological, of its

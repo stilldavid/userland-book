@@ -13,6 +13,5 @@ This is a work in progress.
 contents
 --------
 
-a. the command line as a literary environment
-b. solving a real problem
-c. further reading
+1. the command line as a literary environment
+2. solving a real problem

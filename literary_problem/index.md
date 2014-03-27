@@ -1,5 +1,5 @@
-chapter b: an actual literary problem
-=====================================
+an actual literary problem
+==========================
 
 The previous chapter introduced a bunch of tools using contrived examples.  Now
 we'll look at a real problem, and work through a solution by building on tools
@@ -37,31 +37,39 @@ script to glue them all together into a web page.  This sounds complicated, but
 all it really means is that if I want to write a blog entry, I just open a file
 and type some stuff.  Here's one for March 1st:
 
-<pre><code>$ cat ~/p1k3/archives/2014/3/1
-&lt;h1&gt;Saturday, March 1&lt;/h1&gt;
+<!-- exec -->
 
-&lt;markdown&gt;
-Sometimes I'm going along on a Saturday morning, still a little dazed from the
-night before, and I think something like "I should just go write a detailed
-analysis of hooded sweatshirts".  Mostly these thoughts don't survive contact
-with an actual keyboard.  It's almost certainly for the best.
-&lt;/markdown&gt;</code></pre>
+    $ cat ~/p1k3/archives/2014/3/1
+    <h1>Saturday, March 1</h1>
+    
+    <markdown>
+    Sometimes I'm going along on a Saturday morning, still a little dazed from the
+    night before, and I think something like "I should just go write a detailed
+    analysis of hooded sweatshirts".  Mostly these thoughts don't survive contact
+    with an actual keyboard.  It's almost certainly for the best.
+    </markdown>
+
+<!-- end -->
 
 And here's an older one that contains a short poem:
 
-<pre><code>$ cat ~/p1k3/archives/2012/10/9
-&lt;h1&gt;tuesday, october 9&lt;/h1&gt;
+<!-- exec -->
 
-&lt;freeverse&gt;i am a stateful machine
-i exist in a manifold of consequence
-a clattering miscellany of impure functions
-and side effects&lt;/freeverse&gt;</code></pre>
+    $ cat ~/p1k3/archives/2012/10/9
+    <h1>tuesday, october 9</h1>
+    
+    <freeverse>i am a stateful machine
+    i exist in a manifold of consequence
+    a clattering miscellany of impure functions
+    and side effects</freeverse>
 
-Notice that <code>&lt;freeverse&gt;</code> bit?  It kind of looks like an HTML
-tag, but it's not.  What it actually does is tell my blog script that it should
-format the text it contains like a poem.  The specifics don't matter a lot for
-our purposes, but it's going to come in handy, because the first thing I want
-to do is get a list of all the entries that contain poems.
+<!-- end -->
+
+Notice that `<freeverse>` bit?  It kind of looks like an HTML tag, but it's
+not.  What it actually does is tell my blog script that it should format the
+text it contains like a poem.  The specifics don't matter a lot for our
+purposes, but it's going to come in handy, because the first thing I want to do
+is get a list of all the entries that contain poems.
 
     $ grep -ri '<freeverse>' ~/p1k3/archives > ~/possible_poems
 
