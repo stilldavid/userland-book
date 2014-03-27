@@ -1,0 +1,150 @@
+<h2>chapter b: an actual literary problem</h2>
+
+<markdown>
+
+The previous chapter introduced a bunch of tools using contrived examples.  Now
+we'll look at a real problem, and work through a solution by building on tools
+we've already covered.
+
+So on to the problem:  I write poetry.
+
+{rimshot.wav}
+
+Most of the poems I have written are not very good, but lately I've been
+thinking that I'd like to comb through the last ten years' or so worth and pull
+out the least-embarrassing stuff into a single collection.
+
+I've hinted at how the contents of my blog are stored as files, but let's take
+a look at the whole thing:
+
+    $ ls -F ~/p1k3/archives/
+    1997/  2003/  2009/  bones/     meta/
+    1998/  2004/  2010/  chapbook/  winfield/
+    1999/  2005/  2011/  cli/       wip/
+    2000/  2006/  2012/  colophon/
+    2001/  2007/  2013/  europe/
+    2002/  2008/  2014/  hack/
+
+(`ls`, again, just lists files.  `-F` tells it to append a character that shows
+it what type of file we're looking at, such as a trailing / for directories.
+`~` is a shorthand that means "my home directory", which in this case is
+`/home/brennen`.)
+
+Each of the directories here holds other directories.  The ones for each year
+have sub-directories for the months of the year, which in turn contain files
+for the days.  The files are just little pieces of HTML and Markdown and some
+other stuff.  Many years ago, before I really knew how to program, I wrote a
+script to glue them all together into a web page.  This sounds complicated, but
+all it really means is that if I want to write a blog entry, I just open a file
+and type some stuff.  Here's one for March 1st:
+
+<pre><code>$ cat ~/p1k3/archives/2014/3/1
+&lt;h1&gt;Saturday, March 1&lt;/h1&gt;
+
+&lt;markdown&gt;
+Sometimes I'm going along on a Saturday morning, still a little dazed from the
+night before, and I think something like "I should just go write a detailed
+analysis of hooded sweatshirts".  Mostly these thoughts don't survive contact
+with an actual keyboard.  It's almost certainly for the best.
+&lt;/markdown&gt;</code></pre>
+
+And here's an older one that contains a short poem:
+
+<pre><code>$ cat ~/p1k3/archives/2012/10/9
+&lt;h1&gt;tuesday, october 9&lt;/h1&gt;
+
+&lt;freeverse&gt;i am a stateful machine
+i exist in a manifold of consequence
+a clattering miscellany of impure functions
+and side effects&lt;/freeverse&gt;</code></pre>
+
+Notice that <code>&lt;freeverse&gt;</code> bit?  It kind of looks like an HTML
+tag, but it's not.  What it actually does is tell my blog script that it should
+format the text it contains like a poem.  The specifics don't matter a lot for
+our purposes, but it's going to come in handy, because the first thing I want
+to do is get a list of all the entries that contain poems.
+
+    $ grep -ri '<freeverse>' ~/p1k3/archives > ~/possible_poems
+
+Let's step through this bit by bit:
+
+First, I'm asking `grep` to search **r**ecursively, **i**gnoring case.
+"Recursively" just means that every time the program finds a directory, it
+should descend into that directory and search in any files there as well.
+
+    grep -ri
+
+Next comes a string to search for.  It's in single quotes because the
+characters `<` and `>` have a special meaning, and here we need the shell to
+understand that it should treat them as literal angle brackets instead.
+
+    '<freeverse>'
+
+This is the path I want to search:
+
+    ~/p1k3/archives
+
+Finally, because there are so many entries to search, I know the process could
+take a while and is going to produce a large list, so I tell the shell to
+redirect it to a file called `possible_poems` in my home directory:
+
+    > ~/possible_poems
+
+This is quite a few instances...
+
+<!-- exec -->
+
+    $ wc -l ~/possible_poems
+    682 /home/brennen/possible_poems
+
+<!-- end -->
+
+...and also not super-pretty to look at...
+
+<!-- exec -->
+
+    $ head -5 ~/possible_poems
+    /home/brennen/p1k3/archives/2002/10/16:<freeverse>i don't have time to be writing this
+    /home/brennen/p1k3/archives/2002/10/27:<freeverse>tequila tastes like death
+    /home/brennen/p1k3/archives/2002/10/10:<freeverse>
+    /home/brennen/p1k3/archives/2002/10/shax:<freeverse>i'd do this in iambic pentameter
+    /home/brennen/p1k3/archives/2002/10/31/index:<freeverse>rounding out the month,
+
+<!-- end -->
+
+...but it's a start.  I can see paths to the files I have to check, and usually
+a first line.  This is good enough for government work, but what if instead of
+jumping around between hundreds of files, I'd rather read everything in one
+file and just weed out the bad ones as I go?
+
+    $ cat `grep -ril '<freeverse>' ~/p1k3/archives` > ~/possible_poems_full
+
+This probably bears some explaining.  `grep` is still doing all the real work
+here.  The only difference from before is that `-l` tells grep to just list
+any files it finds which contain a match.
+
+    `grep -ril '<freeverse>' ~/p1k3/archives`
+
+Notice those backticks around the grep command?  This part is a little
+trippier.  It turns out that if you put backticks around a fragment, the shell
+will execute what's inside the ticks as a command of its own, and then replace
+them with the output of that command.  So what we're really saying is something
+like:
+
+    $ cat [all of the files in the blog directory with <freeverse> in them]
+
+Did you catch that?  I just wrote a command that rewrote itself as a
+_different_, more specific command.  And it appears to have worked on the
+first try:
+
+<!-- exec -->
+
+    $ wc ~/possible_poems_full
+     16190  74988 486847 /home/brennen/possible_poems_full
+
+<!-- end -->
+
+That looks like it did the trick.  Just about 75k words, which I suppose is
+getting to be in short novel territory.  It'll take me a while to review, but
+it's better than combing through the whole archive file-by-file.
+</markdown>
