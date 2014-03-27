@@ -1,6 +1,5 @@
-<h2>chapter b: an actual literary problem</h2>
-
-<markdown>
+chapter b: an actual literary problem
+=====================================
 
 The previous chapter introduced a bunch of tools using contrived examples.  Now
 we'll look at a real problem, and work through a solution by building on tools
@@ -147,4 +146,3 @@ first try:
 That looks like it did the trick.  Just about 75k words, which I suppose is
 getting to be in short novel territory.  It'll take me a while to review, but
 it's better than combing through the whole archive file-by-file.
-</markdown>

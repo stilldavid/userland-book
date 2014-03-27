@@ -1,6 +1,6 @@
-<h2>chapter a: the command line as a literary environment</h2>
+chapter a: the command line as a literary environment
+=====================================================
 
-<markdown>
 Writing, particularly writing of any real scope or complexity, is very much a
 technical task.  It makes demands, both physical and psychological, of its
 practitioners.  As with programmers, woodworkers, graphic artists, and farmers,
@@ -29,7 +29,7 @@ Implicit in this notion is that, if you rely on Word or Open Office or Google
 Docs, I'm suggesting you abandon those tools for a lot of tasks.  That may seem
 like quite a stretch.  Humor me for a while.
 
-<p class=centerpiece>*</p>
+-> * <-
 
 Let's do the terms-and-definitions thing.  What software are we actually
 talking about when we say "the command line"?
@@ -464,8 +464,8 @@ counts the number of words in its input.
 
 <!-- exec -->
 
-    $ wc index
-      727  4056 24398 index
+    $ wc index.md
+      736  4117 24944 index.md
 
 <!-- end -->
 
@@ -533,7 +533,17 @@ So.  Want to know the definition of a word, or find useful synonyms?
 <!-- exec -->
 
     $ dict concatenate | head -10
+    4 definitions found
     
+    From The Collaborative International Dictionary of English v.0.48 [gcide]:
+    
+      Concatenate \Con*cat"e*nate\ (k[o^]n*k[a^]t"[-e]*n[=a]t), v. t.
+         [imp. & p. p. {Concatenated}; p. pr. & vb. n.
+         {Concatenating}.] [L. concatenatus, p. p. of concatenare to
+         concatenate. See {Catenate}.]
+         To link together; to unite in a series or chain, as things
+         depending on one another.
+
 <!-- end -->
 
 Need to interactively spell-check your presentation notes?
@@ -551,7 +561,7 @@ Want to know what the calendar looks like for this month?
      2  3  4  5  6  7  8  
      9 10 11 12 13 14 15  
     16 17 18 19 20 21 22  
-    23 _2_4 25 26 27 28 29  
+    23 24 25 _2_6 27 28 29  
     30 31                 
 
 <!-- end -->
@@ -724,4 +734,3 @@ file", or "here's how this file is different from itself a year ago".  It turns
 out that these work just about as well for English text as they do for code.
 
 {demo various diff tools, source control}
-</markdown>
