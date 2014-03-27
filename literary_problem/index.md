@@ -91,7 +91,7 @@ This is the path I want to search:
 
     ~/p1k3/archives
 
-Finally, because there are so many entries to search, I know the process could
+Finally, because there are so many entries to search, I know the process will
 take a while and is going to produce a large list, so I tell the shell to
 redirect it to a file called `possible_poems` in my home directory:
 
@@ -106,7 +106,7 @@ This is quite a few instances...
 
 <!-- end -->
 
-...and also not super-pretty to look at...
+...and also not super-pretty to look at:
 
 <!-- exec -->
 
@@ -120,23 +120,27 @@ This is quite a few instances...
 <!-- end -->
 
 ...but it's a start.  I can see paths to the files I have to check, and usually
-a first line.  This is good enough for government work, but what if instead of
-jumping around between hundreds of files, I'd rather read everything in one
-file and just weed out the bad ones as I go?
+a first line.  Since I use a fancy text editor, I can just go down the list
+opening each file in a new window and copying the stuff I'm interested in to a
+new file.
+
+This is good enough for government work, but what if instead of jumping around
+between hundreds of files, I'd rather read everything in one file and just weed
+out the bad ones as I go?
 
     $ cat `grep -ril '<freeverse>' ~/p1k3/archives` > ~/possible_poems_full
 
 This probably bears some explaining.  `grep` is still doing all the real work
-here.  The only difference from before is that `-l` tells grep to just list
-any files it finds which contain a match.
+here.  The main difference from before is that `-l` tells grep to just list any
+files it finds which contain a match.
 
     `grep -ril '<freeverse>' ~/p1k3/archives`
 
 Notice those backticks around the grep command?  This part is a little
-trippier.  It turns out that if you put backticks around a fragment, the shell
-will execute what's inside the ticks as a command of its own, and then replace
-them with the output of that command.  So what we're really saying is something
-like:
+trippier.  It turns out that if you put backticks around something in a
+command, it'll get executed and replaced with its result, which in turn gets
+executed as part of the larger command.  So what we're really saying is
+something like:
 
     $ cat [all of the files in the blog directory with <freeverse> in them]
 
@@ -151,6 +155,8 @@ first try:
 
 <!-- end -->
 
-That looks like it did the trick.  Just about 75k words, which I suppose is
-getting to be in short novel territory.  It'll take me a while to review, but
-it's better than combing through the whole archive file-by-file.
+Welcome to wizard school.
+
+Anyway, that's almost 75000 words, which is getting close to the length of a
+short novel.  It'll take me a while to review, but it's better than combing
+through the whole archive file-by-file.

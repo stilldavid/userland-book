@@ -530,8 +530,6 @@ CDs.
 
 So.  Want to know the definition of a word, or find useful synonyms?
 
-<!-- exec -->
-
     $ dict concatenate | head -10
     4 definitions found
     
@@ -543,8 +541,6 @@ So.  Want to know the definition of a word, or find useful synonyms?
          concatenate. See {Catenate}.]
          To link together; to unite in a series or chain, as things
          depending on one another.
-
-<!-- end -->
 
 Need to interactively spell-check your presentation notes?
 
