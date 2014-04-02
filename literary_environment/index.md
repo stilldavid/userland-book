@@ -4,9 +4,9 @@ the command line as a literary environment
 Writing, particularly writing of any real scope or complexity, is very much a
 technical task.  It makes demands, both physical and psychological, of its
 practitioners.  As with programmers, woodworkers, graphic artists, and farmers,
-writers exhibit strong preferences in tools, materials, and environment, and
-they do so because they're engaged in a physically and cognitively challenging
-task.
+writers exhibit strong preferences in their tools, materials, and environment,
+and they do so because they're engaged in a physically and cognitively
+challenging task.
 
 My thesis is that the modern Linux command line is a pretty good environment
 for working with English prose and prosody, and by extension offers features
@@ -14,10 +14,10 @@ you might find useful in your own work.
 
 I've chosen writing as a point of departure because, aside from web
 development, it's what I use a computer for most.  I want to shine a light on
-the humane potential of ideas that are usually understood as weird, esoteric
-nerd trivia.  Computers have utterly transformed the practice of writing within
-the space of my lifetime, but it seems to me that writers as a class miss out
-on many of the software tools and patterns taken as a given in more "technical"
+the humane potential of ideas that are usually understood as esoteric nerd
+trivia.  Computers have utterly transformed the practice of writing within the
+space of my lifetime, but it seems to me that writers as a class miss out on
+many of the software tools and patterns taken as a given in more "technical"
 fields.  Which is to say that even if you're not a writer by habit or trade,
 there might still be something here for you.
 
@@ -44,11 +44,11 @@ on a very old paradigm called Unix.
 {super old school blinking cursor dot gif}
 
 The Unix-like environment we're going to use isn't very classical, really.
-It's an operating system kernel called Linux, combined with a bunch of other
-things written by other people (people involved the GNU and Debian projects,
-and many others).  Purists will tell you that this isn't properly Unix at all.
-In strict historical terms they're right, or at least a certain kind of right,
-but for the purposes of my cultural agenda I'm going to ignore them right now.
+It's an operating system kernel called Linux, combined with a bunch of things
+written by other people (people in the GNU and Debian projects, and many
+others).  Purists will tell you that this isn't properly Unix at all.  In
+strict historical terms they're right, or at least a certain kind of right, but
+for the purposes of my cultural agenda I'm going to ignore them right now.
 
 {cut to actual terminal blinkety blinking on the projector}
 
@@ -203,10 +203,11 @@ something to all three files.  Fortunately, our shell offers a shorthand for
 
 <!-- end -->
 
-In Bash-land, `*` basically means "anything".  You should always be careful
-with wildcards, especially if you're doing anything destructive.  They can and
-will surprise the unwary.  Still, once you're used to the idea, they will save
-you a lot of RSI.
+In Bash-land, `*` basically means "anything", and is known in the vernacular,
+somewhat poetically, as a "wildcard".  You should always be careful with
+wildcards, especially if you're doing anything destructive.  They can and will
+surprise the unwary.  Still, once you're used to the idea, they will save you a
+lot of RSI.
 
 sort
 ----
@@ -450,11 +451,11 @@ have]..."
 
 <!-- end -->
 
-You mostly don't need to worry about this, but it can be useful to know that
-the manual represented by `man` has numbered sections for different kinds of
-manual pages.  Most of what the average user needs to know about lives in
-section 1, so you'll often see the names of different commands and programs
-written like `sort(1)` or `uniq(1)`.
+It can be useful to know that the manual represented by `man` has numbered
+sections for different kinds of manual pages.  Most of what the average user
+needs to know about lives in section 1, so you'll often see the names of
+different commands and programs written like `sort(1)` or `cat(1)`.  Like other
+literary traditions, Unix is littered with this sort of convention.
 
 wc
 --
@@ -462,19 +463,13 @@ wc
 `wc` stands for **w**ord **c**ount.  It does about what you'd expect - it
 counts the number of words in its input.
 
-<!-- exec -->
-
     $ wc index.md
       736  4117 24944 index.md
 
-<!-- end -->
-
-361 is the number of lines, 2354 the number of words, and 13968 the number of
+736 is the number of lines, 4117 the number of words, and 24944 the number of
 characters in the file I'm writing right now.  I use this constantly.  Most
-obviously, it's a good way to get an idea of how much you've written.  If
-anybody in the room has done NaNoWriMo and knows what that is, `wc` is the
-tool I used to track my progress the last time I tried it.  For the record,
-this is what I wound up with:
+obviously, it's a good way to get an idea of how much you've written.  `wc` is
+the tool I used to track my progress the last time I tried NaNoWriMo:
 
 <!-- exec -->
 
@@ -551,14 +546,14 @@ Want to know what the calendar looks like for this month?
 <!-- exec -->
 
     $ cal
-         March 2014       
+         April 2014       
     Su Mo Tu We Th Fr Sa  
-                       1  
-     2  3  4  5  6  7  8  
-     9 10 11 12 13 14 15  
-    16 17 18 19 20 21 22  
-    23 24 25 _2_6 27 28 29  
-    30 31                 
+          _ _1  2  3  4  5  
+     6  7  8  9 10 11 12  
+    13 14 15 16 17 18 19  
+    20 21 22 23 24 25 26  
+    27 28 29 30           
+                          
 
 <!-- end -->
 
@@ -691,42 +686,50 @@ an individual author appears on?
 
 <!-- end -->
 
-`grep` will come up again.
+`grep` takes a string to search for and, optionally, a list of files to search
+in.   If you don't specify files, it'll look through standard input instead:
 
-diff, wdiff, git
-----------------
+<!-- exec -->
 
-If you're the sort of person who took a few detours into the history of
-religion in college, you might be familiar with some of the ways people used to
-do textual comparison.  When pen, paper, and typesetting were what scholars
-had to work with, they did some amazingly sophisticated things in order to
-expose the relationships between multiple pieces of text.
+    $ cat ./authors_* | grep 'Vanessa'
+    Vanessa Veselka
+    Vanessa Veselka
 
-{slide: some textual criticism tools}
+<!-- end -->
 
-Here's a book I got in college.  _Gospel Parallels: A Comparison of the
-Synoptic Gospels_, by Burton H. Throckmorton, Jr.  It breaks up three books
-from the Bible by the stories and themes that they contain, and shows the
-overlapping sections of each book that contain parallel texts.  You can work
-your way through and see what parts only show up in one book, or in two but not
-the other, or in all three.  These kinds of tools support all sorts of
-theoretical stuff about which books copied each other and how, and what other
-sources they might have copied that we've since lost.
+Most of the time, piping the output of `cat` to `grep` is considered silly,
+because `grep` knows how to find things in files on its own.  Many thousands of
+words have been written on this topic by leading lights of the nerd community.
 
-This is some _incredibly_ dry material, even if you kind of dig thinking about
-questions like how and when an important religious book was written and
-compiled.  It takes a special temperament to actually sit poring over
-fragmentary texts in ancient languages and do these painstaking comparisons.
-Even if you're a writer or editor and work with a lot of revisions of a text,
-there's a good chance you rarely do this kind of comparison on your own work,
-because that shit is _tedious_.
+You've probably noticed that this result doesn't contain filenames (and thus
+isn't very useful to us).  That's because all `grep` saw was the lines in the
+files, not the names of the files themselves.
 
-And yet it turns out that academics aren't the only people who need tools for
-comparing different versions of a text.  Programmers, in fact, need to do this
-_constantly_.  Programmers are also happiest when putting off the _actual_ task
-at hand to solve some incidental problem that cropped up along the way, so by
-now there are a lot of ways to say "here's how this file is different from this
-file", or "here's how this file is different from itself a year ago".  It turns
-out that these work just about as well for English text as they do for code.
+now you have n problems: regex & rabbit holes
+---------------------------------------------
 
-{demo various diff tools, source control}
+To close out this introductory chapter, let's explore a topic that will likely
+vex, confound, and (occasionally) delight you for as long as you are acquainted
+with the command line.
+
+When I was talking about `grep` a moment ago, I fudged the details more than a
+little in saying that it expects a string to search for.  What `grep`
+_actually_ expects is a strange beast called a _regular expression_ which
+describes a _pattern_ to match.
+
+There's a lot of theory about what makes a regular expression, but the short
+version is that it's like how you can use wildcards in the shell to match
+groups of files, but with a lot more stuff.
+
+<!-- exec -->
+
+    $ grep 'Jo.*' ./authors_*
+    ./authors_sff:Jo Walton
+    ./authors_sff:John Ronald Reuel Tolkien
+    ./authors_sff:John Brunner
+
+<!-- end -->
+
+The pattern `Jo.*` says that we're looking for lines which contain a literal
+`Jo`, followed by any amount (including none) of any character.  In a regex,
+`.` means "anything" and `*` means "any amount of the preceding thing".
