@@ -713,13 +713,15 @@ vex, confound, and (occasionally) delight you for as long as you are acquainted
 with the command line.
 
 When I was talking about `grep` a moment ago, I fudged the details more than a
-little in saying that it expects a string to search for.  What `grep`
-_actually_ expects is a strange beast called a _regular expression_ which
-describes a _pattern_ to match.
+little by saying that it expects a string to search for.  What `grep`
+_actually_ expects is a _pattern_.  Moreover, it expects a specific kind of
+pattern, what's known as a _regular expression_, a cumbersome phrase frequently
+shortened to regex.
 
-There's a lot of theory about what makes a regular expression, but the short
-version is that it's like how you can use wildcards in the shell to match
-groups of files, but with a lot more stuff.
+There's a lot of theory about what makes a regular expression.  Fortunately,
+very little of it matters to the short version that will let you get useful
+stuff done.  The short version is that a regex is like using wildcards in the
+shell to match groups of files, but with more magic.
 
 <!-- exec -->
 
@@ -731,5 +733,28 @@ groups of files, but with a lot more stuff.
 <!-- end -->
 
 The pattern `Jo.*` says that we're looking for lines which contain a literal
-`Jo`, followed by any amount (including none) of any character.  In a regex,
+`Jo`, followed by any quantity (including none) of any character.  In a regex,
 `.` means "anything" and `*` means "any amount of the preceding thing".
+
+`.` and `*` are magical.  In the particular dialect of regexen understood
+by `grep`, other magical things include:
+
+<table>
+  <tr><td>^    </td>  <td>start of a line                        </td></tr>
+  <tr><td>$    </td>  <td>end of a line                          </td></tr>
+  <tr><td>[abc]</td>  <td>one of a, b, or c                      </td></tr>
+  <tr><td>[a-z]</td>  <td>a character in the range a through z   </td></tr>
+  <tr><td>[0-9]</td>  <td>a character in the range 0 through 9   </td></tr>
+</table>
+
+<table>
+  <tr><td>+    </td>  <td>one or more of the preceding thing     </td></tr>
+  <tr><td>?    </td>  <td>0 or 1 of the preceding thing          </td></tr>
+  <tr><td>*    </td>  <td>any number of the preceding thing      </td></tr>
+</table>
+
+<table>
+  <tr><td>(foo|bar)</td>  <td>"foo" or "bar"</td></tr>
+</table>
+
+

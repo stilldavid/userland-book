@@ -8,9 +8,8 @@ with one big file called `potential_poems_full`.
 Let's talk for a minute about how programmers approach problems like this one.
 Because what I've just done is sort of an old-school humanities take on things:
 Metaphorically speaking, I took a book off the shelf and hauled it down to the
-copy machine and flipped through to a bunch of pages and made a stack of copies
-and now I'm going to start in on them with a highlighter and some Post-Its or
-something.
+copy machine and copied a bunch of pages out of it, and now I'm going to start
+in on them with a highlighter and some Post-Its or something.
 
 This kind of operation will often trigger a cascade of questions in the
 programmer-mind:
@@ -53,5 +52,6 @@ the same tools for other problems and other data.
 -> * <-
 
 When I first started writing stuff on the web, I edited a page -- a single HTML
-file and a couple of GIFs -- by hand.  When they got old, I manually
-cut-and-pasted the entries to archive files with names like `old_main97.html`.
+file and a couple of GIFs -- by hand.  When the entries on my nascent blog got
+old, I manually cut-and-pasted them to archive files with names like
+`old_main97.html`.

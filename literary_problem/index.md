@@ -35,7 +35,7 @@ for the days.  The files are just little pieces of HTML and Markdown and some
 other stuff.  Many years ago, before I really knew how to program, I wrote a
 script to glue them all together into a web page.  This sounds complicated, but
 all it really means is that if I want to write a blog entry, I just open a file
-and type some stuff.  Here's one for March 1st:
+and type some stuff.  Here's an example for March 1st:
 
 <!-- exec -->
 
@@ -71,6 +71,8 @@ text it contains like a poem.  The specifics don't matter a lot for our
 purposes, but it's going to come in handy, because the first thing I want to do
 is get a list of all the entries that contain poems.
 
+Remember `grep`?
+
     $ grep -ri '<freeverse>' ~/p1k3/archives > ~/possible_poems
 
 Let's step through this bit by bit:
@@ -81,9 +83,10 @@ should descend into that directory and search in any files there as well.
 
     grep -ri
 
-Next comes a string to search for.  It's in single quotes because the
-characters `<` and `>` have a special meaning, and here we need the shell to
-understand that it should treat them as literal angle brackets instead.
+Next comes a pattern to search for.  It's in single quotes because the
+characters `<` and `>` have a special meaning to the shell, and here we need
+the shell to understand that it should treat them as literal angle brackets
+instead.
 
     '<freeverse>'
 
@@ -92,8 +95,8 @@ This is the path I want to search:
     ~/p1k3/archives
 
 Finally, because there are so many entries to search, I know the process will
-take a while and is going to produce a large list, so I tell the shell to
-redirect it to a file called `possible_poems` in my home directory:
+be slow and produce a large list, so I tell the shell to redirect it to a file
+called `possible_poems` in my home directory:
 
     > ~/possible_poems
 
