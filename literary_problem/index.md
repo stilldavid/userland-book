@@ -1,5 +1,5 @@
-an actual literary problem
-==========================
+a literary problem
+==================
 
 The previous chapter introduced a bunch of tools using contrived examples.  Now
 we'll look at a real problem, and work through a solution by building on tools
@@ -7,11 +7,11 @@ we've already covered.
 
 So on to the problem:  I write poetry.
 
-{rimshot.wav}
+{rimshot dot wav}
 
 Most of the poems I have written are not very good, but lately I've been
-thinking that I'd like to comb through the last ten years' or so worth and pull
-out the least-embarrassing stuff into a single collection.
+thinking that I'd like to comb through the last ten years' worth and pull
+the least-embarrassing stuff into a single collection.
 
 I've hinted at how the contents of my blog are stored as files, but let's take
 a look at the whole thing:
@@ -33,9 +33,10 @@ Each of the directories here holds other directories.  The ones for each year
 have sub-directories for the months of the year, which in turn contain files
 for the days.  The files are just little pieces of HTML and Markdown and some
 other stuff.  Many years ago, before I really knew how to program, I wrote a
-script to glue them all together into a web page.  This sounds complicated, but
-all it really means is that if I want to write a blog entry, I just open a file
-and type some stuff.  Here's an example for March 1st:
+script to glue them all together into a web page and serve them up to visitors.
+This sounds complicated, but all it really means is that if I want to write a
+blog entry, I just open a file and type some stuff.  Here's an example for
+March 1st:
 
 <!-- exec -->
 
@@ -67,9 +68,9 @@ And here's an older one that contains a short poem:
 
 Notice that `<freeverse>` bit?  It kind of looks like an HTML tag, but it's
 not.  What it actually does is tell my blog script that it should format the
-text it contains like a poem.  The specifics don't matter a lot for our
-purposes, but it's going to come in handy, because the first thing I want to do
-is get a list of all the entries that contain poems.
+text it contains like a poem.  The specifics don't matter for our purposes
+(yet), but this convention is going to come in handy, because the first thing I
+want to do is get a list of all the entries that contain poems.
 
 Remember `grep`?
 
@@ -109,7 +110,7 @@ This is quite a few instances...
 
 <!-- end -->
 
-...and also not super-pretty to look at:
+...and it's also not super-pretty to look at:
 
 <!-- exec -->
 
@@ -122,10 +123,10 @@ This is quite a few instances...
 
 <!-- end -->
 
-...but it's a start.  I can see paths to the files I have to check, and usually
-a first line.  Since I use a fancy text editor, I can just go down the list
-opening each file in a new window and copying the stuff I'm interested in to a
-new file.
+Still, it's a decent start.  I can see paths to the files I have to check, and
+usually a first line.  Since I use a fancy text editor, I can just go down the
+list opening each file in a new window and copying the stuff I'm interested in
+to a new file.
 
 This is good enough for government work, but what if instead of jumping around
 between hundreds of files, I'd rather read everything in one file and just weed
@@ -161,5 +162,5 @@ first try:
 Welcome to wizard school.
 
 Anyway, that's almost 75000 words, which is getting close to the length of a
-short novel.  It'll take me a while to review, but it's better than combing
-through the whole archive file-by-file.
+short novel.  It'll take me a while to review, but it's probably better than
+combing through the whole archive file-by-file.
