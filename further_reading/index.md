@@ -1,4 +1,4 @@
 further reading
 ===============
 
-t/k
+_The Unix Programming Environment_ - Brian W. Kernighan, Rob Pike
