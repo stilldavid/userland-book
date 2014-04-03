@@ -9,10 +9,8 @@ Let's talk for a minute about how programmers approach problems like this one.
 What I've just done is sort of an old-school humanities take on things:
 Metaphorically speaking, I took a book off the shelf and hauled it down to the
 copy machine to xerox a bunch of pages, and now I'm going to start in on them
-with a highlighter and some Post-Its or something.
-
-This kind of operation will often trigger a cascade of questions in the
-programmer-mind:
+with a highlighter and some Post-Its or something.  A process like this will
+often trigger a cascade of questions in the programmer-mind:
 
 - What if, halfway through the project, I realize my selection criteria were all
   wrong and have to backtrack?
@@ -20,6 +18,8 @@ programmer-mind:
 - What if I discover corrections that also need to be made in the source documents?
 
 - What if I want to access metadata, like the original location of a file?
+
+- What if I want to quickly re-order the poems according to some new criteria?
 
 - Why am I storing the same text in two different places?
 
@@ -30,8 +30,8 @@ invoking a little more abstraction.
 
 Some kinds of abstraction are so common in the physical world that we often
 forget they're part of a sophisticated technology.  For example, a good deal of
-bicycle maintenance can be accomplished with a cheap multi-tool with a few
-different sizes of hex wrench and a couple of screwdrivers.
+bicycle maintenance can be accomplished with a cheap multi-tool containing a
+few different sizes of hex wrench and a couple of screwdrivers.
 
 A hex wrench or screwdriver doesn't really know anything about bicycles.  All
 it _really_ knows about is fitting into a space and allowing torque to be
@@ -147,13 +147,16 @@ structure and manipulate that structure with the standard tools.
 
 -> * <-
 
-So back to the problem at hand:  I have this collection of files, and I know
-how to extract the ones that contain poems.  My goal is to see all the poems
-and collect the subset of them that I still find worthwhile.  Just knowing how
-to grep and edit a big file solves my problem.  And yet:  Something about this
-nags at my mind.  I find that, much as I can use standard tools and the
-filesystem to ask questions about all of my blog posts in 2008, I would like to
-be able to ask questions about the set of interesting poems.
+Back to the problem at hand:  I have this collection of files, and I know how
+to extract the ones that contain poems.  My goal is to see all the poems and
+collect the subset of them that I still find worthwhile.  Just knowing how to
+grep and edit a big file solves my problem.  And yet:  Something about this
+nags at my mind.  I find that, just as I can already use standard tools and the
+filesystem to ask questions about all of my blog posts in a given year or
+month, I would like to be able to ask questions about the set of interesting
+poems.
 
-If I want to be able to execute many different sorts of commands against this
+If I want the freedom to execute many different sorts of commands against this
 set of poems, it begins to seem that I need a model.
+
+
