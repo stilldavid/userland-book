@@ -1,0 +1,21 @@
+body {
+  color: #000000;
+  background: white;
+  margin-top: 0em;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1em;
+  padding-right: 1em;
+  font-family: sans-serif;
+}
+
+p {
+  max-width: 38em;
+}
+
+td { vertical-align: top; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Georgia", "DejaVu Serif", "Bitstream Vera Serif", "Lucida Bright", serif;
+}
+
