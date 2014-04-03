@@ -56,11 +56,10 @@ file -- by hand.  When the entries on my nascent blog got old, I manually
 cut-and-pasted them to archive files with names like `old_main97.html`, which
 held all of the stuff I'd written in 1997.
 
-I should say that I'm not trying to hold this up as an example of youthful
-folly.  In fact, it worked pretty well, and just having a single, static file
-that you can open in any text editor has turned out to be a _lot_ more
-future-proof than the sophisticated blogging software people were starting to
-write at the time.
+I'm not holding this up as an example of youthful folly.  In fact, it worked
+fine, and just having a single, static file that you can open in any text
+editor has turned out to be a _lot_ more future-proof than the sophisticated
+blogging software people were starting to write at the time.
 
 And yet.  Something about this habit nagged at my developing programmer mind
 after a few years.  It was just a little bit too manual and repetitive, a
@@ -147,3 +146,14 @@ agnostic about the question, for this enables us to assign our own meaning to a
 structure and manipulate that structure with the standard tools.
 
 -> * <-
+
+So back to the problem at hand:  I have this collection of files, and I know
+how to extract the ones that contain poems.  My goal is to see all the poems
+and collect the subset of them that I still find worthwhile.  Just knowing how
+to grep and edit a big file solves my problem.  And yet:  Something about this
+nags at my mind.  I find that, much as I can use standard tools and the
+filesystem to ask questions about all of my blog posts in 2008, I would like to
+be able to ask questions about the set of interesting poems.
+
+If I want to be able to execute many different sorts of commands against this
+set of poems, it begins to seem that I need a model.
