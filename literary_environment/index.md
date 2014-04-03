@@ -471,12 +471,8 @@ characters in the file I'm writing right now.  I use this constantly.  Most
 obviously, it's a good way to get an idea of how much you've written.  `wc` is
 the tool I used to track my progress the last time I tried NaNoWriMo:
 
-<!-- exec -->
-
     $ find ~/p1k3/archives/2010/11 -regextype egrep -regex '.*([0-9]+|index)' -type f | xargs wc -w | grep total
      6585 total
-
-<!-- end -->
 
 <!-- exec -->
 
@@ -548,7 +544,7 @@ Want to know what the calendar looks like for this month?
     $ cal
          April 2014       
     Su Mo Tu We Th Fr Sa  
-          _ _1  2  3  4  5  
+           1 _ _2  3  4  5  
      6  7  8  9 10 11 12  
     13 14 15 16 17 18 19  
     20 21 22 23 24 25 26  
@@ -708,9 +704,9 @@ files, not the names of the files themselves.
 now you have n problems: regex & rabbit holes
 ---------------------------------------------
 
-To close out this introductory chapter, let's explore a topic that will likely
-vex, confound, and (occasionally) delight you for as long as you are acquainted
-with the command line.
+To close out this introductory chapter, let's spend a little time on a topic
+that will likely vex, confound, and (occasionally) delight you for as long as
+you are acquainted with the command line.
 
 When I was talking about `grep` a moment ago, I fudged the details more than a
 little by saying that it expects a string to search for.  What `grep`
@@ -718,7 +714,7 @@ _actually_ expects is a _pattern_.  Moreover, it expects a specific kind of
 pattern, what's known as a _regular expression_, a cumbersome phrase frequently
 shortened to regex.
 
-There's a lot of theory about what makes a regular expression.  Fortunately,
+There's a lot of theory about what makes up a regular expression.  Fortunately,
 very little of it matters to the short version that will let you get useful
 stuff done.  The short version is that a regex is like using wildcards in the
 shell to match groups of files, but with more magic.
@@ -740,21 +736,95 @@ The pattern `Jo.*` says that we're looking for lines which contain a literal
 by `grep`, other magical things include:
 
 <table>
-  <tr><td>^    </td>  <td>start of a line                        </td></tr>
-  <tr><td>$    </td>  <td>end of a line                          </td></tr>
-  <tr><td>[abc]</td>  <td>one of a, b, or c                      </td></tr>
-  <tr><td>[a-z]</td>  <td>a character in the range a through z   </td></tr>
-  <tr><td>[0-9]</td>  <td>a character in the range 0 through 9   </td></tr>
+  <tr><td><code>^</code>    </td>  <td>start of a line                        </td></tr>
+  <tr><td><code>$</code>    </td>  <td>end of a line                          </td></tr>
+  <tr><td><code>[abc]</code></td>  <td>one of a, b, or c                      </td></tr>
+  <tr><td><code>[a-z]</code></td>  <td>a character in the range a through z   </td></tr>
+  <tr><td><code>[0-9]</code></td>  <td>a character in the range 0 through 9   </td></tr>
+
+  <tr><td><code>+</code>    </td>  <td>one or more of the preceding thing     </td></tr>
+  <tr><td><code>?</code>    </td>  <td>0 or 1 of the preceding thing          </td></tr>
+  <tr><td><code>*</code>    </td>  <td>any number of the preceding thing      </td></tr>
+
+  <tr><td><code>(foo|bar)</code></td>  <td>"foo" or "bar"</td></tr>
+  <tr><td><code>(foo)?</code></td>  <td>optional "foo"</td></tr>
 </table>
 
-<table>
-  <tr><td>+    </td>  <td>one or more of the preceding thing     </td></tr>
-  <tr><td>?    </td>  <td>0 or 1 of the preceding thing          </td></tr>
-  <tr><td>*    </td>  <td>any number of the preceding thing      </td></tr>
-</table>
+It's actually a little more complicated than that:  By default, if you want to
+use a lot of the magical characters, you have to prefix them with `\`.  This is
+both ugly and confusing, so unless you're writing a very simple pattern, it's
+often easiest to call `grep -E`, for **E**xtended regular expressions, which
+means that lots of characters will have special meanings.
 
-<table>
-  <tr><td>(foo|bar)</td>  <td>"foo" or "bar"</td></tr>
-</table>
+Authors with 4-letter first names:
 
+<!-- exec -->
 
+    $ grep -iE '^[a-z]{4} ' ./authors_*
+    ./authors_contemporary_fic:Eden Robinson
+    ./authors_sff:John Ronald Reuel Tolkien
+    ./authors_sff:John Brunner
+
+<!-- end -->
+
+A count of authors named John:
+
+<!-- exec -->
+
+    $ grep -c '^John ' ./all_authors
+    2
+
+<!-- end -->
+
+Lines in this file matching the words "magic" or "magical":
+
+    $ grep -iE 'magic(al)?' ./index.md
+    Pipes are some of the most important magic in the shell.  When the people who
+    shell to match groups of files, but with more magic.
+    `.` and `*` are magical.  In the particular dialect of regexen understood
+    by `grep`, other magical things include:
+    use a lot of the magical characters, you have to prefix them with `\`.  This is
+    Lines in this file matching the words "magic" or "magical":
+        $ grep -iE 'magic(al)?' ./index.md
+
+Find some "-agic" words in a big list of words:
+
+<!-- exec -->
+
+    $ grep -iE '(m|tr|pel)agic' /usr/share/dict/words
+    magic
+    magic's
+    magical
+    magically
+    magician
+    magician's
+    magicians
+    pelagic
+    tragic
+    tragically
+    tragicomedies
+    tragicomedy
+    tragicomedy's
+
+<!-- end -->
+
+`grep` isn't the only - or even the most important - tool that makes use of
+regular expressions, but it's a good place to start because it's one of the
+fundamental building blocks for so many other operations.  Filtering lists of
+things, matching patterns within collections, and writing concise descriptions
+of how text should be transformed are at the heart of a practical approach to
+Unix-like systems.  Regexen turn out to be a seductively powerful way to do
+these things - so much so that they've crept their way into text editors,
+databases, and full-featured programming languages.
+
+There's a dark side to all of this, for the truth about regular expressions is
+that they are ugly, inconsistent, brittle, and _incredibly_ difficult to think
+clearly about.  They take years to master and reward the wielder with great
+power, but they are also a trap: a temptation towards the path of cleverness
+masquerading as wisdom.
+
+-> * <-
+
+I'll be returning to this theme, but for the time being let's move on.  Now
+that we've established, however haphazardly, some of the basics, let's consider
+their application to a real-world task.
