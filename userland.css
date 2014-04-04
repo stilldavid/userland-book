@@ -1,16 +1,16 @@
 body {
-  color: #000000;
   background: white;
-  margin-top: 0em;
+  color: #000000;
+  font-family: sans-serif;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 0em;
   padding-left: 1em;
   padding-right: 1em;
-  font-family: sans-serif;
 }
 
-p {
-  max-width: 38em;
+p, ul li, ol li, ul {
+  max-width: 48em;
 }
 
 td { vertical-align: top; }
@@ -19,3 +19,9 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Georgia", "DejaVu Serif", "Bitstream Vera Serif", "Lucida Bright", serif;
 }
 
+pre {
+  background-color: #ddc;
+  margin-left: 2em;
+  max-width: 56em;
+  padding: 1em;
+}

@@ -14,21 +14,17 @@ often trigger a cascade of questions in the programmer-mind:
 
 - What if, halfway through the project, I realize my selection criteria were all
   wrong and have to backtrack?
-
 - What if I discover corrections that also need to be made in the source documents?
-
 - What if I want to access metadata, like the original location of a file?
-
 - What if I want to quickly re-order the poems according to some new criteria?
-
 - Why am I storing the same text in two different places?
 
 A unifying theme of these questions is that they could all be answered by
-invoking a little more abstraction.
+involving a little more abstraction.
 
 -> * <-
 
-Some kinds of abstraction are so common in the physical world that we often
+Some kinds of abstraction are so common in the physical world that we can
 forget they're part of a sophisticated technology.  For example, a good deal of
 bicycle maintenance can be accomplished with a cheap multi-tool containing a
 few different sizes of hex wrench and a couple of screwdrivers.
