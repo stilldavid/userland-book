@@ -115,7 +115,7 @@ Or find the subtitles I used in 2013:
 
 <!-- exec -->
 
-    $ find ~/p1k3/archives/2012/ -type f | xargs perl -ne 'print "$1\n" if m/.*<h2>(.*?)<\/h2>.*/'
+    $ find ~/p1k3/archives/2012/ -type f | xargs perl -ne 'print "$1\n" if m/.*<h[23]>(.*?)<\/h[23]>.*/'
     pursuit
     fragment
     this poem again
@@ -154,5 +154,47 @@ poems.
 
 If I want the freedom to execute many different sorts of commands against this
 set of poems, it begins to seem that I need a model.
+
+I just ran `dict model`.  It's a word with many fascinating definitions, but my
+favorite of the bunch is probably this bit of ridiculous, eye-glazing
+prolixity:
+
+     9. An abstract and often simplified conceptual representation
+        of the workings of a system of objects in the real world,
+        which often includes mathematical or logical objects and
+        relations representing the objects and relations in the
+        real-world system, and constructed for the purpose of
+        explaining the workings of the system or predicting its
+        behavior under hypothetical conditions; as, the
+        administration's model of the United States economy
+        predicts budget surpluses for the next fifteen years;
+        different models of the universe assume different values
+        for the cosmological constant; models of proton structure
+        have grown progressively more complex in the past century.
+        [PJC]
+
+This one is also pretty good:
+
+    From The Free On-line Dictionary of Computing (26 July 2010) [foldoc]:
+
+     1. <simulation> A description of observed or predicted
+     behaviour of some system, simplified by ignoring certain
+     details.  Models allow complex {systems}, both existent and
+     merely specified, to be understood and their behaviour
+     predicted.  A model may give incorrect descriptions and
+     predictions for situations outside the realm of its intended
+     use.  A model may be used as the basis for {simulation}.
+
+When programmers talk about a model, they often mean something that people in
+the sciences would recognize:  We find ways to represent the arrangement of
+facts so that we can think about them.  A structured representation of things
+often means that we can _change_ those things, or at least derive new
+understanding of them.
+
+This is all a long way of saying that in software, it's useful to describe and
+symbolize what you want to change or understand.  A few times a week, I find
+myself asking someone "is that modeled anywhere?", by which I usually mean
+something like "is it possible for the software to answer the question you'd
+have to ask of it to solve that problem?"
 
 
