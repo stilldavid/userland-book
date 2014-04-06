@@ -197,4 +197,5 @@ myself asking someone "is that modeled anywhere?", by which I usually mean
 something like "is it possible for the software to answer the question you'd
 have to ask of it to solve that problem?"
 
-
+Perhaps I'm belaboring the point.  In short, I need a way to annotate or
+classify the text I'm working with.

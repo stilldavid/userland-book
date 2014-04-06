@@ -25,3 +25,12 @@ pre {
   max-width: 56em;
   padding: 1em;
 }
+
+.sidenote {
+  font-size: small;
+  /* margin-right: -170px; */
+  position: absolute;
+  right: 20px;
+  top: auto; /* default */
+  max-width: 200px;
+}

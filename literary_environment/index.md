@@ -73,23 +73,25 @@ vehicle for getting around inside of computers.  The difference is that instead
 of navigating around virtual rooms and hallways with commands like `GO WEST`,
 you navigate between directories by typing commands like `cd documents`.
 
-(SIDE NOTE: In the Windows and Macintosh world, directories have been called
+<div class=sidenote>
+<p>In the Windows and Macintosh world, directories have been called
 "folders" for a long time now.  This isn't the _worst_ metaphor for what's
 really going on, and it's so pervasive by now that it's not worth fighting
 about.  It's also not exactly a _great_ metaphor, since computer filesystems
 aren't structured very much like the filing cabinets of yore.  A directory acts
 a lot like a container, but for most purposes in the modern context it's an
 infinitely expandable one which may contain nested sub-spaces much larger than
-itself.
+itself.</p>
 
-The vendors of mass-market operating systems are, as we speak, striving to
+<p>The vendors of mass-market operating systems are, as we speak, striving to
 paper over the existence of the filesystem, one of the most powerful and
 liberating abstractions in the history of human thought.  There might be an
-argument that little folder icons were the first step along this path.
+argument that little folder icons were the first step along this path.</p>
 
-That said, it probably doesn't matter much.  Real-world exposure to old-school
+<p>That said, it probably doesn't matter much.  Real-world exposure to old-school
 paper filing systems is plummeting among people with access to computers, and
-anyway I suspect that people are actually pretty good at metaphor.)
+anyway I suspect that people are actually pretty good at metaphor.)</p>
+</div>
 
 (SIDE NOTE: You could also think of the shell as like a notebook you carry
 around work, full of todo lists and design ideas and sketches of dinosaurs
