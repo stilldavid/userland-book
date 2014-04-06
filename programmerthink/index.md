@@ -253,12 +253,12 @@ of lines of text to extract a specific string.  If a directory has a
 `index`.
 
 What are the downsides?  Well, it requires transforming lots of text files into
-directories-containing-files.  It would be easy to automate that process, but
-it's a little tedious and it makes the layout of the entry archive more
-complicated overall.  There's a cost to doing things this way.  It lets me
-extend my existing model of a blog entry to include arbitrary metadata, but it
-also adds steps to writing or finding blog entries.
+directories-containing-files.  I might automate that process, but it's still a
+little tedious and it makes the layout of the entry archive more complicated
+overall.  There's a cost to doing things this way.  It lets me extend my
+existing model of a blog entry to include arbitrary metadata, but it also adds
+steps to writing or finding blog entries.
 
-It turns out that most abstractions cost you something.  Is this one worth it?
+Abstractions usually cost you something.  Is this one worth the hassle?
 
 
