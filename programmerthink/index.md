@@ -1,9 +1,9 @@
 programmerthink
 ===============
 
-In the preceding chapter, I worked through accumulating a big piece of text
-from some other, smaller texts.  I started with a bunch of files and wound up
-with one big file called `potential_poems_full`.
+In the [preceding chapter](../literary_problem), I worked through accumulating
+a big piece of text from some other, smaller texts.  I started with a bunch of
+files and wound up with one big file called `potential_poems_full`.
 
 Let's talk for a minute about how programmers approach problems like this one.
 What I've just done is sort of an old-school humanities take on things:
@@ -260,5 +260,3 @@ existing model of a blog entry to include arbitrary metadata, but it also adds
 steps to writing or finding blog entries.
 
 Abstractions usually cost you something.  Is this one worth the hassle?
-
-

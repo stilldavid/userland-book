@@ -1,9 +1,9 @@
 a literary problem
 ==================
 
-The previous chapter introduced a bunch of tools using contrived examples.  Now
-we'll look at a real problem, and work through a solution by building on tools
-we've already covered.
+The [previous chapter](../literary_environment) introduced a bunch of tools
+using contrived examples.  Now we'll look at a real problem, and work through a
+solution by building on tools we've already covered.
 
 So on to the problem:  I write poetry.
 
