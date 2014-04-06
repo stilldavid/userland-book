@@ -190,10 +190,22 @@ solution unto itself.  I'd like to know that an entry is part of the collection
 just by looking at the entry, without having to cross-reference it to a list
 somewhere else.
 
-[metadata-in-the-file here]
+What about putting some meaningful text in the file itself?  I thought about
+a bunch of different ways to do this, some of them really complicated, and
+eventually arrived at this:
 
-That actually seems pretty workable.  It's a little tacky to look at, but it
-has the virtues of simplicity and greppability.
+    <!-- collection: ok-poems -->
+
+The `<!-- -->` bits are how you define a comment in HTML, which means that
+neither my blog code nor web browsers nor my text editor have to know anything
+about the format, but I can easily find files with certain values.  Check it:
+
+    $ find ~/p1k3/archives -type f | xargs perl -ne 'print "$ARGV[0] if m{<!-- [a-z]+: .*? -->};'
+    /home/brennen/p1k3/archives/2014/2/9: collection -> ok-poems
+
+That's an ugly one-liner, and I haven't explained half of what it does, but the
+comment format actually seems pretty workable for this.  It's a little tacky to
+look at, but it's simple and searchable.
 
 Before we settle, though, let's turn to the notion of making each entry into a
 directory that can contain some structured metadata in a separate file.
@@ -222,10 +234,10 @@ and so forth.
     $ cat ~/p1k3/archives/2013/2/9/Meta
     collection: ok-poems
 
-It would then be pretty easy to `find` files called `Meta` and grep them for
+It would then be easy to `find` files called `Meta` and grep them for
 `collection: ok-poems`.
 
-What if I metadata right in the filename itself, and dispense with the grep
+What if I put metadata right in the filename itself, and dispense with the grep
 altogether?
 
     $ ls ~/p1k3/archives/2013/2/9
@@ -246,3 +258,7 @@ it's a little tedious and it makes the layout of the entry archive more
 complicated overall.  There's a cost to doing things this way.  It lets me
 extend my existing model of a blog entry to include arbitrary metadata, but it
 also adds steps to writing or finding blog entries.
+
+It turns out that most abstractions cost you something.  Is this one worth it?
+
+
