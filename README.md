@@ -8,14 +8,18 @@ audience of mixed technical background (a handful of old Unix heads from way
 back, some engineers and hard science types, some gamers & Windows people, some
 poets and musicians).
 
-This is a work in progress.
+WORK IN PROGRESS.
+
+-- bpb
 
 contents
 --------
 
-1. the command line as a literary environment
-2. an actual literary problem
-3. programmerthink
+1. [the command line as a literary environment](literary_environment/)
+2. [a literary problem](literary_problem/)
+3. [programmerthink](programmerthink/)
+4. [diff](diff/)
+4. [further reading](further_reading/)
 
 TODO
 ----
