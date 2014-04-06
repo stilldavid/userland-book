@@ -200,7 +200,7 @@ The `<!-- -->` bits are how you define a comment in HTML, which means that
 neither my blog code nor web browsers nor my text editor have to know anything
 about the format, but I can easily find files with certain values.  Check it:
 
-    $ find ~/p1k3/archives -type f | xargs perl -ne 'print "$ARGV[0] if m{<!-- [a-z]+: .*? -->};'
+    $ find ~/p1k3/archives -type f | xargs perl -ne 'print "$ARGV[0]: $1 -> $2\n" if m{<!-- ([a-z]+): (.*?) -->};'
     /home/brennen/p1k3/archives/2014/2/9: collection -> ok-poems
 
 That's an ugly one-liner, and I haven't explained half of what it does, but the
