@@ -160,7 +160,3 @@ first try:
 <!-- end -->
 
 Welcome to wizard school.
-
-Anyway, that's almost 75000 words, which is getting close to the length of a
-short novel.  It'll take me a while to review, but it's probably better than
-combing through the whole archive file-by-file.

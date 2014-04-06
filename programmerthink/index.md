@@ -115,7 +115,7 @@ Or find the subtitles I used in 2013:
 
 <!-- exec -->
 
-    $ find ~/p1k3/archives/2012/ -type f | xargs perl -ne 'print "$1\n" if m/.*<h[23]>(.*?)<\/h[23]>.*/'
+    $ find ~/p1k3/archives/2012/ -type f | xargs perl -ne 'print "$1\n" if m{<h2>(.*?)</h2>}'
     pursuit
     fragment
     this poem again
@@ -139,63 +139,110 @@ basically indifferent to the actual _structure_ of a file like
 with certain names in certain places.  It need not know anything about the
 _meaning_ of those names in order to be useful; in fact, it's best if it stays
 agnostic about the question, for this enables us to assign our own meaning to a
-structure and manipulate that structure with the standard tools.
+structure and manipulate that structure with standard tools.
 
 -> * <-
 
 Back to the problem at hand:  I have this collection of files, and I know how
 to extract the ones that contain poems.  My goal is to see all the poems and
 collect the subset of them that I still find worthwhile.  Just knowing how to
-grep and edit a big file solves my problem.  And yet:  Something about this
-nags at my mind.  I find that, just as I can already use standard tools and the
-filesystem to ask questions about all of my blog posts in a given year or
-month, I would like to be able to ask questions about the set of interesting
-poems.
+grep and then edit a big file solves my problem, in a basic sort of way.  And
+yet: Something about this nags at my mind.  I find that, just as I can already
+use standard tools and the filesystem to ask questions about all of my blog
+posts in a given year or month, I would like to be able to ask questions about
+the set of interesting poems.
 
 If I want the freedom to execute many different sorts of commands against this
 set of poems, it begins to seem that I need a model.
 
-I just ran `dict model`.  It's a word with many fascinating definitions, but my
-favorite of the bunch is probably this bit of ridiculous, eye-glazing
-prolixity:
-
-     9. An abstract and often simplified conceptual representation
-        of the workings of a system of objects in the real world,
-        which often includes mathematical or logical objects and
-        relations representing the objects and relations in the
-        real-world system, and constructed for the purpose of
-        explaining the workings of the system or predicting its
-        behavior under hypothetical conditions; as, the
-        administration's model of the United States economy
-        predicts budget surpluses for the next fifteen years;
-        different models of the universe assume different values
-        for the cosmological constant; models of proton structure
-        have grown progressively more complex in the past century.
-        [PJC]
-
-This one is also pretty good:
-
-    From The Free On-line Dictionary of Computing (26 July 2010) [foldoc]:
-
-     1. <simulation> A description of observed or predicted
-     behaviour of some system, simplified by ignoring certain
-     details.  Models allow complex {systems}, both existent and
-     merely specified, to be understood and their behaviour
-     predicted.  A model may give incorrect descriptions and
-     predictions for situations outside the realm of its intended
-     use.  A model may be used as the basis for {simulation}.
-
-When programmers talk about a model, they often mean something that people in
+When programmers talk about models, they often mean something that people in
 the sciences would recognize:  We find ways to represent the arrangement of
 facts so that we can think about them.  A structured representation of things
 often means that we can _change_ those things, or at least derive new
 understanding of them.
 
-This is all a long way of saying that in software, it's useful to describe and
-symbolize what you want to change or understand.  A few times a week, I find
-myself asking someone "is that modeled anywhere?", by which I usually mean
-something like "is it possible for the software to answer the question you'd
-have to ask of it to solve that problem?"
+-> * <-
 
-Perhaps I'm belaboring the point.  In short, I need a way to annotate or
-classify the text I'm working with.
+At this point in the narrative, I could pretend that my next step is
+immediately obvious, but in fact it's not.  I spend a couple of days thinking
+off and on about how to proceed, scribbling notes during bus rides and while
+drinking beers at the pizza joint down the street.  I assess and discard ideas
+which fall into a handful of broad approaches:
+
+- Store blog entries in a relational database system which would allow me to
+  associate them with data like "this entry is in a collection called 'ok
+  poems'".
+- Selectively build up a file containing the list of files with ok poems, and use
+  it to do other tasks.
+- Define a format for metadata that lives within entry files.
+- Turn each interesting file into a directory of its own which contains a file
+  with the original text and another file with metadata.
+
+I discard the relational database idea immediately:  I like working with files,
+and I don't feel like abandoning a model that's served me well for my entire
+adult life.
+
+Building up an index file to point at the other files I'm working with has a
+certain appeal.  I'm already most of the way there with the `grep` output in
+`potential_poems`. It would be easy to write shell commands to add, remove,
+sort, and search entries.  Still, it doesn't feel like a very satisfying
+solution unto itself.  I'd like to know that an entry is part of the collection
+just by looking at the entry, without having to cross-reference it to a list
+somewhere else.
+
+[metadata-in-the-file here]
+
+That actually seems pretty workable.  It's a little tacky to look at, but it
+has the virtues of simplicity and greppability.
+
+Before we settle, though, let's turn to the notion of making each entry into a
+directory that can contain some structured metadata in a separate file.
+Imagine something like:
+
+    $ ls ~/p1k3/archives/2013/2/9
+    index  Meta
+
+Here I use the name "index" for the main part of the entry because it's a
+convention of web sites for the top-level page in a directory to be called
+something like `index.html`.  As it happens, my blog software already supports
+this kind of file layout for entries which contain multiple parts, image files,
+and so forth.
+
+    $ head ~/p1k3/archives/2013/2/9/index
+    <h1>saturday, february 9</h1>
+    
+    <freeverse>
+    midwinter midafternoon; depressed as hell
+    sitting in a huge cabin in the rich-people mountains
+    writing a sprawl, pages, of melancholic midlife bullshit
+    
+    outside the snow gives way to broken clouds and the
+    clear unyielding light of the high country sun fills
+
+    $ cat ~/p1k3/archives/2013/2/9/Meta
+    collection: ok-poems
+
+It would then be pretty easy to `find` files called `Meta` and grep them for
+`collection: ok-poems`.
+
+What if I metadata right in the filename itself, and dispense with the grep
+altogether?
+
+    $ ls ~/p1k3/archives/2013/2/9
+    index  meta-ok-poem
+
+    $ find ~/p1k3/archives -name 'meta-ok-poem'
+    /home/brennen/archives/2013/2/9/meta-ok-poem
+
+There's a lot to like about this.  For one thing, it's immediately visible in a
+directory listing.  For another, it doesn't require searching through thousands
+of lines of text to extract a specific string.  If a directory has a
+`meta-ok-poem` in it, I can be pretty sure that it will contain an interesting
+`index`.
+
+What are the downsides?  Well, it requires transforming lots of text files into
+directories-containing-files.  It would be easy to automate that process, but
+it's a little tedious and it makes the layout of the entry archive more
+complicated overall.  There's a cost to doing things this way.  It lets me
+extend my existing model of a blog entry to include arbitrary metadata, but it
+also adds steps to writing or finding blog entries.

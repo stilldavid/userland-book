@@ -29,6 +29,9 @@ $source .= "\n" . get_file('../links.md') if (-e '../links.md');
 
 my $rendered = $markdown->markdown($source, $flags);
 
+# Bold command line examples (SUPER CHEESY):
+$rendered =~ s{(\$ .*?)$}{<b>$1</b>}gm;
+
 # Use the first header we can find for a title
 my ($title) = $rendered =~ m|<h1>(.*?)</h1>|i;
 
