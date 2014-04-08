@@ -1,0 +1,1468 @@
+<html>
+<head>
+  <title>userland: the command line is for humans</title>
+  <link rel=stylesheet href="userland.css" />
+</head>
+
+<body>
+<h1>userland: a book about the command line for humans</h1>
+
+<p>Late last year, <a href="//p1k3.com/2013/8/4">a side trip</a> into simple text utilities
+got me thinking about how many of my writing habits depend on the Linux command
+line.  This struck me as a decent hook for talking about the tools I use every
+day with an audience of mixed technical background.</p>
+
+<p>So now I&rsquo;m writing a (short, haphazard) book.  This isn&rsquo;t a book about system
+administration, or writing big software systems, or becoming a wizard.  I am
+not a wizard, and I don&rsquo;t subscribe to the idea that wizardry is a requirement
+for using these tools.  In fact I barely know what I&rsquo;m doing most of the time,
+but hey, I get some stuff done.</p>
+
+<p>My only hope herein is that I can say something useful to the many people I
+know who use computers every day, but for whom the command line environment is
+mystifying, obscure, and generally uninviting.  I intend to gloss over many
+complexities in favor of demonstrating a rough-and-ready toolset that&rsquo;s helped
+me immeasurably in my own work.</p>
+
+<p>&ndash; bpb</p>
+
+<h2>contents</h2>
+
+<ol>
+<li><a href="literary_environment/">the command line as a literary environment</a></li>
+<li><a href="literary_problem/">a literary problem</a></li>
+<li><a href="programmerthink/">programmerthink</a></li>
+<li><a href="diff/">diff</a></li>
+<li><a href="further_reading/">further reading</a></li>
+</ol>
+
+
+<h2>license</h2>
+
+<p>I may eventually just dedicate this thing to the public domain, but for the
+time being please feel free to use it under the terms of Creative Commons BY-SA
+(Attribution / Share-Alike), whatever the latest version is.  I promise I will
+not license it under more restrictive terms than that.</p>
+
+<h1>the command line as a literary environment</h1>
+
+<p>There&rsquo;re a lot of ways I could try to structure an introduction to the command
+line.  I&rsquo;m going to start with writing as a point of departure because, aside
+from web development, it&rsquo;s what I use a computer for most.  I want to shine a
+light on the humane potential of ideas that are usually understood as nerd
+trivia.  Computers have utterly transformed the practice of writing within the
+space of my lifetime, but it seems to me that writers as a class miss out on
+many of the software tools and patterns taken as a given in more &ldquo;technical&rdquo;
+fields.</p>
+
+<p>Writing, particularly writing of any real scope or complexity, is very much a
+technical task.  It makes demands, both physical and psychological, of its
+practitioners.  As with woodworkers, graphic artists, and farmers, writers
+exhibit strong preferences in their tools, materials, and environment, and they
+do so because they&rsquo;re engaged in a physically and cognitively challenging task.</p>
+
+<p>My thesis is that the modern Linux command line is a pretty good environment
+for working with English prose and prosody, and that maybe this will illuminate
+the ways it could be useful in your own work with a computer, whatever that
+work happens to be.</p>
+
+<h2>terms and definitions</h2>
+
+<p>What software are we actually talking about when we say &ldquo;the command line&rdquo;?</p>
+
+<p>For the purposes of this discussion, we&rsquo;re talking about an environment built
+on a very old paradigm called Unix.</p>
+
+<p>{jurassic park dot gif}</p>
+
+<p>&hellip;except what classical Unix really looks like is this:</p>
+
+<p>{super old school blinking cursor dot gif}</p>
+
+<p>The Unix-like environment we&rsquo;re going to use isn&rsquo;t very classical, really.
+It&rsquo;s an operating system kernel called Linux, combined with a bunch of things
+written by other people (people in the GNU and Debian projects, and many
+others).  Purists will tell you that this isn&rsquo;t properly Unix at all.  In
+strict historical terms they&rsquo;re right, or at least a certain kind of right, but
+for the purposes of my cultural agenda I&rsquo;m going to ignore them right now.</p>
+
+<p>{cut to actual terminal blinkety blinking on the projector}</p>
+
+<p>This is what&rsquo;s called a shell.  There are many different shells, but they
+pretty much all operate on the same idea:  You navigate a filesystem and run
+programs by typing commands.  Commands can be combined in various ways to make
+programs of their own, and in fact the way you use the computer is often just
+to write little programs that invoke other programs, turtles-all-the-way-down
+style.</p>
+
+<p>The standard shell these days is something called Bash, so we&rsquo;ll use Bash.
+It&rsquo;s what you&rsquo;ll most often see in the wild.  Like most shells, Bash is ugly
+and stupid in more ways than it is possible to easily summarize.  It&rsquo;s also an
+incredibly powerful and expressive piece of software.</p>
+
+<p>{some sort of ADVENTURE derail here}</p>
+
+<p>You can think of the shell as a kind of environment you inhabit, the same way
+your character might inhabit an adventure game or a MUD.  Or as a sort of
+vehicle for getting around inside of computers.  The difference is that instead
+of navigating around virtual rooms and hallways with commands like <code>GO WEST</code>,
+you navigate between directories by typing commands like <code>cd documents</code>.</p>
+
+<p>In the Macintosh and Windows world, directories have been called &ldquo;folders&rdquo; for
+a long time now.  This isn&rsquo;t the <em>worst</em> metaphor for what&rsquo;s really going on,
+and it&rsquo;s so pervasive by now that it&rsquo;s not worth fighting about.  It&rsquo;s also not
+exactly a <em>great</em> metaphor, since computer filesystems aren&rsquo;t structured very
+much like the filing cabinets of yore.  A directory acts a lot like a
+container, but for most purposes in the modern context it&rsquo;s an infinitely
+expandable one which may contain nested sub-spaces much larger than itself.</p>
+
+<p>When you&rsquo;re in the shell, you have many tools at your disposal - programs that
+can be used on many different files, or chained together with other programs.
+They tend to have weird, cryptic names, but a lot of them do very simple
+things.  Tasks that might be a menu item in a big program like Word, like
+counting the number of words in a document or finding a particular phrase, are
+often programs unto themselves.</p>
+
+<h2>learn you an editor (eventually)</h2>
+
+<p>This chapter won&rsquo;t deal with the topic much, but sooner or later you&rsquo;re going
+to want to create and change some text files, and then you will need an editor.
+My editor is where I spend most of my time that isn&rsquo;t in a web browser, because
+it&rsquo;s where I write both code and prose.  It turns out that the features which
+make a good code editor overlap a lot with the ones that make a good editor of
+English sentences.</p>
+
+<p>So what should you use?  Well, there have been other contenders in recent
+years, but in truth nothing comes close to dethroning the Great Old Ones of
+text editing.  Emacs is a creature both primal and sophisticated, like an
+avatar of some interstellar civilization that evolved long before multicellular
+life existed on earth and seeded the galaxy with incomprehensible artefacts and
+colossal engineering projects.  Vim is like a lovable chainsaw-studded robot
+with the most elegant keyboard interface in history secretly emblazoned on its
+shining diamond heart.</p>
+
+<p>It&rsquo;s worth the time it takes to learn one of the serious editors (there are few
+things in the world of technology as likely to expand your abilities), but
+there are easier places to start.  Nano is inoffensive and easy to pick up.
+Most any desktop environment provides an editor that will work well enough to
+experiment with.</p>
+
+<h2>cat</h2>
+
+<p>Suppose you have some files, and you&rsquo;re curious what&rsquo;s in them.  For example,
+suppose you&rsquo;ve got a list of authors you&rsquo;re planning to reference, and you just
+want to check its contents real quick-like.  This is where our friend <code>cat</code>
+comes in:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ cat authors_sff</b>
+Ursula K. Le Guin
+Jo Walton
+Pat Cadigan
+John Ronald Reuel Tolkien
+Vanessa Veselka
+James Tiptree, Jr.
+John Brunner
+</code></pre>
+
+<!-- end -->
+
+
+<p>&ldquo;Why,&rdquo; you might be asking at this point, &ldquo;is the command to dump out the
+contents of a file to a screen called <code>cat</code>?  What do felines have to do with
+anything?&rdquo;</p>
+
+<p>It turns out that <code>cat</code> is actually short for &ldquo;concatenate&rdquo;, which is a long
+word basically meaning &ldquo;stick things together&rdquo;.  In programming, we usually
+refer to sticking two bits of text together as &ldquo;string concatenation&rdquo;, probably
+because programmers like to feel like they&rsquo;re being very precise about very
+simple actions.</p>
+
+<p>Suppose you wanted to see the contents of a <em>set</em> of author lists:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ cat authors_sff authors_contemporary_fic authors_nat_hist</b>
+Ursula K. Le Guin
+Jo Walton
+Pat Cadigan
+John Ronald Reuel Tolkien
+Vanessa Veselka
+James Tiptree, Jr.
+John Brunner
+Eden Robinson
+Vanessa Veselka
+Miriam Toews
+Gwendolyn L. Waring
+</code></pre>
+
+<!-- end -->
+
+
+<h2>wildcards</h2>
+
+<p>We&rsquo;re working with three filenames: <code>authors_sff</code>, <code>authors_contemporary_fic</code>,
+and <code>authors_nat_hist</code>.  That&rsquo;s an awful lot of typing every time we want to do
+something to all three files.  Fortunately, our shell offers a shorthand for
+&ldquo;all the files that start with <code>authors_</code>&rdquo;:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ cat authors_*</b>
+Eden Robinson
+Vanessa Veselka
+Miriam Toews
+Gwendolyn L. Waring
+Ursula K. Le Guin
+Jo Walton
+Pat Cadigan
+John Ronald Reuel Tolkien
+Vanessa Veselka
+James Tiptree, Jr.
+John Brunner
+</code></pre>
+
+<!-- end -->
+
+
+<p>In Bash-land, <code>*</code> basically means &ldquo;anything&rdquo;, and is known in the vernacular,
+somewhat poetically, as a &ldquo;wildcard&rdquo;.  You should always be careful with
+wildcards, especially if you&rsquo;re doing anything destructive.  They can and will
+surprise the unwary.  Still, once you&rsquo;re used to the idea, they will save you a
+lot of RSI.</p>
+
+<h2>sort</h2>
+
+<p>To get back on track, there&rsquo;s a problem here.  Our author list is out of order,
+and thus confusing to reference.  Fortunately, since one of the most basic
+things you can do to a list is to sort it, someone else has already solved this
+problem for us.  Here&rsquo;s a command that will give us some organization:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ sort authors_*</b>
+Eden Robinson
+Gwendolyn L. Waring
+James Tiptree, Jr.
+John Brunner
+John Ronald Reuel Tolkien
+Jo Walton
+Miriam Toews
+Pat Cadigan
+Ursula K. Le Guin
+Vanessa Veselka
+Vanessa Veselka
+</code></pre>
+
+<!-- end -->
+
+
+<p>Does it bother you that they aren&rsquo;t sorted by last name?  Me too.  As a partial
+solution, we can ask <code>sort</code> to use the second &ldquo;field&rdquo; in each line as its sort
+key (by default, sort treats whitespace as a division between fields):</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ sort -k2 authors_*</b>
+John Brunner
+Pat Cadigan
+Ursula K. Le Guin
+Gwendolyn L. Waring
+Eden Robinson
+John Ronald Reuel Tolkien
+James Tiptree, Jr.
+Miriam Toews
+Vanessa Veselka
+Vanessa Veselka
+Jo Walton
+</code></pre>
+
+<!-- end -->
+
+
+<p>That&rsquo;s closer, right?  It sorted on &ldquo;Cadigan&rdquo; and &ldquo;Veselka&rdquo; instead of &ldquo;Pat&rdquo;
+and &ldquo;Vanessa&rdquo;.  But of course it&rsquo;s still not really good enough, because the
+second field in each line isn&rsquo;t necessarily the person&rsquo;s last name.</p>
+
+<p>Let&rsquo;s set that one aside for a minute and deal with a different problem.</p>
+
+<h2>uniq</h2>
+
+<p>Notice how Vanessa Veselka shows up twice in our list of authors?  That&rsquo;s
+useful if we want to remember that she&rsquo;s in more than one category, but
+it&rsquo;s redundant if we&rsquo;re just worried about membership in the overall set
+of authors.  Let&rsquo;s make sure our list doesn&rsquo;t contain repeating lines:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ sort -k2 authors_* | uniq</b>
+John Brunner
+Pat Cadigan
+Ursula K. Le Guin
+Gwendolyn L. Waring
+Eden Robinson
+John Ronald Reuel Tolkien
+James Tiptree, Jr.
+Miriam Toews
+Vanessa Veselka
+Jo Walton
+</code></pre>
+
+<!-- end -->
+
+
+<p>There are a couple of important things to remember about <code>uniq</code>.</p>
+
+<p>The first is that, in order to be useful, it requires its input to be
+pre-sorted:  It moves through the lines in its input, and if it sees a line
+more than once in sequence, it will only print that line once.  If you have a
+bunch of files and you just want to see the unique lines across all of those
+files, you probably need to run them through <code>sort</code> first.</p>
+
+<p>The second is that <code>uniq</code> is very literal-minded.  Unless you tell it
+otherwise, it cares what case the letters on a line are, and it pays attention
+to things like whitespace.</p>
+
+<h2>options, standard IO, and redirection</h2>
+
+<p>Above, when we wanted to ask <code>sort</code> to behave differently, we gave it what is
+known as an option.  Most programs with command-line interfaces will allow
+their behavior to be changed by adding various options.  Options usually
+(but not always!) look like <code>-o</code> or <code>--option</code>.</p>
+
+<p>For example, if we wanted to see unique lines, irrespective of case, with a
+count of how often each line occurs, for a file called colors:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ cat colors</b>
+RED
+blue
+red
+BLUE
+Green
+green
+GREEN
+</code></pre>
+
+<!-- end -->
+
+
+<p>&hellip;then we could do the following, where <code>-i</code> stands for &ldquo;case <strong>i</strong>nsensitive and
+<code>-c</code> stands for &rdquo;<strong>c</strong>ount":</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ sort colors | uniq -i -c</b>
+      2 blue
+      3 green
+      2 red
+</code></pre>
+
+<!-- end -->
+
+
+<p>There&rsquo;s something really important going on in this line:  The <code>|</code>, usually
+called a &ldquo;pipe&rdquo;, and probably found on your backslash key, is telling your
+shell that instead of printing the output of <code>sort colors</code> right to your
+terminal screen, it should send it to <code>uniq -i -c</code>.</p>
+
+<p>{mario.gif}</p>
+
+<p>Pipes are some of the most important magic in the shell.  When the people who
+built Unix in the first place give interviews about the stuff they remember
+from the early days, a lot of them reminisce about the invention of pipes and
+all of the new stuff it immediately made possible.</p>
+
+<p>Pipes let you control a thing called &ldquo;standard IO&rdquo;.  In the world of the
+command line, programs take <strong>i</strong>nput and produce <strong>o</strong>utput.  A pipe is a way
+to hook the output from one program to the input of another.  Unlike a lot of
+the weirdly named things you&rsquo;ll encounter in software, the metaphor here is
+obvious and makes pretty good sense.  It even kind of looks like a physical
+pipe.</p>
+
+<p>So what happens if, instead of wanting to send the output of one program to
+the input of another, you&rsquo;d like to just stash it in a file for later use?</p>
+
+<p>Check it out:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ sort authors_* | uniq &gt; all_authors</b>
+</code></pre>
+
+<!-- end -->
+
+
+
+
+<!-- exec -->
+
+
+<pre><code><b>$ cat all_authors</b>
+Eden Robinson
+Gwendolyn L. Waring
+James Tiptree, Jr.
+John Brunner
+John Ronald Reuel Tolkien
+Jo Walton
+Miriam Toews
+Pat Cadigan
+Ursula K. Le Guin
+Vanessa Veselka
+</code></pre>
+
+<!-- end -->
+
+
+<p>We&rsquo;ll use these features from here on out.</p>
+
+<h2>man pages and &ndash;help</h2>
+
+<p>I mentioned that the behavior of most commands can be changed by giving them
+different options.  All well and good if you happen to know what options a
+certain utility takes, but what if you don&rsquo;t?</p>
+
+<p>What you want is called a man (short for manual) page.  (It&rsquo;s sort of an
+unfortunate abbreviation.)</p>
+
+<pre><code><b>$ man sort</b>
+
+SORT(1)                         User Commands                        SORT(1)
+
+
+
+NAME
+       sort - sort lines of text files
+
+SYNOPSIS
+       sort [OPTION]... [FILE]...
+       sort [OPTION]... --files0-from=F
+
+DESCRIPTION
+       Write sorted concatenation of all FILE(s) to standard output.
+</code></pre>
+
+<p>&hellip;and so on.  You can also ask a lot of commands directly for help on how to
+use them:</p>
+
+<pre><code><b>$ uniq --help</b>
+Usage: uniq [OPTION]... [INPUT [OUTPUT]]
+Filter adjacent matching lines from INPUT (or standard input),
+writing to OUTPUT (or standard output).
+
+With no options, matching lines are merged to the first occurrence.
+</code></pre>
+
+<p>&hellip;and so on.</p>
+
+<p>If you&rsquo;re not sure what <em>program</em> you want to use to solve a given problem, you
+might try searching all the man pages on the system for a keyword.  <code>man</code>
+itself has an option to let you do this - <code>man -k keyword</code> - but most systems
+have an alias for this called <code>apropos</code>, which I like to use because it&rsquo;s easy
+to remember if you imagine yourself saying &ldquo;apropos of [some problem I
+have]&hellip;&rdquo;</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ apropos sort</b>
+alphasort (3)        - scan a directory for matching entries
+apt-sortpkgs (1)     - Utility to sort package index files
+bsearch (3)          - binary search of a sorted array
+bunzip2 (1)          - a block-sorting file compressor, v1.0.6
+bzip2 (1)            - a block-sorting file compressor, v1.0.6
+comm (1)             - compare two sorted files line by line
+FcFontSetSort (3)    - Add to a font set
+FcFontSetSortDestroy (3) - DEPRECATED destroy a font set
+FcFontSort (3)       - Return list of matching fonts
+heapsort (3)         - sort functions
+mergesort (3)        - sort functions
+qsort (3)            - sort an array
+qsort_r (3)          - sort an array
+radixsort (3)        - radix sort
+sort (1)             - sort lines of text files
+sradixsort (3)       - radix sort
+tsort (1)            - perform topological sort
+versionsort (3)      - scan a directory for matching entries
+XConsortium (7)      - X Consortium information
+</code></pre>
+
+<!-- end -->
+
+
+<p>It can be useful to know that the manual represented by <code>man</code> has numbered
+sections for different kinds of manual pages.  Most of what the average user
+needs to know about lives in section 1, so you&rsquo;ll often see the names of
+different commands and programs written like <code>sort(1)</code> or <code>cat(1)</code>.  Like other
+literary traditions, Unix is littered with this sort of convention.</p>
+
+<h2>wc</h2>
+
+<p><code>wc</code> stands for <strong>w</strong>ord <strong>c</strong>ount.  It does about what you&rsquo;d expect - it
+counts the number of words in its input.</p>
+
+<pre><code><b>$ wc index.md</b>
+  736  4117 24944 index.md
+</code></pre>
+
+<p>736 is the number of lines, 4117 the number of words, and 24944 the number of
+characters in the file I&rsquo;m writing right now.  I use this constantly.  Most
+obviously, it&rsquo;s a good way to get an idea of how much you&rsquo;ve written.  <code>wc</code> is
+the tool I used to track my progress the last time I tried National Novel
+Writing Month:</p>
+
+<pre><code><b>$ find ~/p1k3/archives/2010/11 -regextype egrep -regex '.*([0-9]+|index)' -type f | xargs wc -w | grep total</b>
+ 6585 total
+</code></pre>
+
+<!-- exec -->
+
+
+<pre><code><b>$ cowsay 'embarrassing.'</b>
+ _______________
+&lt; embarrassing. &gt;
+ ---------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+</code></pre>
+
+<!-- end -->
+
+
+<p>Anyway.  The less obvious thing about <code>wc</code> is that you can use it to count the
+output of other commands.  Want to know <em>how many</em> unique authors we have?</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ sort authors_* | uniq | wc -l</b>
+10
+</code></pre>
+
+<!-- end -->
+
+
+<p>This kind of thing is obviously trivial, but it comes in handy more often than
+you might think.</p>
+
+<h2>reference tools: dict, cal</h2>
+
+<p>I&rsquo;ll preface this by saying that, of course, almost anyone who is writing
+anything on a computer is going to use Google and Wikipedia, and the answer to
+questions like &ldquo;what does this word mean&rdquo; or &ldquo;what day did Easter fall on in
+1992&rdquo; is readily available to all of us.</p>
+
+<p>{lmgtfy.gif}</p>
+
+<p>That said, not everything has to live on the web all the time.  Sometimes you
+know that if you jump over to your browser you&rsquo;re going to wind up lost in a
+forest of cat GIFs and drama-laden social network updates.  Sometimes you&rsquo;re
+writing a presentation on a Raspberry Pi, where trying to use a web browser is
+like travelling back in time to the part of the 1990s when people were running
+Netscape Navigator on 486s and we were all getting real excited about burnable
+CDs.</p>
+
+<p>So.  Want to know the definition of a word, or find useful synonyms?</p>
+
+<pre><code><b>$ dict concatenate | head -10</b>
+4 definitions found
+
+From The Collaborative International Dictionary of English v.0.48 [gcide]:
+
+  Concatenate \Con*cat"e*nate\ (k[o^]n*k[a^]t"[-e]*n[=a]t), v. t.
+     [imp. &amp; p. p. {Concatenated}; p. pr. &amp; vb. n.
+     {Concatenating}.] [L. concatenatus, p. p. of concatenare to
+     concatenate. See {Catenate}.]
+     To link together; to unite in a series or chain, as things
+     depending on one another.
+</code></pre>
+
+<p>Need to interactively spell-check your presentation notes?</p>
+
+<pre><code><b>$ aspell check presentation</b>
+</code></pre>
+
+<p>Want to know what the calendar looks like for this month?</p>
+
+<pre><code><b>$ cal</b>
+     April 2014       
+Su Mo Tu We Th Fr Sa  
+       1  2  3  4  5  
+ 6  7  8  9 10 11 12  
+13 14 15 16 17 18 19  
+20 21 22 23 24 25 26  
+27 28 29 30           
+</code></pre>
+
+<p>How about for September, 1950?</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ cal -m9 1950</b>
+   September 1950     
+Su Mo Tu We Th Fr Sa  
+                1  2  
+ 3  4  5  6  7  8  9  
+10 11 12 13 14 15 16  
+17 18 19 20 21 22 23  
+24 25 26 27 28 29 30  
+</code></pre>
+
+<!-- end -->
+
+
+<h2>head, tail, and cut</h2>
+
+<p>Remember our old pal <code>cat</code>, which just splats everything it&rsquo;s given back to
+standard output?</p>
+
+<p>Sometimes you&rsquo;ve got a piece of output that&rsquo;s more than you actually want to
+deal with at once.  Maybe you just want to glance at the first few lines in a
+file:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ head -3 colors</b>
+RED
+blue
+red
+</code></pre>
+
+<!-- end -->
+
+
+<p>&hellip;or maybe you want to see the last thing in a list:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ sort colors | uniq -i | tail -1</b>
+red
+</code></pre>
+
+<!-- end -->
+
+
+<p>&hellip;or maybe you&rsquo;re only interested in the first &ldquo;field&rdquo; in some list. You might
+use <code>cut</code>  here, asking it to treat spaces as delimiters between fields and
+return only the first field for each line of its input:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ cut -d' ' -f1 ./authors_*</b>
+Eden
+Vanessa
+Miriam
+Gwendolyn
+Ursula
+Jo
+Pat
+John
+Vanessa
+James
+John
+</code></pre>
+
+<!-- end -->
+
+
+<p>Suppose we&rsquo;re curious what the few most commonly occurring first names on our
+author list are?  Here&rsquo;s an approach, silly but effective, that combines a lot
+of what we&rsquo;ve discussed so far and looks like plenty of one-liners I wind up
+writing in real life:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ cut -d' ' -f1 ./authors_* | sort | uniq -ci | sort -n | tail -3</b>
+      1 Ursula
+      2 John
+      2 Vanessa
+</code></pre>
+
+<!-- end -->
+
+
+<p>Let&rsquo;s walk through this one step by step:</p>
+
+<p>First, we have <code>cut</code> extract the first field of each line in our author lists.</p>
+
+<pre><code>cut -d' ' -f1 ./authors_*
+</code></pre>
+
+<p>Then we sort these results</p>
+
+<pre><code>| sort
+</code></pre>
+
+<p>and pass them to <code>uniq</code>, asking it for a case-insensitive count of each
+repeated line</p>
+
+<pre><code>| uniq -ci
+</code></pre>
+
+<p>then sort again, numerically,</p>
+
+<pre><code>| sort -n
+</code></pre>
+
+<p>and finally, we chop off everything but the last three lines:</p>
+
+<pre><code>| tail -3
+</code></pre>
+
+<p>If you wanted to make sure to count an individual author&rsquo;s first name
+only once, even if that author appears more than once in the files,
+you could instead do:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ sort -u ./authors_* | cut -d' ' -f1 | uniq -ci | sort -n | tail -3</b>
+      1 Ursula
+      1 Vanessa
+      2 John
+</code></pre>
+
+<!-- end -->
+
+
+<h2>finding text: grep</h2>
+
+<p>After all those contortions, what if you actually just want to see <em>which lists</em>
+an individual author appears on?</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ grep 'Vanessa' ./authors_*</b>
+./authors_contemporary_fic:Vanessa Veselka
+./authors_sff:Vanessa Veselka
+</code></pre>
+
+<!-- end -->
+
+
+<p><code>grep</code> takes a string to search for and, optionally, a list of files to search
+in.   If you don&rsquo;t specify files, it&rsquo;ll look through standard input instead:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ cat ./authors_* | grep 'Vanessa'</b>
+Vanessa Veselka
+Vanessa Veselka
+</code></pre>
+
+<!-- end -->
+
+
+<p>Most of the time, piping the output of <code>cat</code> to <code>grep</code> is considered silly,
+because <code>grep</code> knows how to find things in files on its own.  Many thousands of
+words have been written on this topic by leading lights of the nerd community.</p>
+
+<p>You&rsquo;ve probably noticed that this result doesn&rsquo;t contain filenames (and thus
+isn&rsquo;t very useful to us).  That&rsquo;s because all <code>grep</code> saw was the lines in the
+files, not the names of the files themselves.</p>
+
+<h2>now you have n problems: regex &amp; rabbit holes</h2>
+
+<p>To close out this introductory chapter, let&rsquo;s spend a little time on a topic
+that will likely vex, confound, and (occasionally) delight you for as long as
+you are acquainted with the command line.</p>
+
+<p>When I was talking about <code>grep</code> a moment ago, I fudged the details more than a
+little by saying that it expects a string to search for.  What <code>grep</code>
+<em>actually</em> expects is a <em>pattern</em>.  Moreover, it expects a specific kind of
+pattern, what&rsquo;s known as a <em>regular expression</em>, a cumbersome phrase frequently
+shortened to regex.</p>
+
+<p>There&rsquo;s a lot of theory about what makes up a regular expression.  Fortunately,
+very little of it matters to the short version that will let you get useful
+stuff done.  The short version is that a regex is like using wildcards in the
+shell to match groups of files, but with more magic.</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ grep 'Jo.*' ./authors_*</b>
+./authors_sff:Jo Walton
+./authors_sff:John Ronald Reuel Tolkien
+./authors_sff:John Brunner
+</code></pre>
+
+<!-- end -->
+
+
+<p>The pattern <code>Jo.*</code> says that we&rsquo;re looking for lines which contain a literal
+<code>Jo</code>, followed by any quantity (including none) of any character.  In a regex,
+<code>.</code> means &ldquo;anything&rdquo; and <code>*</code> means &ldquo;any amount of the preceding thing&rdquo;.</p>
+
+<p><code>.</code> and <code>*</code> are magical.  In the particular dialect of regexen understood
+by <code>grep</code>, other magical things include:</p>
+
+<table>
+  <tr><td><code>^</code>    </td>  <td>start of a line                        </td></tr>
+  <tr><td><code>$</code>    </td>  <td>end of a line                          </td></tr>
+  <tr><td><code>[abc]</code></td>  <td>one of a, b, or c                      </td></tr>
+  <tr><td><code>[a-z]</code></td>  <td>a character in the range a through z   </td></tr>
+  <tr><td><code>[0-9]</code></td>  <td>a character in the range 0 through 9   </td></tr>
+
+  <tr><td><code>+</code>    </td>  <td>one or more of the preceding thing     </td></tr>
+  <tr><td><code>?</code>    </td>  <td>0 or 1 of the preceding thing          </td></tr>
+  <tr><td><code>*</code>    </td>  <td>any number of the preceding thing      </td></tr>
+
+  <tr><td><code>(foo|bar)</code></td>  <td>"foo" or "bar"</td></tr>
+  <tr><td><code>(foo)?</code></td>  <td>optional "foo"</td></tr>
+</table>
+
+
+<p>It&rsquo;s actually a little more complicated than that:  By default, if you want to
+use a lot of the magical characters, you have to prefix them with <code>\</code>.  This is
+both ugly and confusing, so unless you&rsquo;re writing a very simple pattern, it&rsquo;s
+often easiest to call <code>grep -E</code>, for <strong>E</strong>xtended regular expressions, which
+means that lots of characters will have special meanings.</p>
+
+<p>Authors with 4-letter first names:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ grep -iE '^[a-z]{4} ' ./authors_*</b>
+./authors_contemporary_fic:Eden Robinson
+./authors_sff:John Ronald Reuel Tolkien
+./authors_sff:John Brunner
+</code></pre>
+
+<!-- end -->
+
+
+<p>A count of authors named John:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ grep -c '^John ' ./all_authors</b>
+2
+</code></pre>
+
+<!-- end -->
+
+
+<p>Lines in this file matching the words &ldquo;magic&rdquo; or &ldquo;magical&rdquo;:</p>
+
+<pre><code><b>$ grep -iE 'magic(al)?' ./index.md</b>
+Pipes are some of the most important magic in the shell.  When the people who
+shell to match groups of files, but with more magic.
+`.` and `*` are magical.  In the particular dialect of regexen understood
+by `grep`, other magical things include:
+use a lot of the magical characters, you have to prefix them with `\`.  This is
+Lines in this file matching the words "magic" or "magical":
+    <b>$ grep -iE 'magic(al)?' ./index.md</b>
+</code></pre>
+
+<p>Find some &ldquo;-agic&rdquo; words in a big list of words:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ grep -iE '(m|tr|pel)agic' /usr/share/dict/words</b>
+magic
+magic's
+magical
+magically
+magician
+magician's
+magicians
+pelagic
+tragic
+tragically
+tragicomedies
+tragicomedy
+tragicomedy's
+</code></pre>
+
+<!-- end -->
+
+
+<p><code>grep</code> isn&rsquo;t the only - or even the most important - tool that makes use of
+regular expressions, but it&rsquo;s a good place to start because it&rsquo;s one of the
+fundamental building blocks for so many other operations.  Filtering lists of
+things, matching patterns within collections, and writing concise descriptions
+of how text should be transformed are at the heart of a practical approach to
+Unix-like systems.  Regexen turn out to be a seductively powerful way to do
+these things - so much so that they&rsquo;ve crept their way into text editors,
+databases, and full-featured programming languages.</p>
+
+<p>There&rsquo;s a dark side to all of this, for the truth about regular expressions is
+that they are ugly, inconsistent, brittle, and <em>incredibly</em> difficult to think
+clearly about.  They take years to master and reward the wielder with great
+power, but they are also a trap: a temptation towards the path of cleverness
+masquerading as wisdom.</p>
+
+<p style="text-align:center;"> *</p>
+
+<p>I&rsquo;ll be returning to this theme, but for the time being let&rsquo;s move on.  Now
+that we&rsquo;ve established, however haphazardly, some of the basics, let&rsquo;s consider
+their application to a real-world task.</p>
+
+<h1>a literary problem</h1>
+
+<p>The <a href="../literary_environment">previous chapter</a> introduced a bunch of tools
+using contrived examples.  Now we&rsquo;ll look at a real problem, and work through a
+solution by building on tools we&rsquo;ve already covered.</p>
+
+<p>So on to the problem:  I write poetry.</p>
+
+<p>{rimshot dot wav}</p>
+
+<p>Most of the poems I have written are not very good, but lately I&rsquo;ve been
+thinking that I&rsquo;d like to comb through the last ten years' worth and pull
+the least-embarrassing stuff into a single collection.</p>
+
+<p>I&rsquo;ve hinted at how the contents of my blog are stored as files, but let&rsquo;s take
+a look at the whole thing:</p>
+
+<pre><code><b>$ ls -F ~/p1k3/archives/</b>
+1997/  2003/  2009/  bones/     meta/
+1998/  2004/  2010/  chapbook/  winfield/
+1999/  2005/  2011/  cli/       wip/
+2000/  2006/  2012/  colophon/
+2001/  2007/  2013/  europe/
+2002/  2008/  2014/  hack/
+</code></pre>
+
+<p>(<code>ls</code>, again, just lists files.  <code>-F</code> tells it to append a character that shows
+it what type of file we&rsquo;re looking at, such as a trailing / for directories.
+<code>~</code> is a shorthand that means &ldquo;my home directory&rdquo;, which in this case is
+<code>/home/brennen</code>.)</p>
+
+<p>Each of the directories here holds other directories.  The ones for each year
+have sub-directories for the months of the year, which in turn contain files
+for the days.  The files are just little pieces of HTML and Markdown and some
+other stuff.  Many years ago, before I really knew how to program, I wrote a
+script to glue them all together into a web page and serve them up to visitors.
+This sounds complicated, but all it really means is that if I want to write a
+blog entry, I just open a file and type some stuff.  Here&rsquo;s an example for
+March 1st:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ cat ~/p1k3/archives/2014/3/1</b>
+&lt;h1&gt;Saturday, March 1&lt;/h1&gt;
+
+&lt;markdown&gt;
+Sometimes I'm going along on a Saturday morning, still a little dazed from the
+night before, and I think something like "I should just go write a detailed
+analysis of hooded sweatshirts".  Mostly these thoughts don't survive contact
+with an actual keyboard.  It's almost certainly for the best.
+&lt;/markdown&gt;
+</code></pre>
+
+<!-- end -->
+
+
+<p>And here&rsquo;s an older one that contains a short poem:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ cat ~/p1k3/archives/2012/10/9</b>
+&lt;h1&gt;tuesday, october 9&lt;/h1&gt;
+
+&lt;freeverse&gt;i am a stateful machine
+i exist in a manifold of consequence
+a clattering miscellany of impure functions
+and side effects&lt;/freeverse&gt;
+</code></pre>
+
+<!-- end -->
+
+
+<p>Notice that <code>&lt;freeverse&gt;</code> bit?  It kind of looks like an HTML tag, but it&rsquo;s
+not.  What it actually does is tell my blog script that it should format the
+text it contains like a poem.  The specifics don&rsquo;t matter for our purposes
+(yet), but this convention is going to come in handy, because the first thing I
+want to do is get a list of all the entries that contain poems.</p>
+
+<p>Remember <code>grep</code>?</p>
+
+<pre><code><b>$ grep -ri '&lt;freeverse&gt;' ~/p1k3/archives &gt; ~/possible_poems</b>
+</code></pre>
+
+<p>Let&rsquo;s step through this bit by bit:</p>
+
+<p>First, I&rsquo;m asking <code>grep</code> to search <strong>r</strong>ecursively, <strong>i</strong>gnoring case.
+&ldquo;Recursively&rdquo; just means that every time the program finds a directory, it
+should descend into that directory and search in any files there as well.</p>
+
+<pre><code>grep -ri
+</code></pre>
+
+<p>Next comes a pattern to search for.  It&rsquo;s in single quotes because the
+characters <code>&lt;</code> and <code>&gt;</code> have a special meaning to the shell, and here we need
+the shell to understand that it should treat them as literal angle brackets
+instead.</p>
+
+<pre><code>'&lt;freeverse&gt;'
+</code></pre>
+
+<p>This is the path I want to search:</p>
+
+<pre><code>~/p1k3/archives
+</code></pre>
+
+<p>Finally, because there are so many entries to search, I know the process will
+be slow and produce a large list, so I tell the shell to redirect it to a file
+called <code>possible_poems</code> in my home directory:</p>
+
+<pre><code>&gt; ~/possible_poems
+</code></pre>
+
+<p>This is quite a few instances&hellip;</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ wc -l ~/possible_poems</b>
+682 /home/brennen/possible_poems
+</code></pre>
+
+<!-- end -->
+
+
+<p>&hellip;and it&rsquo;s also not super-pretty to look at:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ head -5 ~/possible_poems</b>
+/home/brennen/p1k3/archives/2002/10/16:&lt;freeverse&gt;i don't have time to be writing this
+/home/brennen/p1k3/archives/2002/10/27:&lt;freeverse&gt;tequila tastes like death
+/home/brennen/p1k3/archives/2002/10/10:&lt;freeverse&gt;
+/home/brennen/p1k3/archives/2002/10/shax:&lt;freeverse&gt;i'd do this in iambic pentameter
+/home/brennen/p1k3/archives/2002/10/31/index:&lt;freeverse&gt;rounding out the month,
+</code></pre>
+
+<!-- end -->
+
+
+<p>Still, it&rsquo;s a decent start.  I can see paths to the files I have to check, and
+usually a first line.  Since I use a fancy text editor, I can just go down the
+list opening each file in a new window and copying the stuff I&rsquo;m interested in
+to a new file.</p>
+
+<p>This is good enough for government work, but what if instead of jumping around
+between hundreds of files, I&rsquo;d rather read everything in one file and just weed
+out the bad ones as I go?</p>
+
+<pre><code><b>$ cat `grep -ril '&lt;freeverse&gt;' ~/p1k3/archives` &gt; ~/possible_poems_full</b>
+</code></pre>
+
+<p>This probably bears some explaining.  <code>grep</code> is still doing all the real work
+here.  The main difference from before is that <code>-l</code> tells grep to just list any
+files it finds which contain a match.</p>
+
+<pre><code>`grep -ril '&lt;freeverse&gt;' ~/p1k3/archives`
+</code></pre>
+
+<p>Notice those backticks around the grep command?  This part is a little
+trippier.  It turns out that if you put backticks around something in a
+command, it&rsquo;ll get executed and replaced with its result, which in turn gets
+executed as part of the larger command.  So what we&rsquo;re really saying is
+something like:</p>
+
+<pre><code><b>$ cat [all of the files in the blog directory with &lt;freeverse&gt; in them]</b>
+</code></pre>
+
+<p>Did you catch that?  I just wrote a command that rewrote itself as a
+<em>different</em>, more specific command.  And it appears to have worked on the
+first try:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ wc ~/possible_poems_full</b>
+ 16190  74988 486847 /home/brennen/possible_poems_full
+</code></pre>
+
+<!-- end -->
+
+
+<p>Welcome to wizard school.</p>
+
+<h1>programmerthink</h1>
+
+<p>In the <a href="../literary_problem">preceding chapter</a>, I worked through accumulating
+a big piece of text from some other, smaller texts.  I started with a bunch of
+files and wound up with one big file called <code>potential_poems_full</code>.</p>
+
+<p>Let&rsquo;s talk for a minute about how programmers approach problems like this one.
+What I&rsquo;ve just done is sort of an old-school humanities take on things:
+Metaphorically speaking, I took a book off the shelf and hauled it down to the
+copy machine to xerox a bunch of pages, and now I&rsquo;m going to start in on them
+with a highlighter and some Post-Its or something.  A process like this will
+often trigger a cascade of questions in the programmer-mind:</p>
+
+<ul>
+<li>What if, halfway through the project, I realize my selection criteria were all
+wrong and have to backtrack?</li>
+<li>What if I discover corrections that also need to be made in the source documents?</li>
+<li>What if I want to access metadata, like the original location of a file?</li>
+<li>What if I want to quickly re-order the poems according to some new criteria?</li>
+<li>Why am I storing the same text in two different places?</li>
+</ul>
+
+
+<p>A unifying theme of these questions is that they could all be answered by
+involving a little more abstraction.</p>
+
+<p style="text-align:center;"> *</p>
+
+<p>Some kinds of abstraction are so common in the physical world that we can
+forget they&rsquo;re part of a sophisticated technology.  For example, a good deal of
+bicycle maintenance can be accomplished with a cheap multi-tool containing a
+few different sizes of hex wrench and a couple of screwdrivers.</p>
+
+<p>A hex wrench or screwdriver doesn&rsquo;t really know anything about bicycles.  All
+it <em>really</em> knows about is fitting into a space and allowing torque to be
+applied.  Standardized fasteners and adjustment mechanisms on a bicycle ensure
+that the work can be done anywhere, by anyone with a certain set of tools.
+Standard tools mean that if you can work on a particular bike, you can work on
+<em>most</em> bikes, and even on things that aren&rsquo;t bikes at all, but were designed by
+people with the same abstractions in mind.</p>
+
+<p>The relationship between a wrench, a bolt, and the purpose of a bolt is a lot
+like something we call <em>indirection</em> in software.  Programs like <code>grep</code> or
+<code>cat</code> don&rsquo;t really know anything about poetry.  All they <em>really</em> know about is
+finding lines of text in input, or sticking inputs together.  Files, lines, and
+text are like standardized fasteners that allow a user who can work on one kind
+of data (be it poetry, a list of authors, the source code of a program) to use
+the same tools for other problems and other data.</p>
+
+<p style="text-align:center;"> *</p>
+
+<p>When I first started writing stuff on the web, I edited a page &ndash; a single HTML
+file &ndash; by hand.  When the entries on my nascent blog got old, I manually
+cut-and-pasted them to archive files with names like <code>old_main97.html</code>, which
+held all of the stuff I&rsquo;d written in 1997.</p>
+
+<p>I&rsquo;m not holding this up as an example of youthful folly.  In fact, it worked
+fine, and just having a single, static file that you can open in any text
+editor has turned out to be a <em>lot</em> more future-proof than the sophisticated
+blogging software people were starting to write at the time.</p>
+
+<p>And yet.  Something about this habit nagged at my developing programmer mind
+after a few years.  It was just a little bit too manual and repetitive, a
+little bit silly to have to write things like a table of contents by hand, or
+move entries around by copy-and-pasting them to different files.  Since I knew
+the date for each entry, and wanted to make them navigable on that basis, why
+not define a directory structure for the years and months, and then write a
+file to hold each day?  That way, all I&rsquo;d have to do is concatenate the files
+in one directory to display any given month:</p>
+
+<pre><code><b>$ cat ~/p1k3/archives/2014/1/* | head -10</b>
+&lt;h1&gt;Sunday, January 12&lt;/h1&gt;
+
+&lt;h2&gt;the one casey is waiting for&lt;/h2&gt;
+
+&lt;freeverse&gt;
+after a while
+the thing about drinking
+is that it just feeds
+what you drink to kill
+and kills
+</code></pre>
+
+<p>I ultimately wound up writing a few thousand lines of Perl to do the actual
+work, but the essential idea of the thing is still little more than invoking
+<code>cat</code> on some stuff.</p>
+
+<p>I didn&rsquo;t know the word for it at the time, but what I was reaching for was a
+kind of indirection.  By putting blog posts in a specific directory layout, I
+was creating a simple model of the temporal structure that I considered their
+most important property.  Now, if I want to write commands that ask questions
+about my blog posts or re-combine them in certain ways, I can address my
+concerns to this model.  Maybe, for example, I want a rough idea how many words
+I&rsquo;ve written in blog posts so far in 2014:</p>
+
+<pre><code><b>$ find ~/p1k3/archives/2014/ -type f | xargs cat | wc -w</b>
+6677
+</code></pre>
+
+<p>Maybe I want to see a table of contents:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ find ~/p1k3/archives/2014/ -type d | xargs ls -v | head -10</b>
+/home/brennen/p1k3/archives/2014/:
+1
+2
+3
+
+/home/brennen/p1k3/archives/2014/1:
+5
+12
+14
+15
+</code></pre>
+
+<!-- end -->
+
+
+<p>Or find the subtitles I used in 2013:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ find ~/p1k3/archives/2012/ -type f | xargs perl -ne 'print "$1\n" if m{&lt;h2&gt;(.*?)&lt;/h2&gt;}'</b>
+pursuit
+fragment
+this poem again
+i'll do better next time
+timebinding animals
+more observations on gear nerdery &amp;amp; utility fetishism
+thrift
+A miracle, in fact, means work
+&lt;em&gt;technical notes for late october&lt;/em&gt;, or &lt;em&gt;it gets dork out earlier these days&lt;/em&gt;
+radio
+light enough to travel
+12:06am
+"figures like Heinlein and Gingrich"
+</code></pre>
+
+<!-- end -->
+
+
+<p>The crucial thing about this is that the filesystem <em>itself</em> is just like <code>cat</code>
+and <code>grep</code>:  It doesn&rsquo;t know anything about blogs (or poetry), and it&rsquo;s
+basically indifferent to the actual <em>structure</em> of a file like
+<code>~/p1k3/archives/2014/1/12</code>.  What the filesystem knows is that there are files
+with certain names in certain places.  It need not know anything about the
+<em>meaning</em> of those names in order to be useful; in fact, it&rsquo;s best if it stays
+agnostic about the question, for this enables us to assign our own meaning to a
+structure and manipulate that structure with standard tools.</p>
+
+<p style="text-align:center;"> *</p>
+
+<p>Back to the problem at hand:  I have this collection of files, and I know how
+to extract the ones that contain poems.  My goal is to see all the poems and
+collect the subset of them that I still find worthwhile.  Just knowing how to
+grep and then edit a big file solves my problem, in a basic sort of way.  And
+yet: Something about this nags at my mind.  I find that, just as I can already
+use standard tools and the filesystem to ask questions about all of my blog
+posts in a given year or month, I would like to be able to ask questions about
+the set of interesting poems.</p>
+
+<p>If I want the freedom to execute many different sorts of commands against this
+set of poems, it begins to seem that I need a model.</p>
+
+<p>When programmers talk about models, they often mean something that people in
+the sciences would recognize:  We find ways to represent the arrangement of
+facts so that we can think about them.  A structured representation of things
+often means that we can <em>change</em> those things, or at least derive new
+understanding of them.</p>
+
+<p style="text-align:center;"> *</p>
+
+<p>At this point in the narrative, I could pretend that my next step is
+immediately obvious, but in fact it&rsquo;s not.  I spend a couple of days thinking
+off and on about how to proceed, scribbling notes during bus rides and while
+drinking beers at the pizza joint down the street.  I assess and discard ideas
+which fall into a handful of broad approaches:</p>
+
+<ul>
+<li>Store blog entries in a relational database system which would allow me to
+associate them with data like &ldquo;this entry is in a collection called &lsquo;ok
+poems&rsquo;&rdquo;.</li>
+<li>Selectively build up a file containing the list of files with ok poems, and use
+it to do other tasks.</li>
+<li>Define a format for metadata that lives within entry files.</li>
+<li>Turn each interesting file into a directory of its own which contains a file
+with the original text and another file with metadata.</li>
+</ul>
+
+
+<p>I discard the relational database idea immediately:  I like working with files,
+and I don&rsquo;t feel like abandoning a model that&rsquo;s served me well for my entire
+adult life.</p>
+
+<p>Building up an index file to point at the other files I&rsquo;m working with has a
+certain appeal.  I&rsquo;m already most of the way there with the <code>grep</code> output in
+<code>potential_poems</code>. It would be easy to write shell commands to add, remove,
+sort, and search entries.  Still, it doesn&rsquo;t feel like a very satisfying
+solution unto itself.  I&rsquo;d like to know that an entry is part of the collection
+just by looking at the entry, without having to cross-reference it to a list
+somewhere else.</p>
+
+<p>What about putting some meaningful text in the file itself?  I thought about
+a bunch of different ways to do this, some of them really complicated, and
+eventually arrived at this:</p>
+
+<pre><code>&lt;!-- collection: ok-poems --&gt;
+</code></pre>
+
+<p>The <code>&lt;!-- --&gt;</code> bits are how you define a comment in HTML, which means that
+neither my blog code nor web browsers nor my text editor have to know anything
+about the format, but I can easily find files with certain values.  Check it:</p>
+
+<pre><code><b>$ find ~/p1k3/archives -type f | xargs perl -ne 'print "$ARGV[0]: $1 -&gt; $2\n" if m{&lt;!-- ([a-z]+): (.*?) --&gt;};'</b>
+/home/brennen/p1k3/archives/2014/2/9: collection -&gt; ok-poems
+</code></pre>
+
+<p>That&rsquo;s an ugly one-liner, and I haven&rsquo;t explained half of what it does, but the
+comment format actually seems pretty workable for this.  It&rsquo;s a little tacky to
+look at, but it&rsquo;s simple and searchable.</p>
+
+<p>Before we settle, though, let&rsquo;s turn to the notion of making each entry into a
+directory that can contain some structured metadata in a separate file.
+Imagine something like:</p>
+
+<pre><code><b>$ ls ~/p1k3/archives/2013/2/9</b>
+index  Meta
+</code></pre>
+
+<p>Here I use the name &ldquo;index&rdquo; for the main part of the entry because it&rsquo;s a
+convention of web sites for the top-level page in a directory to be called
+something like <code>index.html</code>.  As it happens, my blog software already supports
+this kind of file layout for entries which contain multiple parts, image files,
+and so forth.</p>
+
+<pre><code><b>$ head ~/p1k3/archives/2013/2/9/index</b>
+&lt;h1&gt;saturday, february 9&lt;/h1&gt;
+
+&lt;freeverse&gt;
+midwinter midafternoon; depressed as hell
+sitting in a huge cabin in the rich-people mountains
+writing a sprawl, pages, of melancholic midlife bullshit
+
+outside the snow gives way to broken clouds and the
+clear unyielding light of the high country sun fills
+
+<b>$ cat ~/p1k3/archives/2013/2/9/Meta</b>
+collection: ok-poems
+</code></pre>
+
+<p>It would then be easy to <code>find</code> files called <code>Meta</code> and grep them for
+<code>collection: ok-poems</code>.</p>
+
+<p>What if I put metadata right in the filename itself, and dispense with the grep
+altogether?</p>
+
+<pre><code><b>$ ls ~/p1k3/archives/2013/2/9</b>
+index  meta-ok-poem
+
+<b>$ find ~/p1k3/archives -name 'meta-ok-poem'</b>
+/home/brennen/archives/2013/2/9/meta-ok-poem
+</code></pre>
+
+<p>There&rsquo;s a lot to like about this.  For one thing, it&rsquo;s immediately visible in a
+directory listing.  For another, it doesn&rsquo;t require searching through thousands
+of lines of text to extract a specific string.  If a directory has a
+<code>meta-ok-poem</code> in it, I can be pretty sure that it will contain an interesting
+<code>index</code>.</p>
+
+<p>What are the downsides?  Well, it requires transforming lots of text files into
+directories-containing-files.  I might automate that process, but it&rsquo;s still a
+little tedious and it makes the layout of the entry archive more complicated
+overall.  There&rsquo;s a cost to doing things this way.  It lets me extend my
+existing model of a blog entry to include arbitrary metadata, but it also adds
+steps to writing or finding blog entries.</p>
+
+<p>Abstractions usually cost you something.  Is this one worth the hassle?</p>
+
+<h2>diff, wdiff, git</h2>
+
+<p>If you&rsquo;re the sort of person who took a few detours into the history of
+religion in college, you might be familiar with some of the ways people used to
+do textual comparison.  When pen, paper, and typesetting were what scholars
+had to work with, they did some amazingly sophisticated things in order to
+expose the relationships between multiple pieces of text.</p>
+
+<p>{slide: some textual criticism tools}</p>
+
+<p>Here&rsquo;s a book I got in college.  <em>Gospel Parallels: A Comparison of the
+Synoptic Gospels</em>, by Burton H. Throckmorton, Jr.  It breaks up three books
+from the Bible by the stories and themes that they contain, and shows the
+overlapping sections of each book that contain parallel texts.  You can work
+your way through and see what parts only show up in one book, or in two but not
+the other, or in all three.  These kinds of tools support all sorts of
+theoretical stuff about which books copied each other and how, and what other
+sources they might have copied that we&rsquo;ve since lost.</p>
+
+<p>This is some <em>incredibly</em> dry material, even if you kind of dig thinking about
+questions like how and when an important religious book was written and
+compiled.  It takes a special temperament to actually sit poring over
+fragmentary texts in ancient languages and do these painstaking comparisons.
+Even if you&rsquo;re a writer or editor and work with a lot of revisions of a text,
+there&rsquo;s a good chance you rarely do this kind of comparison on your own work,
+because that shit is <em>tedious</em>.</p>
+
+<p>And yet it turns out that academics aren&rsquo;t the only people who need tools for
+comparing different versions of a text.  Programmers, in fact, need to do this
+<em>constantly</em>.  Programmers are also happiest when putting off the <em>actual</em> task
+at hand to solve some incidental problem that cropped up along the way, so by
+now there are a lot of ways to say &ldquo;here&rsquo;s how this file is different from this
+file&rdquo;, or &ldquo;here&rsquo;s how this file is different from itself a year ago&rdquo;.  It turns
+out that these work just about as well for English text as they do for code.</p>
+
+<p>{demo various diff tools, source control}</p>
+
+<h1>further reading</h1>
+
+<p><em>The Unix Programming Environment</em> - Brian W. Kernighan, Rob Pike</p>
+
+<h2>bits that might become end notes later</h2>
+
+<p>I just ran <code>dict model</code>.  It&rsquo;s a word with many fascinating definitions, but my
+favorite of the bunch is probably this bit of ridiculous, eye-glazing
+prolixity:</p>
+
+<pre><code> 9. An abstract and often simplified conceptual representation
+    of the workings of a system of objects in the real world,
+    which often includes mathematical or logical objects and
+    relations representing the objects and relations in the
+    real-world system, and constructed for the purpose of
+    explaining the workings of the system or predicting its
+    behavior under hypothetical conditions; as, the
+    administration's model of the United States economy
+    predicts budget surpluses for the next fifteen years;
+    different models of the universe assume different values
+    for the cosmological constant; models of proton structure
+    have grown progressively more complex in the past century.
+    [PJC]
+</code></pre>
+
+<p>This one is also pretty good:</p>
+
+<pre><code>From The Free On-line Dictionary of Computing (26 July 2010) [foldoc]:
+
+ 1. &lt;simulation&gt; A description of observed or predicted
+ behaviour of some system, simplified by ignoring certain
+ details.  Models allow complex {systems}, both existent and
+ merely specified, to be understood and their behaviour
+ predicted.  A model may give incorrect descriptions and
+ predictions for situations outside the realm of its intended
+ use.  A model may be used as the basis for {simulation}.
+</code></pre>
+</body>
+</html>

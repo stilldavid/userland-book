@@ -1,38 +1,30 @@
 the command line as a literary environment
 ==========================================
 
-Writing, particularly writing of any real scope or complexity, is very much a
-technical task.  It makes demands, both physical and psychological, of its
-practitioners.  As with programmers, woodworkers, graphic artists, and farmers,
-writers exhibit strong preferences in their tools, materials, and environment,
-and they do so because they're engaged in a physically and cognitively
-challenging task.
-
-My thesis is that the modern Linux command line is a pretty good environment
-for working with English prose and prosody, and by extension offers features
-you might find useful in your own work.
-
-I've chosen writing as a point of departure because, aside from web
-development, it's what I use a computer for most.  I want to shine a light on
-the humane potential of ideas that are usually understood as esoteric nerd
+There're a lot of ways I could try to structure an introduction to the command
+line.  I'm going to start with writing as a point of departure because, aside
+from web development, it's what I use a computer for most.  I want to shine a
+light on the humane potential of ideas that are usually understood as nerd
 trivia.  Computers have utterly transformed the practice of writing within the
 space of my lifetime, but it seems to me that writers as a class miss out on
 many of the software tools and patterns taken as a given in more "technical"
-fields.  Which is to say that even if you're not a writer by habit or trade,
-there might still be something here for you.
+fields.
 
-The first assumption of what follows is that the bulk of your writing will be
-stored and manipulated in plain text files, maybe with some simple markup for
-formatting (basic HTML, Markdown, etc.).
+Writing, particularly writing of any real scope or complexity, is very much a
+technical task.  It makes demands, both physical and psychological, of its
+practitioners.  As with woodworkers, graphic artists, and farmers, writers
+exhibit strong preferences in their tools, materials, and environment, and they
+do so because they're engaged in a physically and cognitively challenging task.
 
-Implicit in this notion is that, if you rely on Word or Open Office or Google
-Docs, I'm suggesting you abandon those tools for a lot of tasks.  That may seem
-like quite a stretch.  Humor me for a while.
+My thesis is that the modern Linux command line is a pretty good environment
+for working with English prose and prosody, and that maybe this will illuminate
+the ways it could be useful in your own work with a computer, whatever that
+work happens to be.
 
--> * <-
+terms and definitions
+---------------------
 
-Let's do the terms-and-definitions thing.  What software are we actually
-talking about when we say "the command line"?
+What software are we actually talking about when we say "the command line"?
 
 For the purposes of this discussion, we're talking about an environment built
 on a very old paradigm called Unix.
@@ -52,13 +44,12 @@ for the purposes of my cultural agenda I'm going to ignore them right now.
 
 {cut to actual terminal blinkety blinking on the projector}
 
-This is what's called a shell.  The shell is actually distinct from a lot of
-parts of the operating system it runs on, and you can use many different
-shells, but they all pretty much operate on the same basic idea:  You move
-around the filesystem on the computer and run programs by typing commands.
-Commands can be combined in various ways to make programs of their own, and in
-fact the way you use the computer is often just to write little programs that
-invoke other programs, turtles-all-the-way-down style.
+This is what's called a shell.  There are many different shells, but they
+pretty much all operate on the same idea:  You navigate a filesystem and run
+programs by typing commands.  Commands can be combined in various ways to make
+programs of their own, and in fact the way you use the computer is often just
+to write little programs that invoke other programs, turtles-all-the-way-down
+style.
 
 The standard shell these days is something called Bash, so we'll use Bash.
 It's what you'll most often see in the wild.  Like most shells, Bash is ugly
@@ -73,43 +64,30 @@ vehicle for getting around inside of computers.  The difference is that instead
 of navigating around virtual rooms and hallways with commands like `GO WEST`,
 you navigate between directories by typing commands like `cd documents`.
 
-(SIDEBAR: In the Windows and Macintosh world, directories have been called
-"folders" for a long time now.  This isn't the _worst_ metaphor for what's
-really going on, and it's so pervasive by now that it's not worth fighting
-about.  It's also not exactly a _great_ metaphor, since computer filesystems
-aren't structured very much like the filing cabinets of yore.  A directory acts
-a lot like a container, but for most purposes in the modern context it's an
-infinitely expandable one which may contain nested sub-spaces much larger than
-itself.
-
-The vendors of mass-market operating systems are, as we speak, striving to
-paper over the existence of the filesystem, one of the most powerful and
-liberating abstractions in the history of human thought.  There might be an
-argument that little folder icons were the first step along this path.
-
-That said, it probably doesn't matter much.  Real-world exposure to old-school
-paper filing systems is plummeting among people with access to computers, and
-anyway I suspect that people are actually pretty good at metaphor.)
-
-(SIDEBAR: You could also think of the shell as like a notebook you carry
-around work, full of todo lists and design ideas and sketches of dinosaurs
-fighting with laser tanks.  There are a lot of potential metaphors here.)
+In the Macintosh and Windows world, directories have been called "folders" for
+a long time now.  This isn't the _worst_ metaphor for what's really going on,
+and it's so pervasive by now that it's not worth fighting about.  It's also not
+exactly a _great_ metaphor, since computer filesystems aren't structured very
+much like the filing cabinets of yore.  A directory acts a lot like a
+container, but for most purposes in the modern context it's an infinitely
+expandable one which may contain nested sub-spaces much larger than itself.
 
 When you're in the shell, you have many tools at your disposal - programs that
 can be used on many different files, or chained together with other programs.
 They tend to have weird, cryptic names, but a lot of them do very simple
-things.  Tasks that might be a menu item in Word, like counting the number of
-words in a document, or finding a particular phrase, are often programs unto
-themselves.
+things.  Tasks that might be a menu item in a big program like Word, like
+counting the number of words in a document or finding a particular phrase, are
+often programs unto themselves.
 
-learn you an editor
--------------------
+learn you an editor (eventually)
+--------------------------------
 
-An editor is in the business of opening up text files and changing their
-contents.  This is where I spend most of my time that isn't in a web browser,
-because it's where I write both code and prose.  It turns out that the features
-which make a good code editor overlap a lot with the ones that make a good
-editor of English sentences.
+This chapter won't deal with the topic much, but sooner or later you're going
+to want to create and change some text files, and then you will need an editor.
+My editor is where I spend most of my time that isn't in a web browser, because
+it's where I write both code and prose.  It turns out that the features which
+make a good code editor overlap a lot with the ones that make a good editor of
+English sentences.
 
 So what should you use?  Well, there have been other contenders in recent
 years, but in truth nothing comes close to dethroning the Great Old Ones of
@@ -123,18 +101,16 @@ shining diamond heart.
 It's worth the time it takes to learn one of the serious editors (there are few
 things in the world of technology as likely to expand your abilities), but
 there are easier places to start.  Nano is inoffensive and easy to pick up.
-Most any desktop environment provides a GUI editor that will work well enough
-to experiment with.  It's not necessary to jump off the cliff of learning an
-editor older than you are, at least not right away.
+Most any desktop environment provides an editor that will work well enough to
+experiment with.
 
 cat
 ---
 
-Suppose you have some files, and you're curious what's in them.  Maybe opening
-them up in an editor seems like it'd be a lot of work.  For example, suppose
-you've got a list of authors you're planning to reference in some piece of
-work, and you just want to check its contents real quick-like.  This is where
-our friend `cat` comes in:
+Suppose you have some files, and you're curious what's in them.  For example,
+suppose you've got a list of authors you're planning to reference, and you just
+want to check its contents real quick-like.  This is where our friend `cat`
+comes in:
 
 <!-- exec -->
 
@@ -149,9 +125,9 @@ our friend `cat` comes in:
 
 <!-- end -->
 
-Ok, so why, you might be asking at this point, is the command to dump out the
+"Why," you might be asking at this point, "is the command to dump out the
 contents of a file to a screen called `cat`?  What do felines have to do with
-anything?
+anything?"
 
 It turns out that `cat` is actually short for "concatenate", which is a long
 word basically meaning "stick things together".  In programming, we usually
@@ -178,8 +154,8 @@ Suppose you wanted to see the contents of a _set_ of author lists:
 
 <!-- end -->
 
-a digression: wildcards
------------------------
+wildcards
+---------
 
 We're working with three filenames: `authors_sff`, `authors_contemporary_fic`,
 and `authors_nat_hist`.  That's an awful lot of typing every time we want to do
@@ -297,7 +273,7 @@ The second is that `uniq` is very literal-minded.  Unless you tell it
 otherwise, it cares what case the letters on a line are, and it pays attention
 to things like whitespace.
 
-a digression: options and redirection
+options, standard IO, and redirection
 -------------------------------------
 
 Above, when we wanted to ask `sort` to behave differently, we gave it what is
@@ -333,7 +309,7 @@ count of how often each line occurs, for a file called colors:
 
 <!-- end -->
 
-There's one other important thing going on in this line:  The `|`, usually
+There's something really important going on in this line:  The `|`, usually
 called a "pipe", and probably found on your backslash key, is telling your
 shell that instead of printing the output of `sort colors` right to your
 terminal screen, it should send it to `uniq -i -c`.
@@ -381,8 +357,8 @@ Check it out:
 
 We'll use these features from here on out.
 
-further digression: man pages and --help
-----------------------------------------
+man pages and --help
+--------------------
 
 I mentioned that the behavior of most commands can be changed by giving them
 different options.  All well and good if you happen to know what options a
@@ -469,7 +445,8 @@ counts the number of words in its input.
 736 is the number of lines, 4117 the number of words, and 24944 the number of
 characters in the file I'm writing right now.  I use this constantly.  Most
 obviously, it's a good way to get an idea of how much you've written.  `wc` is
-the tool I used to track my progress the last time I tried NaNoWriMo:
+the tool I used to track my progress the last time I tried National Novel
+Writing Month:
 
     $ find ~/p1k3/archives/2010/11 -regextype egrep -regex '.*([0-9]+|index)' -type f | xargs wc -w | grep total
      6585 total
@@ -501,8 +478,8 @@ output of other commands.  Want to know _how many_ unique authors we have?
 This kind of thing is obviously trivial, but it comes in handy more often than
 you might think.
 
-reference tools: dict, aspell, cal, calendar, units
----------------------------------------------------
+reference tools: dict, cal
+--------------------------
 
 I'll preface this by saying that, of course, almost anyone who is writing
 anything on a computer is going to use Google and Wikipedia, and the answer to
@@ -539,19 +516,14 @@ Need to interactively spell-check your presentation notes?
 
 Want to know what the calendar looks like for this month?
 
-<!-- exec -->
-
     $ cal
          April 2014       
     Su Mo Tu We Th Fr Sa  
-           1 _ _2  3  4  5  
+           1  2  3  4  5  
      6  7  8  9 10 11 12  
     13 14 15 16 17 18 19  
     20 21 22 23 24 25 26  
     27 28 29 30           
-                          
-
-<!-- end -->
 
 How about for September, 1950?
 
@@ -564,13 +536,12 @@ How about for September, 1950?
      3  4  5  6  7  8  9  
     10 11 12 13 14 15 16  
     17 18 19 20 21 22 23  
-    24 25 26 27 28 29 30  
-                          
+    24 25 26 27 28 29 30
 
 <!-- end -->
 
-a digression: head, tail, and cut
----------------------------------
+head, tail, and cut
+-------------------
 
 Remember our old pal `cat`, which just splats everything it's given back to
 standard output?

@@ -4,40 +4,44 @@ use strict;
 use warnings;
 use 5.10.0;
 
+use Cwd;
+use File::Basename;
 use Text::Markdown::Discount;
 
-# enable html5 block-level tags
+# Enable html5 block-level tags:
 Text::Markdown::Discount::with_html5_tags();
 my $flags = Text::Markdown::Discount::MKD_EXTRA_FOOTNOTE();
 my $markdown = Text::Markdown::Discount->new;
 
-my ($infile) = @ARGV;
+my $cwd = Cwd::getcwd();
 
-my $source;
-{
-  # grab the whole file/stream by temporarily unsetting the line separator:
-  local $/ = undef;
-  $source = <>;
+my $full_source = '';
+while (my $source = get_input()) {
+  # A simple preprocessor:
+  my ($basename, $dir) = fileparse($ARGV); # get path of target file
+  chdir $dir;
+  $source =~ s{<!-- exec -->(.*?)<!-- end -->}{handle_block($1);}egs;
+  chdir $cwd;
+
+  my $a_name = $dir;
+  $a_name =~ s/[^a-z]+/-/ig;
+  $a_name =~ s/^-|-$//g;
+
+  $full_source .= ($a_name ? "\n\n<a name=$a_name></a>" : '') . $source;
 }
 
-# A simple preprocessor:
-$source =~ s{<!-- exec -->(.*?)<!-- end -->}{handle_block($1);}egs;
-
-# Include global links:
-$source .= "\n" . get_file('./links.md') if (-e './links.md');
-$source .= "\n" . get_file('../links.md') if (-e '../links.md');
-
-my $rendered = $markdown->markdown($source, $flags);
+my $rendered = $markdown->markdown($full_source, $flags);
 
 # Bold command line examples (SUPER CHEESY):
 $rendered =~ s{(\$ .*?)$}{<b>$1</b>}gm;
 
-# Use the first header we can find for a title
-my ($title) = $rendered =~ m|<h1>(.*?)</h1>|i;
-
-header($title);
 print $rendered;
-footer();
+
+sub get_input {
+  local $/ = undef;
+  my $source = <>;
+  return $source;
+}
 
 sub handle_block {
   my ($block) = @_;
@@ -56,28 +60,6 @@ sub handle_block {
   $result =~ s/^/    /gm;
 
   return "<!-- exec -->\n\n    \$ " . $cmd . "\n" . $result . "\n<!-- end -->";
-}
-
-sub header {
-  my ($title) = @_;
-  print <<"HTML"
-<html>
-<head>
-  <title>$title</title>
-  <link rel=stylesheet href="../userland.css" />
-</head>
-
-<body>
-
-HTML
-}
-
-sub footer {
-  print <<"HTML"
-
-</body>
-</html>
-HTML
 }
 
 sub get_file {
