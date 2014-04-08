@@ -73,7 +73,7 @@ sub replace_some_stuff {
     "<$tag><a name=$a_name href=#$a_name>#</a> $text</$tag>";
   }iesg;
 
-  my $contents_text = $markdown->markdown(join "\n", @contents, $flags);
+  my $contents_text = $markdown->markdown((join "\n", @contents), $flags);
   $markup =~ s/{{contents}}/$contents_text/;
 
   return $markup;
