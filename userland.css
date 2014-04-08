@@ -17,6 +17,18 @@ td { vertical-align: top; }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "Georgia", "DejaVu Serif", "Bitstream Vera Serif", "Lucida Bright", serif;
+  font-weight: normal;
+}
+
+h1.bigtitle {
+  font-size: 3em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+  font-style: none;
+  text-decoration: none;
 }
 
 pre {

@@ -1,11 +1,13 @@
 <html>
 <head>
-  <title>userland: the command line is for humans</title>
+  <title>userland: a book about the command line for humans</title>
   <link rel=stylesheet href="userland.css" />
 </head>
 
 <body>
-<h1>userland: a book about the command line for humans</h1>
+
+<h1 class=bigtitle>userland</h1>
+<h1><a name=a-book-about-the-command-line-for-humans href=#a-book-about-the-command-line-for-humans>#</a> a book about the command line for humans</h1>
 
 <p>Late last year, <a href="//p1k3.com/2013/8/4">a side trip</a> into simple text utilities
 got me thinking about how many of my writing habits depend on the Linux command
@@ -26,25 +28,60 @@ me immeasurably in my own work.</p>
 
 <p>&ndash; bpb</p>
 
-<h2>contents</h2>
+<h2><a name=contents href=#contents>#</a> contents</h2>
 
-<ol>
-<li><a href="literary_environment/">the command line as a literary environment</a></li>
-<li><a href="literary_problem/">a literary problem</a></li>
-<li><a href="programmerthink/">programmerthink</a></li>
-<li><a href="diff/">diff</a></li>
-<li><a href="further_reading/">further reading</a></li>
-</ol>
+<p><ul>
+<li><a href="#a-book-about-the-command-line-for-humans">a book about the command line for humans</a>
 
+<ul>
+<li><a href="#contents">contents</a></li>
+<li><a href="#license">license</a></li>
+</ul>
+</li>
+<li><a href="#the-command-line-as-a-literary-environment">the command line as a literary environment</a>
 
-<h2>license</h2>
+<ul>
+<li><a href="#terms-and-definitions">terms and definitions</a></li>
+<li><a href="#learn-you-an-editor-eventually">learn you an editor (eventually)</a></li>
+<li><a href="#cat">cat</a></li>
+<li><a href="#wildcards">wildcards</a></li>
+<li><a href="#sort">sort</a></li>
+<li><a href="#uniq">uniq</a></li>
+<li><a href="#options-standard-IO-and-redirection">options, standard IO, and redirection</a></li>
+<li><a href="#man-pages-and-ndash-help">man pages and &ndash;help</a></li>
+<li><a href="#wc">wc</a></li>
+<li><a href="#reference-tools-dict-cal">reference tools: dict, cal</a></li>
+<li><a href="#head-tail-and-cut">head, tail, and cut</a></li>
+<li><a href="#finding-text-grep">finding text: grep</a></li>
+<li><a href="#now-you-have-n-problems-regex-amp-rabbit-holes">now you have n problems: regex &amp; rabbit holes</a></li>
+</ul>
+</li>
+<li><a href="#a-literary-problem">a literary problem</a></li>
+<li><a href="#programmerthink">programmerthink</a>
+
+<ul>
+<li><a href="#diff-wdiff-git">diff, wdiff, git</a></li>
+</ul>
+</li>
+<li><a href="#further-reading">further reading</a>
+
+<ul>
+<li><a href="#bits-that-might-become-end-notes-later">bits that might become end notes later</a>
+2097152</li>
+</ul>
+</li>
+</ul>
+
+</p>
+
+<h2><a name=license href=#license>#</a> license</h2>
 
 <p>I may eventually just dedicate this thing to the public domain, but for the
 time being please feel free to use it under the terms of Creative Commons BY-SA
 (Attribution / Share-Alike), whatever the latest version is.  I promise I will
 not license it under more restrictive terms than that.</p>
 
-<h1>the command line as a literary environment</h1>
+<h1><a name=the-command-line-as-a-literary-environment href=#the-command-line-as-a-literary-environment>#</a> the command line as a literary environment</h1>
 
 <p>There&rsquo;re a lot of ways I could try to structure an introduction to the command
 line.  I&rsquo;m going to start with writing as a point of departure because, aside
@@ -66,7 +103,7 @@ for working with English prose and prosody, and that maybe this will illuminate
 the ways it could be useful in your own work with a computer, whatever that
 work happens to be.</p>
 
-<h2>terms and definitions</h2>
+<h2><a name=terms-and-definitions href=#terms-and-definitions>#</a> terms and definitions</h2>
 
 <p>What software are we actually talking about when we say &ldquo;the command line&rdquo;?</p>
 
@@ -123,7 +160,7 @@ things.  Tasks that might be a menu item in a big program like Word, like
 counting the number of words in a document or finding a particular phrase, are
 often programs unto themselves.</p>
 
-<h2>learn you an editor (eventually)</h2>
+<h2><a name=learn-you-an-editor-eventually href=#learn-you-an-editor-eventually>#</a> learn you an editor (eventually)</h2>
 
 <p>This chapter won&rsquo;t deal with the topic much, but sooner or later you&rsquo;re going
 to want to create and change some text files, and then you will need an editor.
@@ -147,7 +184,7 @@ there are easier places to start.  Nano is inoffensive and easy to pick up.
 Most any desktop environment provides an editor that will work well enough to
 experiment with.</p>
 
-<h2>cat</h2>
+<h2><a name=cat href=#cat>#</a> cat</h2>
 
 <p>Suppose you have some files, and you&rsquo;re curious what&rsquo;s in them.  For example,
 suppose you&rsquo;ve got a list of authors you&rsquo;re planning to reference, and you just
@@ -202,7 +239,7 @@ Gwendolyn L. Waring
 <!-- end -->
 
 
-<h2>wildcards</h2>
+<h2><a name=wildcards href=#wildcards>#</a> wildcards</h2>
 
 <p>We&rsquo;re working with three filenames: <code>authors_sff</code>, <code>authors_contemporary_fic</code>,
 and <code>authors_nat_hist</code>.  That&rsquo;s an awful lot of typing every time we want to do
@@ -235,7 +272,7 @@ wildcards, especially if you&rsquo;re doing anything destructive.  They can and 
 surprise the unwary.  Still, once you&rsquo;re used to the idea, they will save you a
 lot of RSI.</p>
 
-<h2>sort</h2>
+<h2><a name=sort href=#sort>#</a> sort</h2>
 
 <p>To get back on track, there&rsquo;s a problem here.  Our author list is out of order,
 and thus confusing to reference.  Fortunately, since one of the most basic
@@ -292,7 +329,7 @@ second field in each line isn&rsquo;t necessarily the person&rsquo;s last name.<
 
 <p>Let&rsquo;s set that one aside for a minute and deal with a different problem.</p>
 
-<h2>uniq</h2>
+<h2><a name=uniq href=#uniq>#</a> uniq</h2>
 
 <p>Notice how Vanessa Veselka shows up twice in our list of authors?  That&rsquo;s
 useful if we want to remember that she&rsquo;s in more than one category, but
@@ -330,7 +367,7 @@ files, you probably need to run them through <code>sort</code> first.</p>
 otherwise, it cares what case the letters on a line are, and it pays attention
 to things like whitespace.</p>
 
-<h2>options, standard IO, and redirection</h2>
+<h2><a name=options-standard-IO-and-redirection href=#options-standard-IO-and-redirection>#</a> options, standard IO, and redirection</h2>
 
 <p>Above, when we wanted to ask <code>sort</code> to behave differently, we gave it what is
 known as an option.  Most programs with command-line interfaces will allow
@@ -427,7 +464,7 @@ Vanessa Veselka
 
 <p>We&rsquo;ll use these features from here on out.</p>
 
-<h2>man pages and &ndash;help</h2>
+<h2><a name=man-pages-and-ndash-help href=#man-pages-and-ndash-help>#</a> man pages and &ndash;help</h2>
 
 <p>I mentioned that the behavior of most commands can be changed by giving them
 different options.  All well and good if you happen to know what options a
@@ -507,7 +544,7 @@ needs to know about lives in section 1, so you&rsquo;ll often see the names of
 different commands and programs written like <code>sort(1)</code> or <code>cat(1)</code>.  Like other
 literary traditions, Unix is littered with this sort of convention.</p>
 
-<h2>wc</h2>
+<h2><a name=wc href=#wc>#</a> wc</h2>
 
 <p><code>wc</code> stands for <strong>w</strong>ord <strong>c</strong>ount.  It does about what you&rsquo;d expect - it
 counts the number of words in its input.</p>
@@ -559,7 +596,7 @@ output of other commands.  Want to know <em>how many</em> unique authors we have
 <p>This kind of thing is obviously trivial, but it comes in handy more often than
 you might think.</p>
 
-<h2>reference tools: dict, cal</h2>
+<h2><a name=reference-tools-dict-cal href=#reference-tools-dict-cal>#</a> reference tools: dict, cal</h2>
 
 <p>I&rsquo;ll preface this by saying that, of course, almost anyone who is writing
 anything on a computer is going to use Google and Wikipedia, and the answer to
@@ -626,7 +663,7 @@ Su Mo Tu We Th Fr Sa
 <!-- end -->
 
 
-<h2>head, tail, and cut</h2>
+<h2><a name=head-tail-and-cut href=#head-tail-and-cut>#</a> head, tail, and cut</h2>
 
 <p>Remember our old pal <code>cat</code>, which just splats everything it&rsquo;s given back to
 standard output?</p>
@@ -744,7 +781,7 @@ you could instead do:</p>
 <!-- end -->
 
 
-<h2>finding text: grep</h2>
+<h2><a name=finding-text-grep href=#finding-text-grep>#</a> finding text: grep</h2>
 
 <p>After all those contortions, what if you actually just want to see <em>which lists</em>
 an individual author appears on?</p>
@@ -782,7 +819,7 @@ words have been written on this topic by leading lights of the nerd community.</
 isn&rsquo;t very useful to us).  That&rsquo;s because all <code>grep</code> saw was the lines in the
 files, not the names of the files themselves.</p>
 
-<h2>now you have n problems: regex &amp; rabbit holes</h2>
+<h2><a name=now-you-have-n-problems-regex-amp-rabbit-holes href=#now-you-have-n-problems-regex-amp-rabbit-holes>#</a> now you have n problems: regex &amp; rabbit holes</h2>
 
 <p>To close out this introductory chapter, let&rsquo;s spend a little time on a topic
 that will likely vex, confound, and (occasionally) delight you for as long as
@@ -923,7 +960,7 @@ masquerading as wisdom.</p>
 that we&rsquo;ve established, however haphazardly, some of the basics, let&rsquo;s consider
 their application to a real-world task.</p>
 
-<h1>a literary problem</h1>
+<h1><a name=a-literary-problem href=#a-literary-problem>#</a> a literary problem</h1>
 
 <p>The <a href="../literary_environment">previous chapter</a> introduced a bunch of tools
 using contrived examples.  Now we&rsquo;ll look at a real problem, and work through a
@@ -1109,7 +1146,7 @@ first try:</p>
 
 <p>Welcome to wizard school.</p>
 
-<h1>programmerthink</h1>
+<h1><a name=programmerthink href=#programmerthink>#</a> programmerthink</h1>
 
 <p>In the <a href="../literary_problem">preceding chapter</a>, I worked through accumulating
 a big piece of text from some other, smaller texts.  I started with a bunch of
@@ -1390,7 +1427,7 @@ steps to writing or finding blog entries.</p>
 
 <p>Abstractions usually cost you something.  Is this one worth the hassle?</p>
 
-<h2>diff, wdiff, git</h2>
+<h2><a name=diff-wdiff-git href=#diff-wdiff-git>#</a> diff, wdiff, git</h2>
 
 <p>If you&rsquo;re the sort of person who took a few detours into the history of
 religion in college, you might be familiar with some of the ways people used to
@@ -1427,11 +1464,11 @@ out that these work just about as well for English text as they do for code.</p>
 
 <p>{demo various diff tools, source control}</p>
 
-<h1>further reading</h1>
+<h1><a name=further-reading href=#further-reading>#</a> further reading</h1>
 
 <p><em>The Unix Programming Environment</em> - Brian W. Kernighan, Rob Pike</p>
 
-<h2>bits that might become end notes later</h2>
+<h2><a name=bits-that-might-become-end-notes-later href=#bits-that-might-become-end-notes-later>#</a> bits that might become end notes later</h2>
 
 <p>I just ran <code>dict model</code>.  It&rsquo;s a word with many fascinating definitions, but my
 favorite of the bunch is probably this bit of ridiculous, eye-glazing

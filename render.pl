@@ -17,25 +17,18 @@ my $cwd = Cwd::getcwd();
 
 my $full_source = '';
 while (my $source = get_input()) {
+
   # A simple preprocessor:
   my ($basename, $dir) = fileparse($ARGV); # get path of target file
   chdir $dir;
   $source =~ s{<!-- exec -->(.*?)<!-- end -->}{handle_block($1);}egs;
   chdir $cwd;
 
-  my $a_name = $dir;
-  $a_name =~ s/[^a-z]+/-/ig;
-  $a_name =~ s/^-|-$//g;
+  $full_source .= $source;
 
-  $full_source .= ($a_name ? "\n\n<a name=$a_name></a>" : '') . $source;
 }
 
-my $rendered = $markdown->markdown($full_source, $flags);
-
-# Bold command line examples (SUPER CHEESY):
-$rendered =~ s{(\$ .*?)$}{<b>$1</b>}gm;
-
-print $rendered;
+print replace_some_stuff($markdown->markdown($full_source, $flags));
 
 sub get_input {
   local $/ = undef;
@@ -62,9 +55,36 @@ sub handle_block {
   return "<!-- exec -->\n\n    \$ " . $cmd . "\n" . $result . "\n<!-- end -->";
 }
 
-sub get_file {
-  my ($filename) = @_;
-  local $/ = undef;
-  open my $fh, '<', $filename;
-  return <$fh>;
+# super cheeseball, man
+sub replace_some_stuff {
+  my ($markup) = @_;
+
+  $markup =~ s{(\$ .*?)$}{<b>$1</b>}gm;
+
+  my @contents;
+
+  # insert anchors in headers, accumulate a table of contents
+  $markup =~ s{<(h[12])>(.*?)</h[12]>}{
+    my ($tag, $text) = ($1, $2);
+    my $a_name = $text;
+    $a_name =~ s/[^a-z]+/-/ig;
+    $a_name =~ s/^-|-$//g;
+    push @contents, make_contents_link($tag, $a_name, $text);
+    "<$tag><a name=$a_name href=#$a_name>#</a> $text</$tag>";
+  }iesg;
+
+  my $contents_text = $markdown->markdown(join "\n", @contents, $flags);
+  $markup =~ s/{{contents}}/$contents_text/;
+
+  return $markup;
+}
+
+# make an individual element of a markdown list
+sub make_contents_link {
+  my ($tag, $a_name, $text) = @_;
+  if ($tag eq 'h2') {
+    return "    * [$text](#$a_name)";
+  } elsif ($tag eq 'h1') {
+    return "* [$text](#$a_name)";
+  }
 }
