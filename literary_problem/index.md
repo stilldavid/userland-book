@@ -1,5 +1,5 @@
-a literary problem
-==================
+2. a literary problem
+=====================
 
 The [previous chapter](../literary_environment) introduced a bunch of tools
 using contrived examples.  Now we'll look at a real problem, and work through a
@@ -103,25 +103,17 @@ called `possible_poems` in my home directory:
 
 This is quite a few instances...
 
-<!-- exec -->
-
     $ wc -l ~/possible_poems
-    682 /home/brennen/possible_poems
-
-<!-- end -->
+    679 /home/brennen/possible_poems
 
 ...and it's also not super-pretty to look at:
 
-<!-- exec -->
-
     $ head -5 ~/possible_poems
-    /home/brennen/p1k3/archives/2002/10/16:<freeverse>i don't have time to be writing this
-    /home/brennen/p1k3/archives/2002/10/27:<freeverse>tequila tastes like death
-    /home/brennen/p1k3/archives/2002/10/10:<freeverse>
-    /home/brennen/p1k3/archives/2002/10/shax:<freeverse>i'd do this in iambic pentameter
-    /home/brennen/p1k3/archives/2002/10/31/index:<freeverse>rounding out the month,
-
-<!-- end -->
+    /home/brennen/p1k3/archives/2011/10/14:<freeverse>i've got this friend has a real knack
+    /home/brennen/p1k3/archives/2011/4/25:<freeverse>i can't claim to strive for it
+    /home/brennen/p1k3/archives/2011/8/10:<freeverse>one diminishes or becomes greater
+    /home/brennen/p1k3/archives/2011/8/12:<freeverse>
+    /home/brennen/p1k3/archives/2011/1/1:<freeverse>six years on
 
 Still, it's a decent start.  I can see paths to the files I have to check, and
 usually a first line.  Since I use a fancy text editor, I can just go down the
@@ -152,11 +144,7 @@ Did you catch that?  I just wrote a command that rewrote itself as a
 _different_, more specific command.  And it appears to have worked on the
 first try:
 
-<!-- exec -->
-
     $ wc ~/possible_poems_full
-     16190  74988 486847 /home/brennen/possible_poems_full
-
-<!-- end -->
+     17628  80980 528699 /home/brennen/possible_poems_full
 
 Welcome to wizard school.

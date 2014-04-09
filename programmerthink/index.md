@@ -1,5 +1,5 @@
-programmerthink
-===============
+3. programmerthink
+==================
 
 In the [preceding chapter](../literary_problem), I worked through accumulating
 a big piece of text from some other, smaller texts.  I started with a bunch of
@@ -260,3 +260,5 @@ existing model of a blog entry to include arbitrary metadata, but it also adds
 steps to writing or finding blog entries.
 
 Abstractions usually cost you something.  Is this one worth the hassle?
+Sometimes the best way to answer that question is to start writing code that
+handles a given abstraction.

@@ -38,7 +38,7 @@ me immeasurably in my own work.</p>
 <li><a href="#license">license</a></li>
 </ul>
 </li>
-<li><a href="#the-command-line-as-a-literary-environment">the command line as a literary environment</a>
+<li><a href="#the-command-line-as-a-literary-environment">1. the command line as a literary environment</a>
 
 <ul>
 <li><a href="#terms-and-definitions">terms and definitions</a></li>
@@ -56,13 +56,10 @@ me immeasurably in my own work.</p>
 <li><a href="#now-you-have-n-problems-regex-amp-rabbit-holes">now you have n problems: regex &amp; rabbit holes</a></li>
 </ul>
 </li>
-<li><a href="#a-literary-problem">a literary problem</a></li>
-<li><a href="#programmerthink">programmerthink</a>
-
-<ul>
-<li><a href="#diff-wdiff-git">diff, wdiff, git</a></li>
-</ul>
-</li>
+<li><a href="#a-literary-problem">2. a literary problem</a></li>
+<li><a href="#programmerthink">3. programmerthink</a></li>
+<li><a href="#diff-wdiff-git">4. diff, wdiff, git</a></li>
+<li><a href="#programs-amp-programmering">programs &amp; programmering</a></li>
 <li><a href="#further-reading">further reading</a>
 
 <ul>
@@ -80,7 +77,7 @@ time being please feel free to use it under the terms of Creative Commons BY-SA
 (Attribution / Share-Alike), whatever the latest version is.  I promise I will
 not license it under more restrictive terms than that.</p>
 
-<h1><a name=the-command-line-as-a-literary-environment href=#the-command-line-as-a-literary-environment>#</a> the command line as a literary environment</h1>
+<h1><a name=the-command-line-as-a-literary-environment href=#the-command-line-as-a-literary-environment>#</a> 1. the command line as a literary environment</h1>
 
 <p>There&rsquo;re a lot of ways I could try to structure an introduction to the command
 line.  I&rsquo;m going to start with writing as a point of departure because, aside
@@ -528,8 +525,11 @@ qsort (3)            - sort an array
 qsort_r (3)          - sort an array
 radixsort (3)        - radix sort
 sort (1)             - sort lines of text files
+sq (1)               - squeeze or unsqueeze a sorted word list
 sradixsort (3)       - radix sort
+texindex (1)         - sort Texinfo index files
 tsort (1)            - perform topological sort
+unsq (1)             - squeeze or unsqueeze a sorted word list
 versionsort (3)      - scan a directory for matching entries
 XConsortium (7)      - X Consortium information
 </code></pre>
@@ -866,7 +866,7 @@ by <code>grep</code>, other magical things include:</p>
   <tr><td><code>*</code>    </td>  <td>any number of the preceding thing      </td></tr>
 
   <tr><td><code>(foo|bar)</code></td>  <td>"foo" or "bar"</td></tr>
-  <tr><td><code>(foo)?</code></td>  <td>optional "foo"</td></tr>
+  <tr><td><code>(foo)?</code></td>     <td>optional "foo"</td></tr>
 </table>
 
 
@@ -911,7 +911,7 @@ shell to match groups of files, but with more magic.
 by `grep`, other magical things include:
 use a lot of the magical characters, you have to prefix them with `\`.  This is
 Lines in this file matching the words "magic" or "magical":
-    <b>$ grep -iE 'magic(al)?' ./index.md</b>
+    $ grep -iE 'magic(al)?' ./index.md
 </code></pre>
 
 <p>Find some &ldquo;-agic&rdquo; words in a big list of words:</p>
@@ -959,7 +959,7 @@ masquerading as wisdom.</p>
 that we&rsquo;ve established, however haphazardly, some of the basics, let&rsquo;s consider
 their application to a real-world task.</p>
 
-<h1><a name=a-literary-problem href=#a-literary-problem>#</a> a literary problem</h1>
+<h1><a name=a-literary-problem href=#a-literary-problem>#</a> 2. a literary problem</h1>
 
 <p>The <a href="../literary_environment">previous chapter</a> introduced a bunch of tools
 using contrived examples.  Now we&rsquo;ll look at a real problem, and work through a
@@ -1075,31 +1075,19 @@ called <code>possible_poems</code> in my home directory:</p>
 
 <p>This is quite a few instances&hellip;</p>
 
-<!-- exec -->
-
-
 <pre><code><b>$ wc -l ~/possible_poems</b>
-682 /home/brennen/possible_poems
+679 /home/brennen/possible_poems
 </code></pre>
-
-<!-- end -->
-
 
 <p>&hellip;and it&rsquo;s also not super-pretty to look at:</p>
 
-<!-- exec -->
-
-
 <pre><code><b>$ head -5 ~/possible_poems</b>
-/home/brennen/p1k3/archives/2002/10/16:&lt;freeverse&gt;i don't have time to be writing this
-/home/brennen/p1k3/archives/2002/10/27:&lt;freeverse&gt;tequila tastes like death
-/home/brennen/p1k3/archives/2002/10/10:&lt;freeverse&gt;
-/home/brennen/p1k3/archives/2002/10/shax:&lt;freeverse&gt;i'd do this in iambic pentameter
-/home/brennen/p1k3/archives/2002/10/31/index:&lt;freeverse&gt;rounding out the month,
+/home/brennen/p1k3/archives/2011/10/14:&lt;freeverse&gt;i've got this friend has a real knack
+/home/brennen/p1k3/archives/2011/4/25:&lt;freeverse&gt;i can't claim to strive for it
+/home/brennen/p1k3/archives/2011/8/10:&lt;freeverse&gt;one diminishes or becomes greater
+/home/brennen/p1k3/archives/2011/8/12:&lt;freeverse&gt;
+/home/brennen/p1k3/archives/2011/1/1:&lt;freeverse&gt;six years on
 </code></pre>
-
-<!-- end -->
-
 
 <p>Still, it&rsquo;s a decent start.  I can see paths to the files I have to check, and
 usually a first line.  Since I use a fancy text editor, I can just go down the
@@ -1133,19 +1121,13 @@ something like:</p>
 <em>different</em>, more specific command.  And it appears to have worked on the
 first try:</p>
 
-<!-- exec -->
-
-
 <pre><code><b>$ wc ~/possible_poems_full</b>
- 16190  74988 486847 /home/brennen/possible_poems_full
+ 17628  80980 528699 /home/brennen/possible_poems_full
 </code></pre>
-
-<!-- end -->
-
 
 <p>Welcome to wizard school.</p>
 
-<h1><a name=programmerthink href=#programmerthink>#</a> programmerthink</h1>
+<h1><a name=programmerthink href=#programmerthink>#</a> 3. programmerthink</h1>
 
 <p>In the <a href="../literary_problem">preceding chapter</a>, I worked through accumulating
 a big piece of text from some other, smaller texts.  I started with a bunch of
@@ -1271,18 +1253,18 @@ I&rsquo;ve written in blog posts so far in 2014:</p>
 
 
 <pre><code><b>$ find ~/p1k3/archives/2012/ -type f | xargs perl -ne 'print "$1\n" if m{&lt;h2&gt;(.*?)&lt;/h2&gt;}'</b>
-pursuit
-fragment
-this poem again
-i'll do better next time
-timebinding animals
-more observations on gear nerdery &amp;amp; utility fetishism
-thrift
 A miracle, in fact, means work
 &lt;em&gt;technical notes for late october&lt;/em&gt;, or &lt;em&gt;it gets dork out earlier these days&lt;/em&gt;
-radio
+more observations on gear nerdery &amp;amp; utility fetishism
+timebinding animals
+fragment
+this poem again
+pursuit
+thrift
+i'll do better next time
 light enough to travel
 12:06am
+radio
 "figures like Heinlein and Gingrich"
 </code></pre>
 
@@ -1394,7 +1376,7 @@ writing a sprawl, pages, of melancholic midlife bullshit
 outside the snow gives way to broken clouds and the
 clear unyielding light of the high country sun fills
 
-<b>$ cat ~/p1k3/archives/2013/2/9/Meta</b>
+$ cat ~/p1k3/archives/2013/2/9/Meta
 collection: ok-poems
 </code></pre>
 
@@ -1407,7 +1389,7 @@ altogether?</p>
 <pre><code><b>$ ls ~/p1k3/archives/2013/2/9</b>
 index  meta-ok-poem
 
-<b>$ find ~/p1k3/archives -name 'meta-ok-poem'</b>
+$ find ~/p1k3/archives -name 'meta-ok-poem'
 /home/brennen/archives/2013/2/9/meta-ok-poem
 </code></pre>
 
@@ -1424,9 +1406,11 @@ overall.  There&rsquo;s a cost to doing things this way.  It lets me extend my
 existing model of a blog entry to include arbitrary metadata, but it also adds
 steps to writing or finding blog entries.</p>
 
-<p>Abstractions usually cost you something.  Is this one worth the hassle?</p>
+<p>Abstractions usually cost you something.  Is this one worth the hassle?
+Sometimes the best way to answer that question is to start writing code that
+handles a given abstraction.</p>
 
-<h2><a name=diff-wdiff-git href=#diff-wdiff-git>#</a> diff, wdiff, git</h2>
+<h1><a name=diff-wdiff-git href=#diff-wdiff-git>#</a> 4. diff, wdiff, git</h1>
 
 <p>If you&rsquo;re the sort of person who took a few detours into the history of
 religion in college, you might be familiar with some of the ways people used to
@@ -1462,6 +1446,48 @@ file&rdquo;, or &ldquo;here&rsquo;s how this file is different from itself a yea
 out that these work just about as well for English text as they do for code.</p>
 
 <p>{demo various diff tools, source control}</p>
+
+<h1><a name=programs-amp-programmering href=#programs-amp-programmering>#</a> programs &amp; programmering</h1>
+
+<p>A bit ago, I said that &ldquo;the way you use the computer is often just to write
+little programs that invoke other programs&rdquo;.  In fact, we&rsquo;ve already gone over a
+bunch of these.  Grepping through the text of a previous chapter should pull
+up some good examples:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ grep -E '[a-z]+.*\| ' ../literary_environment/index.md</b>
+    $ sort -k2 authors_* | uniq
+    $ sort colors | uniq -i -c
+    $ sort authors_* | uniq &gt; all_authors
+    $ find ~/p1k3/archives/2010/11 -regextype egrep -regex '.*([0-9]+|index)' -type f | xargs wc -w | grep total
+    $ sort authors_* | uniq | wc -l
+    $ dict concatenate | head -10
+    $ sort colors | uniq -i | tail -1
+    $ cut -d' ' -f1 ./authors_* | sort | uniq -ci | sort -n | tail -3
+    $ sort -u ./authors_* | cut -d' ' -f1 | uniq -ci | sort -n | tail -3
+    $ cat ./authors_* | grep 'Vanessa'
+</code></pre>
+
+<!-- end -->
+
+
+<p>None of these do all that much, but they all take input of one sort or another
+and transform it into something new by doing a series of things to it.  They&rsquo;re
+little formal sentences describing how to make one thing into another, which is
+as good a definition of programming as most.  (Though it&rsquo;s true that a lot of
+the programs we use day-to-day are more like essays or novels or interminable
+Fantasy series where every character you like dies horribly than they are like
+individual sentences.)</p>
+
+<p>This kind of thing is all well and good when you&rsquo;re staring a terminal, trying
+to figure something out - but what about when you&rsquo;ve figured something out
+and you want to repeat it in the future without remembering and typing a giant
+string of weird characters all over again?</p>
+
+<p>It turns out that Bash has you covered.  Since shell commands are just text,
+they can live in a file as easily as they can be typed.</p>
 
 <h1><a name=further-reading href=#further-reading>#</a> further reading</h1>
 

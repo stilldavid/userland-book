@@ -1,5 +1,5 @@
-the command line as a literary environment
-==========================================
+1. the command line as a literary environment
+=============================================
 
 There're a lot of ways I could try to structure an introduction to the command
 line.  I'm going to start with writing as a point of departure because, aside
@@ -718,7 +718,7 @@ by `grep`, other magical things include:
   <tr><td><code>*</code>    </td>  <td>any number of the preceding thing      </td></tr>
 
   <tr><td><code>(foo|bar)</code></td>  <td>"foo" or "bar"</td></tr>
-  <tr><td><code>(foo)?</code></td>  <td>optional "foo"</td></tr>
+  <tr><td><code>(foo)?</code></td>     <td>optional "foo"</td></tr>
 </table>
 
 It's actually a little more complicated than that:  By default, if you want to

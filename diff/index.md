@@ -1,5 +1,5 @@
-diff, wdiff, git
-----------------
+4. diff, wdiff, git
+===================
 
 If you're the sort of person who took a few detours into the history of
 religion in college, you might be familiar with some of the ways people used to

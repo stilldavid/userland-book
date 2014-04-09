@@ -7,10 +7,10 @@ body {
   margin-top: 0em;
   padding-left: 1em;
   padding-right: 1em;
+  max-width: 48em;
 }
 
 p, ul li, ol li, ul {
-  max-width: 48em;
 }
 
 td { vertical-align: top; }
@@ -36,6 +36,7 @@ pre {
   margin-left: 2em;
   max-width: 56em;
   padding: 1em;
+  white-space: pre-wrap;
 }
 
 .sidenote {

@@ -59,7 +59,7 @@ sub handle_block {
 sub replace_some_stuff {
   my ($markup) = @_;
 
-  $markup =~ s{(\$ .*?)$}{<b>$1</b>}gm;
+  $markup =~ s{<code>(\$ .*?)$}{<code><b>$1</b>}gm;
 
   my @contents;
 
