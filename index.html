@@ -58,8 +58,8 @@ me immeasurably in my own work.</p>
 </li>
 <li><a href="#a-literary-problem">2. a literary problem</a></li>
 <li><a href="#programmerthink">3. programmerthink</a></li>
-<li><a href="#diff-wdiff-git">4. diff, wdiff, git</a></li>
 <li><a href="#programs-amp-programmering">programs &amp; programmering</a></li>
+<li><a href="#diff-wdiff-git">4. diff, wdiff, git</a></li>
 <li><a href="#further-reading">further reading</a>
 
 <ul>
@@ -1410,43 +1410,6 @@ steps to writing or finding blog entries.</p>
 Sometimes the best way to answer that question is to start writing code that
 handles a given abstraction.</p>
 
-<h1><a name=diff-wdiff-git href=#diff-wdiff-git>#</a> 4. diff, wdiff, git</h1>
-
-<p>If you&rsquo;re the sort of person who took a few detours into the history of
-religion in college, you might be familiar with some of the ways people used to
-do textual comparison.  When pen, paper, and typesetting were what scholars
-had to work with, they did some amazingly sophisticated things in order to
-expose the relationships between multiple pieces of text.</p>
-
-<p>{slide: some textual criticism tools}</p>
-
-<p>Here&rsquo;s a book I got in college.  <em>Gospel Parallels: A Comparison of the
-Synoptic Gospels</em>, by Burton H. Throckmorton, Jr.  It breaks up three books
-from the Bible by the stories and themes that they contain, and shows the
-overlapping sections of each book that contain parallel texts.  You can work
-your way through and see what parts only show up in one book, or in two but not
-the other, or in all three.  These kinds of tools support all sorts of
-theoretical stuff about which books copied each other and how, and what other
-sources they might have copied that we&rsquo;ve since lost.</p>
-
-<p>This is some <em>incredibly</em> dry material, even if you kind of dig thinking about
-questions like how and when an important religious book was written and
-compiled.  It takes a special temperament to actually sit poring over
-fragmentary texts in ancient languages and do these painstaking comparisons.
-Even if you&rsquo;re a writer or editor and work with a lot of revisions of a text,
-there&rsquo;s a good chance you rarely do this kind of comparison on your own work,
-because that shit is <em>tedious</em>.</p>
-
-<p>And yet it turns out that academics aren&rsquo;t the only people who need tools for
-comparing different versions of a text.  Programmers, in fact, need to do this
-<em>constantly</em>.  Programmers are also happiest when putting off the <em>actual</em> task
-at hand to solve some incidental problem that cropped up along the way, so by
-now there are a lot of ways to say &ldquo;here&rsquo;s how this file is different from this
-file&rdquo;, or &ldquo;here&rsquo;s how this file is different from itself a year ago&rdquo;.  It turns
-out that these work just about as well for English text as they do for code.</p>
-
-<p>{demo various diff tools, source control}</p>
-
 <h1><a name=programs-amp-programmering href=#programs-amp-programmering>#</a> programs &amp; programmering</h1>
 
 <p>A bit ago, I said that &ldquo;the way you use the computer is often just to write
@@ -1488,6 +1451,97 @@ string of weird characters all over again?</p>
 
 <p>It turns out that Bash has you covered.  Since shell commands are just text,
 they can live in a file as easily as they can be typed.</p>
+
+<p>Let&rsquo;s say I&rsquo;m curious how many words I&rsquo;ve written so far in this book.  Since
+all of my chapters are in files called <code>index.md</code>, I can always do something
+like the following:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ pwd</b>
+/home/brennen/code/userland-book/programs
+</code></pre>
+
+<!-- end -->
+
+
+
+
+<!-- exec -->
+
+
+<pre><code><b>$ cd .. &amp;&amp; find . -name 'index.md' | xargs wc -w</b>
+  369 ./diff/index.md
+ 4299 ./literary_environment/index.md
+  893 ./literary_problem/index.md
+  236 ./index.md
+ 1990 ./programmerthink/index.md
+  456 ./programs/index.md
+  224 ./further_reading/index.md
+ 8467 total
+</code></pre>
+
+<!-- end -->
+
+
+<p>That&rsquo;s pretty easy to remember, but let&rsquo;s say I&rsquo;m picky and want to see it in
+the order the chapters are actually arranged.  I could pretty easily write a
+file that lists them all, one-per line:</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ cat ../chapters</b>
+./index.md
+./literary_environment/index.md
+./literary_problem/index.md
+./programmerthink/index.md
+./programs/index.md
+./diff/index.md
+./further_reading/index.md
+./links.md
+</code></pre>
+
+<!-- end -->
+
+
+<h1><a name=diff-wdiff-git href=#diff-wdiff-git>#</a> 4. diff, wdiff, git</h1>
+
+<p>If you&rsquo;re the sort of person who took a few detours into the history of
+religion in college, you might be familiar with some of the ways people used to
+do textual comparison.  When pen, paper, and typesetting were what scholars
+had to work with, they did some amazingly sophisticated things in order to
+expose the relationships between multiple pieces of text.</p>
+
+<p>{slide: some textual criticism tools}</p>
+
+<p>Here&rsquo;s a book I got in college.  <em>Gospel Parallels: A Comparison of the
+Synoptic Gospels</em>, by Burton H. Throckmorton, Jr.  It breaks up three books
+from the Bible by the stories and themes that they contain, and shows the
+overlapping sections of each book that contain parallel texts.  You can work
+your way through and see what parts only show up in one book, or in two but not
+the other, or in all three.  These kinds of tools support all sorts of
+theoretical stuff about which books copied each other and how, and what other
+sources they might have copied that we&rsquo;ve since lost.</p>
+
+<p>This is some <em>incredibly</em> dry material, even if you kind of dig thinking about
+questions like how and when an important religious book was written and
+compiled.  It takes a special temperament to actually sit poring over
+fragmentary texts in ancient languages and do these painstaking comparisons.
+Even if you&rsquo;re a writer or editor and work with a lot of revisions of a text,
+there&rsquo;s a good chance you rarely do this kind of comparison on your own work,
+because that shit is <em>tedious</em>.</p>
+
+<p>And yet it turns out that academics aren&rsquo;t the only people who need tools for
+comparing different versions of a text.  Programmers, in fact, need to do this
+<em>constantly</em>.  Programmers are also happiest when putting off the <em>actual</em> task
+at hand to solve some incidental problem that cropped up along the way, so by
+now there are a lot of ways to say &ldquo;here&rsquo;s how this file is different from this
+file&rdquo;, or &ldquo;here&rsquo;s how this file is different from itself a year ago&rdquo;.  It turns
+out that these work just about as well for English text as they do for code.</p>
+
+<p>{demo various diff tools, source control}</p>
 
 <h1><a name=further-reading href=#further-reading>#</a> further reading</h1>
 

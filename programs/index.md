@@ -37,3 +37,46 @@ string of weird characters all over again?
 
 It turns out that Bash has you covered.  Since shell commands are just text,
 they can live in a file as easily as they can be typed.
+
+Let's say I'm curious how many words I've written so far in this book.  Since
+all of my chapters are in files called `index.md`, I can always do something
+like the following:
+
+<!-- exec -->
+
+    $ pwd
+    /home/brennen/code/userland-book/programs
+
+<!-- end -->
+
+<!-- exec -->
+
+    $ cd .. && find . -name 'index.md' | xargs wc -w
+      369 ./diff/index.md
+     4299 ./literary_environment/index.md
+      893 ./literary_problem/index.md
+      236 ./index.md
+     1990 ./programmerthink/index.md
+      425 ./programs/index.md
+      224 ./further_reading/index.md
+     8436 total
+
+<!-- end -->
+
+That's pretty easy to remember, but let's say I'm picky and want to see it in
+the order the chapters are actually arranged.  I could pretty easily write a
+file that lists them all, one-per line:
+
+<!-- exec -->
+
+    $ cat ../chapters
+    ./index.md
+    ./literary_environment/index.md
+    ./literary_problem/index.md
+    ./programmerthink/index.md
+    ./programs/index.md
+    ./diff/index.md
+    ./further_reading/index.md
+    ./links.md
+
+<!-- end -->
