@@ -12,11 +12,11 @@ not a wizard, and I don't subscribe to the idea that wizardry is a requirement
 for using these tools.  In fact I barely know what I'm doing most of the time,
 but hey, I get some stuff done.
 
-My only hope herein is that I can say something useful to the many people I
-know who use computers every day, but for whom the command line environment is
-mystifying, obscure, and generally uninviting.  I intend to gloss over many
-complexities in favor of demonstrating a rough-and-ready toolset that's helped
-me immeasurably in my own work.
+My hope herein is that I can convey something useful to people I know who use
+computers every day, but for whom the command line environment is mystifying,
+obscure, and generally uninviting.  I intend to gloss over many complexities in
+favor of demonstrating a rough-and-ready toolset that's helped me immeasurably
+in my own work.
 
 -- bpb
 

@@ -24,7 +24,7 @@ while (my $source = get_input()) {
   $source =~ s{<!-- exec -->(.*?)<!-- end -->}{handle_block($1);}egs;
   chdir $cwd;
 
-  $full_source .= $source;
+  $full_source .= "\n\n----\n\n" . $source;
 
 }
 

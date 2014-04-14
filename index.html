@@ -7,6 +7,8 @@
 <body>
 
 <h1 class=bigtitle>userland</h1>
+<hr />
+
 <h1><a name=a-book-about-the-command-line-for-humans href=#a-book-about-the-command-line-for-humans>#</a> a book about the command line for humans</h1>
 
 <p>Late last year, <a href="//p1k3.com/2013/8/4">a side trip</a> into simple text utilities
@@ -20,11 +22,11 @@ not a wizard, and I don&rsquo;t subscribe to the idea that wizardry is a require
 for using these tools.  In fact I barely know what I&rsquo;m doing most of the time,
 but hey, I get some stuff done.</p>
 
-<p>My only hope herein is that I can say something useful to the many people I
-know who use computers every day, but for whom the command line environment is
-mystifying, obscure, and generally uninviting.  I intend to gloss over many
-complexities in favor of demonstrating a rough-and-ready toolset that&rsquo;s helped
-me immeasurably in my own work.</p>
+<p>My hope herein is that I can convey something useful to people I know who use
+computers every day, but for whom the command line environment is mystifying,
+obscure, and generally uninviting.  I intend to gloss over many complexities in
+favor of demonstrating a rough-and-ready toolset that&rsquo;s helped me immeasurably
+in my own work.</p>
 
 <p>&ndash; bpb</p>
 
@@ -41,8 +43,7 @@ me immeasurably in my own work.</p>
 <li><a href="#the-command-line-as-a-literary-environment">1. the command line as a literary environment</a>
 
 <ul>
-<li><a href="#terms-and-definitions">terms and definitions</a></li>
-<li><a href="#learn-you-an-editor-eventually">learn you an editor (eventually)</a></li>
+<li><a href="#terms-and-definitions-twisty-little-passages">terms and definitions / twisty little passages</a></li>
 <li><a href="#cat">cat</a></li>
 <li><a href="#wildcards">wildcards</a></li>
 <li><a href="#sort">sort</a></li>
@@ -53,12 +54,18 @@ me immeasurably in my own work.</p>
 <li><a href="#reference-tools-dict-cal">reference tools: dict, cal</a></li>
 <li><a href="#head-tail-and-cut">head, tail, and cut</a></li>
 <li><a href="#finding-text-grep">finding text: grep</a></li>
-<li><a href="#now-you-have-n-problems-regex-amp-rabbit-holes">now you have n problems: regex &amp; rabbit holes</a></li>
+<li><a href="#now-you-have-n-problems-regex-rabbit-holes">now you have n problems: regex + rabbit holes</a></li>
 </ul>
 </li>
 <li><a href="#a-literary-problem">2. a literary problem</a></li>
 <li><a href="#programmerthink">3. programmerthink</a></li>
-<li><a href="#programs-amp-programmering">programs &amp; programmering</a></li>
+<li><a href="#programs-programmering">4. programs + programmering</a>
+
+<ul>
+<li><a href="#learn-you-an-editor">learn you an editor</a></li>
+<li><a href="#scripting">scripting</a></li>
+</ul>
+</li>
 <li><a href="#diff-wdiff-git">4. diff, wdiff, git</a></li>
 <li><a href="#further-reading">further reading</a>
 
@@ -76,6 +83,8 @@ me immeasurably in my own work.</p>
 time being please feel free to use it under the terms of Creative Commons BY-SA
 (Attribution / Share-Alike), whatever the latest version is.  I promise I will
 not license it under more restrictive terms than that.</p>
+
+<hr />
 
 <h1><a name=the-command-line-as-a-literary-environment href=#the-command-line-as-a-literary-environment>#</a> 1. the command line as a literary environment</h1>
 
@@ -99,7 +108,7 @@ for working with English prose and prosody, and that maybe this will illuminate
 the ways it could be useful in your own work with a computer, whatever that
 work happens to be.</p>
 
-<h2><a name=terms-and-definitions href=#terms-and-definitions>#</a> terms and definitions</h2>
+<h2><a name=terms-and-definitions-twisty-little-passages href=#terms-and-definitions-twisty-little-passages>#</a> terms and definitions / twisty little passages</h2>
 
 <p>What software are we actually talking about when we say &ldquo;the command line&rdquo;?</p>
 
@@ -119,7 +128,7 @@ others).  Purists will tell you that this isn&rsquo;t properly Unix at all.  In
 strict historical terms they&rsquo;re right, or at least a certain kind of right, but
 for the purposes of my cultural agenda I&rsquo;m going to ignore them right now.</p>
 
-<p>{cut to actual terminal blinkety blinking on the projector}</p>
+<p>{cut to actual terminal blinkety blinking}</p>
 
 <p>This is what&rsquo;s called a shell.  There are many different shells, but they
 pretty much all operate on the same idea:  You navigate a filesystem and run
@@ -133,21 +142,54 @@ It&rsquo;s what you&rsquo;ll most often see in the wild.  Like most shells, Bash
 and stupid in more ways than it is possible to easily summarize.  It&rsquo;s also an
 incredibly powerful and expressive piece of software.</p>
 
-<p>{some sort of ADVENTURE derail here}</p>
+<p>Have you ever played a text-based adventure game or MUD, of the kind that
+describes a setting and takes commands for movement and so on?  Readers of a
+certain age and temperament might recognize the opening of Crowther &amp; Woods'
+<em>Adventure</em>, the great-granddaddy of text adventure games:</p>
 
-<p>You can think of the shell as a kind of environment you inhabit, the same way
-your character might inhabit an adventure game or a MUD.  Or as a sort of
-vehicle for getting around inside of computers.  The difference is that instead
-of navigating around virtual rooms and hallways with commands like <code>GO WEST</code>,
-you navigate between directories by typing commands like <code>cd documents</code>.</p>
+<pre><code>YOU ARE STANDING AT THE END OF A ROAD BEFORE A SMALL BRICK BUILDING.
+AROUND YOU IS A FOREST.  A SMALL STREAM FLOWS OUT OF THE BUILDING ANd
+DOWN A GULLY.
 
-<p>In the Macintosh and Windows world, directories have been called &ldquo;folders&rdquo; for
-a long time now.  This isn&rsquo;t the <em>worst</em> metaphor for what&rsquo;s really going on,
-and it&rsquo;s so pervasive by now that it&rsquo;s not worth fighting about.  It&rsquo;s also not
-exactly a <em>great</em> metaphor, since computer filesystems aren&rsquo;t structured very
-much like the filing cabinets of yore.  A directory acts a lot like a
-container, but for most purposes in the modern context it&rsquo;s an infinitely
-expandable one which may contain nested sub-spaces much larger than itself.</p>
+&gt; GO EAST
+
+YOU ARE INSIDE A BUILDING, A WELL HOUSE FOR A LARGE SPRING.
+
+THERE ARE SOME KEYS ON THE GROUND HERE.
+
+THERE IS A SHINY BRASS LAMP NEARBY.
+
+THERE IS FOOD HERE.
+
+THERE IS A BOTTLE OF WATER HERE.
+</code></pre>
+
+<p>In much the same way, you can think of the shell as a kind of environment you
+inhabit, the same way your character might inhabit an adventure game.  Or as a
+sort of vehicle for getting around inside of computers.  The difference is that
+instead of navigating around virtual rooms and hallways with commands like
+<code>LOOK</code> and <code>EAST</code>, you navigate between directories by typing commands like
+<code>ls</code> and <code>cd notes</code>:</p>
+
+<pre><code><b>$ ls</b>
+code  Downloads  notes  p1k3  photos  scraps  userland-book
+$ cd notes
+$ ls
+notes.txt  sparkfun  TODO.txt
+</code></pre>
+
+<p><code>ls</code> lists files.  Some files are directories, which means they can contain
+other files, and you can step inside of them by typing <code>cd</code> (for <strong>c</strong>hange
+<strong>d</strong>irectory).</p>
+
+<p>In the Macintosh and Windows world, directories have been called
+&ldquo;folders&rdquo; for a long time now.  This isn&rsquo;t the <em>worst</em> metaphor for what&rsquo;s
+going on, and it&rsquo;s so pervasive by now that it&rsquo;s not worth fighting about.
+It&rsquo;s also not exactly a <em>great</em> metaphor, since computer filesystems aren&rsquo;t
+built very much like the filing cabinets of yore.  A directory acts a lot like
+a container of some sort, but it&rsquo;s an infinitely expandable one which may
+contain nested sub-spaces much larger than itself.  Directories are frequently
+like the TARDIS: Bigger on the inside.</p>
 
 <p>When you&rsquo;re in the shell, you have many tools at your disposal - programs that
 can be used on many different files, or chained together with other programs.
@@ -155,30 +197,6 @@ They tend to have weird, cryptic names, but a lot of them do very simple
 things.  Tasks that might be a menu item in a big program like Word, like
 counting the number of words in a document or finding a particular phrase, are
 often programs unto themselves.</p>
-
-<h2><a name=learn-you-an-editor-eventually href=#learn-you-an-editor-eventually>#</a> learn you an editor (eventually)</h2>
-
-<p>This chapter won&rsquo;t deal with the topic much, but sooner or later you&rsquo;re going
-to want to create and change some text files, and then you will need an editor.
-My editor is where I spend most of my time that isn&rsquo;t in a web browser, because
-it&rsquo;s where I write both code and prose.  It turns out that the features which
-make a good code editor overlap a lot with the ones that make a good editor of
-English sentences.</p>
-
-<p>So what should you use?  Well, there have been other contenders in recent
-years, but in truth nothing comes close to dethroning the Great Old Ones of
-text editing.  Emacs is a creature both primal and sophisticated, like an
-avatar of some interstellar civilization that evolved long before multicellular
-life existed on earth and seeded the galaxy with incomprehensible artefacts and
-colossal engineering projects.  Vim is like a lovable chainsaw-studded robot
-with the most elegant keyboard interface in history secretly emblazoned on its
-shining diamond heart.</p>
-
-<p>It&rsquo;s worth the time it takes to learn one of the serious editors (there are few
-things in the world of technology as likely to expand your abilities), but
-there are easier places to start.  Nano is inoffensive and easy to pick up.
-Most any desktop environment provides an editor that will work well enough to
-experiment with.</p>
 
 <h2><a name=cat href=#cat>#</a> cat</h2>
 
@@ -203,9 +221,8 @@ John Brunner
 <!-- end -->
 
 
-<p>&ldquo;Why,&rdquo; you might be asking at this point, &ldquo;is the command to dump out the
-contents of a file to a screen called <code>cat</code>?  What do felines have to do with
-anything?&rdquo;</p>
+<p>&ldquo;Why,&rdquo; you might be asking, &ldquo;is the command to dump out the contents of a file
+to a screen called <code>cat</code>?  What do felines have to do with anything?&rdquo;</p>
 
 <p>It turns out that <code>cat</code> is actually short for &ldquo;concatenate&rdquo;, which is a long
 word basically meaning &ldquo;stick things together&rdquo;.  In programming, we usually
@@ -458,6 +475,32 @@ Vanessa Veselka
 <!-- end -->
 
 
+<p>What if you want to take a file, and send it directly to the input of a given
+program?</p>
+
+<!-- exec -->
+
+
+<pre><code><b>$ nl &lt; all_authors</b>
+     1  Eden Robinson
+     2  Gwendolyn L. Waring
+     3  James Tiptree, Jr.
+     4  John Brunner
+     5  John Ronald Reuel Tolkien
+     6  Jo Walton
+     7  Miriam Toews
+     8  Pat Cadigan
+     9  Ursula K. Le Guin
+    10  Vanessa Veselka
+</code></pre>
+
+<!-- end -->
+
+
+<p><code>&lt;</code> doesn&rsquo;t come up as often as <code>|</code> and <code>&gt;</code>, since most commands can work
+directly with files on their own, but it can save you typing <code>cat</code> quite as
+often.</p>
+
 <p>We&rsquo;ll use these features from here on out.</p>
 
 <h2><a name=man-pages-and-ndash-help href=#man-pages-and-ndash-help>#</a> man pages and &ndash;help</h2>
@@ -525,11 +568,8 @@ qsort (3)            - sort an array
 qsort_r (3)          - sort an array
 radixsort (3)        - radix sort
 sort (1)             - sort lines of text files
-sq (1)               - squeeze or unsqueeze a sorted word list
 sradixsort (3)       - radix sort
-texindex (1)         - sort Texinfo index files
 tsort (1)            - perform topological sort
-unsq (1)             - squeeze or unsqueeze a sorted word list
 versionsort (3)      - scan a directory for matching entries
 XConsortium (7)      - X Consortium information
 </code></pre>
@@ -818,7 +858,7 @@ words have been written on this topic by leading lights of the nerd community.</
 isn&rsquo;t very useful to us).  That&rsquo;s because all <code>grep</code> saw was the lines in the
 files, not the names of the files themselves.</p>
 
-<h2><a name=now-you-have-n-problems-regex-amp-rabbit-holes href=#now-you-have-n-problems-regex-amp-rabbit-holes>#</a> now you have n problems: regex &amp; rabbit holes</h2>
+<h2><a name=now-you-have-n-problems-regex-rabbit-holes href=#now-you-have-n-problems-regex-rabbit-holes>#</a> now you have n problems: regex + rabbit holes</h2>
 
 <p>To close out this introductory chapter, let&rsquo;s spend a little time on a topic
 that will likely vex, confound, and (occasionally) delight you for as long as
@@ -958,6 +998,8 @@ masquerading as wisdom.</p>
 <p>I&rsquo;ll be returning to this theme, but for the time being let&rsquo;s move on.  Now
 that we&rsquo;ve established, however haphazardly, some of the basics, let&rsquo;s consider
 their application to a real-world task.</p>
+
+<hr />
 
 <h1><a name=a-literary-problem href=#a-literary-problem>#</a> 2. a literary problem</h1>
 
@@ -1127,9 +1169,11 @@ first try:</p>
 
 <p>Welcome to wizard school.</p>
 
+<hr />
+
 <h1><a name=programmerthink href=#programmerthink>#</a> 3. programmerthink</h1>
 
-<p>In the <a href="../literary_problem">preceding chapter</a>, I worked through accumulating
+<p>In the <a href="#a-literary-problem">preceding chapter</a>, I worked through accumulating
 a big piece of text from some other, smaller texts.  I started with a bunch of
 files and wound up with one big file called <code>potential_poems_full</code>.</p>
 
@@ -1236,12 +1280,12 @@ I&rsquo;ve written in blog posts so far in 2014:</p>
 1
 2
 3
+4
 
 /home/brennen/p1k3/archives/2014/1:
 5
 12
 14
-15
 </code></pre>
 
 <!-- end -->
@@ -1253,18 +1297,18 @@ I&rsquo;ve written in blog posts so far in 2014:</p>
 
 
 <pre><code><b>$ find ~/p1k3/archives/2012/ -type f | xargs perl -ne 'print "$1\n" if m{&lt;h2&gt;(.*?)&lt;/h2&gt;}'</b>
-A miracle, in fact, means work
-&lt;em&gt;technical notes for late october&lt;/em&gt;, or &lt;em&gt;it gets dork out earlier these days&lt;/em&gt;
-more observations on gear nerdery &amp;amp; utility fetishism
-timebinding animals
+pursuit
 fragment
 this poem again
-pursuit
-thrift
 i'll do better next time
+timebinding animals
+more observations on gear nerdery &amp;amp; utility fetishism
+thrift
+A miracle, in fact, means work
+&lt;em&gt;technical notes for late october&lt;/em&gt;, or &lt;em&gt;it gets dork out earlier these days&lt;/em&gt;
+radio
 light enough to travel
 12:06am
-radio
 "figures like Heinlein and Gingrich"
 </code></pre>
 
@@ -1410,7 +1454,9 @@ steps to writing or finding blog entries.</p>
 Sometimes the best way to answer that question is to start writing code that
 handles a given abstraction.</p>
 
-<h1><a name=programs-amp-programmering href=#programs-amp-programmering>#</a> programs &amp; programmering</h1>
+<hr />
+
+<h1><a name=programs-programmering href=#programs-programmering>#</a> 4. programs + programmering</h1>
 
 <p>A bit ago, I said that &ldquo;the way you use the computer is often just to write
 little programs that invoke other programs&rdquo;.  In fact, we&rsquo;ve already gone over a
@@ -1436,50 +1482,65 @@ up some good examples:</p>
 <!-- end -->
 
 
-<p>None of these do all that much, but they all take input of one sort or another
-and transform it into something new by doing a series of things to it.  They&rsquo;re
-little formal sentences describing how to make one thing into another, which is
-as good a definition of programming as most.  (Though it&rsquo;s true that a lot of
-the programs we use day-to-day are more like essays or novels or interminable
+<p>None of these one-liners do all that much, but they all take input of one sort
+or another and transform it into something new by doing a series of things to
+it.  They&rsquo;re little formal sentences describing how to make one thing into
+another, which is as good a definition of programming as most.  Or at least
+this is a good way to describe programming-in-the-small.  (A lot of the
+programs we use day-to-day are more like essays, novels, or interminable
 Fantasy series where every character you like dies horribly than they are like
 individual sentences.)</p>
 
-<p>This kind of thing is all well and good when you&rsquo;re staring a terminal, trying
-to figure something out - but what about when you&rsquo;ve figured something out
-and you want to repeat it in the future without remembering and typing a giant
+<p>One-liners like these are all well and good when you&rsquo;re staring at a terminal,
+trying to figure something out - but what about when you&rsquo;ve figured it out and
+you want to repeat it in the future without remembering and typing a giant
 string of weird characters all over again?</p>
 
 <p>It turns out that Bash has you covered.  Since shell commands are just text,
-they can live in a file as easily as they can be typed.</p>
+they can live in a text file as easily as they can be typed.</p>
 
-<p>Let&rsquo;s say I&rsquo;m curious how many words I&rsquo;ve written so far in this book.  Since
-all of my chapters are in files called <code>index.md</code>, I can always do something
-like the following:</p>
+<h2><a name=learn-you-an-editor href=#learn-you-an-editor>#</a> learn you an editor</h2>
+
+<p>We&rsquo;ve skirted the topic so far, but now that we&rsquo;re talking about writing out
+text files in earnest, you&rsquo;re going to want a text editor.</p>
+
+<p>My editor is where I spend most of my time that isn&rsquo;t in a web browser, because
+it&rsquo;s where I write both code and prose.  It turns out that the features which
+make a good code editor overlap a lot with the ones that make a good editor of
+English sentences.</p>
+
+<p>So what should you use?  Well, there have been other contenders in recent
+years, but in truth nothing comes close to dethroning the Great Old Ones of
+text editing.  Emacs is a creature both primal and sophisticated, like an
+avatar of some interstellar civilization that evolved long before multicellular
+life existed on earth and seeded the galaxy with incomprehensible artefacts and
+colossal engineering projects.  Vim is like a lovable chainsaw-studded robot
+with the most elegant keyboard interface in history secretly emblazoned on its
+shining diamond heart.</p>
+
+<p>It&rsquo;s worth the time it takes to learn one of the serious editors (there are few
+things in the world of technology as likely to expand your abilities), but
+there are easier places to start.  Nano, for example, is inoffensive and easy
+to pick up, and should be available on most systems.</p>
+
+<h2><a name=scripting href=#scripting>#</a> scripting</h2>
+
+<p>So back to putting commands in text files.  Let&rsquo;s say I&rsquo;m curious how many
+words I&rsquo;ve written so far in this book.  Since all of my chapters are in files
+called <code>index.md</code>, I can always do something like the following:</p>
 
 <!-- exec -->
 
 
-<pre><code><b>$ pwd</b>
-/home/brennen/code/userland-book/programs
-</code></pre>
-
-<!-- end -->
-
-
-
-
-<!-- exec -->
-
-
-<pre><code><b>$ cd .. &amp;&amp; find . -name 'index.md' | xargs wc -w</b>
-  369 ./diff/index.md
- 4299 ./literary_environment/index.md
-  893 ./literary_problem/index.md
-  236 ./index.md
- 1990 ./programmerthink/index.md
-  456 ./programs/index.md
-  224 ./further_reading/index.md
- 8467 total
+<pre><code><b>$ find ../ -name 'index.md' | xargs wc -w</b>
+  755 ../programs/index.md
+  224 ../further_reading/index.md
+  893 ../literary_problem/index.md
+ 1990 ../programmerthink/index.md
+  369 ../diff/index.md
+ 4329 ../literary_environment/index.md
+  233 ../index.md
+ 8793 total
 </code></pre>
 
 <!-- end -->
@@ -1505,6 +1566,30 @@ file that lists them all, one-per line:</p>
 
 <!-- end -->
 
+
+<p>&hellip;and then do something like:</p>
+
+<p> <!-- exec --></p>
+
+<pre><code><b>$ cd .. &amp;&amp; xargs wc &lt; chapters</b>
+   34   233  1399 ./index.md
+  830  4329 27052 ./literary_environment/index.md
+  150   893  5692 ./literary_problem/index.md
+  264  1990 11776 ./programmerthink/index.md
+  126   755  4807 ./programs/index.md
+   37   369  2107 ./diff/index.md
+   38   224  1664 ./further_reading/index.md
+    1     2    20 ./links.md
+ 1480  8795 54517 total
+</code></pre>
+
+<!-- end -->
+
+
+<p>(The <code>&amp;&amp;</code> means that if the first command succeeded, the shell go ahead and do
+the second one.)</p>
+
+<hr />
 
 <h1><a name=diff-wdiff-git href=#diff-wdiff-git>#</a> 4. diff, wdiff, git</h1>
 
@@ -1543,6 +1628,8 @@ out that these work just about as well for English text as they do for code.</p>
 
 <p>{demo various diff tools, source control}</p>
 
+<hr />
+
 <h1><a name=further-reading href=#further-reading>#</a> further reading</h1>
 
 <p><em>The Unix Programming Environment</em> - Brian W. Kernighan, Rob Pike</p>
@@ -1580,5 +1667,7 @@ prolixity:</p>
  predictions for situations outside the realm of its intended
  use.  A model may be used as the basis for {simulation}.
 </code></pre>
+
+<hr />
 </body>
 </html>

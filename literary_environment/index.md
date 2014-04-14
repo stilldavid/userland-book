@@ -21,8 +21,8 @@ for working with English prose and prosody, and that maybe this will illuminate
 the ways it could be useful in your own work with a computer, whatever that
 work happens to be.
 
-terms and definitions
----------------------
+terms and definitions / twisty little passages
+----------------------------------------------
 
 What software are we actually talking about when we say "the command line"?
 
@@ -42,7 +42,7 @@ others).  Purists will tell you that this isn't properly Unix at all.  In
 strict historical terms they're right, or at least a certain kind of right, but
 for the purposes of my cultural agenda I'm going to ignore them right now.
 
-{cut to actual terminal blinkety blinking on the projector}
+{cut to actual terminal blinkety blinking}
 
 This is what's called a shell.  There are many different shells, but they
 pretty much all operate on the same idea:  You navigate a filesystem and run
@@ -56,21 +56,52 @@ It's what you'll most often see in the wild.  Like most shells, Bash is ugly
 and stupid in more ways than it is possible to easily summarize.  It's also an
 incredibly powerful and expressive piece of software.
 
-{some sort of ADVENTURE derail here}
+Have you ever played a text-based adventure game or MUD, of the kind that
+describes a setting and takes commands for movement and so on?  Readers of a
+certain age and temperament might recognize the opening of Crowther & Woods'
+_Adventure_, the great-granddaddy of text adventure games:
 
-You can think of the shell as a kind of environment you inhabit, the same way
-your character might inhabit an adventure game or a MUD.  Or as a sort of
-vehicle for getting around inside of computers.  The difference is that instead
-of navigating around virtual rooms and hallways with commands like `GO WEST`,
-you navigate between directories by typing commands like `cd documents`.
+    YOU ARE STANDING AT THE END OF A ROAD BEFORE A SMALL BRICK BUILDING.
+    AROUND YOU IS A FOREST.  A SMALL STREAM FLOWS OUT OF THE BUILDING ANd
+    DOWN A GULLY.
 
-In the Macintosh and Windows world, directories have been called "folders" for
-a long time now.  This isn't the _worst_ metaphor for what's really going on,
-and it's so pervasive by now that it's not worth fighting about.  It's also not
-exactly a _great_ metaphor, since computer filesystems aren't structured very
-much like the filing cabinets of yore.  A directory acts a lot like a
-container, but for most purposes in the modern context it's an infinitely
-expandable one which may contain nested sub-spaces much larger than itself.
+    > GO EAST
+
+    YOU ARE INSIDE A BUILDING, A WELL HOUSE FOR A LARGE SPRING.
+
+    THERE ARE SOME KEYS ON THE GROUND HERE.
+
+    THERE IS A SHINY BRASS LAMP NEARBY.
+
+    THERE IS FOOD HERE.
+
+    THERE IS A BOTTLE OF WATER HERE.
+
+In much the same way, you can think of the shell as a kind of environment you
+inhabit, the same way your character might inhabit an adventure game.  Or as a
+sort of vehicle for getting around inside of computers.  The difference is that
+instead of navigating around virtual rooms and hallways with commands like
+`LOOK` and `EAST`, you navigate between directories by typing commands like
+`ls` and `cd notes`:
+
+    $ ls
+    code  Downloads  notes  p1k3  photos  scraps  userland-book
+    $ cd notes
+    $ ls
+    notes.txt  sparkfun  TODO.txt
+
+`ls` lists files.  Some files are directories, which means they can contain
+other files, and you can step inside of them by typing `cd` (for **c**hange
+**d**irectory).
+
+In the Macintosh and Windows world, directories have been called
+"folders" for a long time now.  This isn't the _worst_ metaphor for what's
+going on, and it's so pervasive by now that it's not worth fighting about.
+It's also not exactly a _great_ metaphor, since computer filesystems aren't
+built very much like the filing cabinets of yore.  A directory acts a lot like
+a container of some sort, but it's an infinitely expandable one which may
+contain nested sub-spaces much larger than itself.  Directories are frequently
+like the TARDIS: Bigger on the inside.
 
 When you're in the shell, you have many tools at your disposal - programs that
 can be used on many different files, or chained together with other programs.
@@ -78,31 +109,6 @@ They tend to have weird, cryptic names, but a lot of them do very simple
 things.  Tasks that might be a menu item in a big program like Word, like
 counting the number of words in a document or finding a particular phrase, are
 often programs unto themselves.
-
-learn you an editor (eventually)
---------------------------------
-
-This chapter won't deal with the topic much, but sooner or later you're going
-to want to create and change some text files, and then you will need an editor.
-My editor is where I spend most of my time that isn't in a web browser, because
-it's where I write both code and prose.  It turns out that the features which
-make a good code editor overlap a lot with the ones that make a good editor of
-English sentences.
-
-So what should you use?  Well, there have been other contenders in recent
-years, but in truth nothing comes close to dethroning the Great Old Ones of
-text editing.  Emacs is a creature both primal and sophisticated, like an
-avatar of some interstellar civilization that evolved long before multicellular
-life existed on earth and seeded the galaxy with incomprehensible artefacts and
-colossal engineering projects.  Vim is like a lovable chainsaw-studded robot
-with the most elegant keyboard interface in history secretly emblazoned on its
-shining diamond heart.
-
-It's worth the time it takes to learn one of the serious editors (there are few
-things in the world of technology as likely to expand your abilities), but
-there are easier places to start.  Nano is inoffensive and easy to pick up.
-Most any desktop environment provides an editor that will work well enough to
-experiment with.
 
 cat
 ---
@@ -125,9 +131,8 @@ comes in:
 
 <!-- end -->
 
-"Why," you might be asking at this point, "is the command to dump out the
-contents of a file to a screen called `cat`?  What do felines have to do with
-anything?"
+"Why," you might be asking, "is the command to dump out the contents of a file
+to a screen called `cat`?  What do felines have to do with anything?"
 
 It turns out that `cat` is actually short for "concatenate", which is a long
 word basically meaning "stick things together".  In programming, we usually
@@ -355,6 +360,29 @@ Check it out:
 
 <!-- end -->
 
+What if you want to take a file, and send it directly to the input of a given
+program?
+
+<!-- exec -->
+
+    $ nl < all_authors
+         1	Eden Robinson
+         2	Gwendolyn L. Waring
+         3	James Tiptree, Jr.
+         4	John Brunner
+         5	John Ronald Reuel Tolkien
+         6	Jo Walton
+         7	Miriam Toews
+         8	Pat Cadigan
+         9	Ursula K. Le Guin
+        10	Vanessa Veselka
+
+<!-- end -->
+
+`<` doesn't come up as often as `|` and `>`, since most commands can work
+directly with files on their own, but it can save you typing `cat` quite as
+often.
+
 We'll use these features from here on out.
 
 man pages and --help
@@ -536,7 +564,8 @@ How about for September, 1950?
      3  4  5  6  7  8  9  
     10 11 12 13 14 15 16  
     17 18 19 20 21 22 23  
-    24 25 26 27 28 29 30
+    24 25 26 27 28 29 30  
+                          
 
 <!-- end -->
 
@@ -672,7 +701,7 @@ You've probably noticed that this result doesn't contain filenames (and thus
 isn't very useful to us).  That's because all `grep` saw was the lines in the
 files, not the names of the files themselves.
 
-now you have n problems: regex & rabbit holes
+now you have n problems: regex + rabbit holes
 ---------------------------------------------
 
 To close out this introductory chapter, let's spend a little time on a topic

@@ -1,7 +1,7 @@
 3. programmerthink
 ==================
 
-In the [preceding chapter](../literary_problem), I worked through accumulating
+In the [preceding chapter](#a-literary-problem), I worked through accumulating
 a big piece of text from some other, smaller texts.  I started with a bunch of
 files and wound up with one big file called `potential_poems_full`.
 
