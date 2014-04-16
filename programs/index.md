@@ -1,7 +1,7 @@
 4. programs + programmering
 ===========================
 
-A bit ago, I said that "the way you use the computer is often just to write
+Back in chapter 1, I said that "the way you use the computer is often just to write
 little programs that invoke other programs".  In fact, we've already gone over a
 bunch of these.  Grepping through the text of a previous chapter should pull
 up some good examples:
@@ -12,6 +12,7 @@ up some good examples:
         $ sort -k2 authors_* | uniq
         $ sort colors | uniq -i -c
         $ sort authors_* | uniq > all_authors
+    thing as `cat all_authors | nl`, or `nl all_authors`.  You won't see this as
         $ find ~/p1k3/archives/2010/11 -regextype egrep -regex '.*([0-9]+|index)' -type f | xargs wc -w | grep total
         $ sort authors_* | uniq | wc -l
         $ dict concatenate | head -10
@@ -32,9 +33,8 @@ Fantasy series where every character you like dies horribly than they are like
 individual sentences.)
 
 One-liners like these are all well and good when you're staring at a terminal,
-trying to figure something out - but what about when you've figured it out and
-you want to repeat it in the future without remembering and typing a giant
-string of weird characters all over again?
+trying to figure something out - but what about when you've already figured it out and
+you want to repeat it in the future?
 
 It turns out that Bash has you covered.  Since shell commands are just text,
 they can live in a text file as easily as they can be typed.
@@ -80,60 +80,21 @@ first important thing to know about any given editor.
 scripting
 ---------
 
-So back to putting commands in text files.  Let's say I'm curious how many
-words I've written so far in this book.  Since all of my chapters are in files
-called `index.md`, I can always do something like the following:
+So back to putting commands in text files.  
 
 <!-- exec -->
 
-    $ find ../ -name 'index.md' | xargs wc -w
-      852 ../programs/index.md
-      224 ../further_reading/index.md
-      893 ../literary_problem/index.md
-     1990 ../programmerthink/index.md
-      369 ../diff/index.md
-     4329 ../literary_environment/index.md
-      233 ../index.md
-     8890 total
+    $ cat lspoems
+    #!/bin/bash
+    
+    # a script to find poems marked as good
+    find ~/p1k3/archives -name 'meta-ok-poem' | xargs dirname
 
 <!-- end -->
-
-That's pretty easy to remember, but let's say I'm picky and want to see it in
-the order the chapters are actually arranged.  I could instead write a file
-that lists them all, one-per line:
 
 <!-- exec -->
 
-    $ cat ../chapters
-    ./index.md
-    ./literary_environment/index.md
-    ./literary_problem/index.md
-    ./programmerthink/index.md
-    ./programs/index.md
-    ./diff/index.md
-    ./further_reading/index.md
-    ./links.md
+    $ ./lspoems
+    /home/brennen/p1k3/archives/2013/2/9/meta-ok-poem
 
 <!-- end -->
-
-...and then do something like:
-
- <!-- exec -->
-
-    $ cd .. && xargs wc < chapters
-       34   233  1399 ./index.md
-      830  4329 27052 ./literary_environment/index.md
-      150   893  5692 ./literary_problem/index.md
-      264  1990 11776 ./programmerthink/index.md
-      139   852  5351 ./programs/index.md
-       37   369  2107 ./diff/index.md
-       38   224  1664 ./further_reading/index.md
-        1     2    20 ./links.md
-     1493  8892 55061 total
-
-<!-- end -->
-
-(The `&&` means that if the first command succeeds, the shell will go ahead
-and do the second one.  More about that in a minute.)
-
-

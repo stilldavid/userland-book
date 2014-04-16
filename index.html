@@ -88,14 +88,13 @@ not license it under more restrictive terms than that.</p>
 
 <h1><a name=the-command-line-as-a-literary-environment href=#the-command-line-as-a-literary-environment>#</a> 1. the command line as a literary environment</h1>
 
-<p>There&rsquo;re a lot of ways I could try to structure an introduction to the command
-line.  I&rsquo;m going to start with writing as a point of departure because, aside
-from web development, it&rsquo;s what I use a computer for most.  I want to shine a
-light on the humane potential of ideas that are usually understood as nerd
-trivia.  Computers have utterly transformed the practice of writing within the
-space of my lifetime, but it seems to me that writers as a class miss out on
-many of the software tools and patterns taken as a given in more &ldquo;technical&rdquo;
-fields.</p>
+<p>There&rsquo;re a lot of ways to structure an introduction to the command line.  I&rsquo;m
+going to start with writing as a point of departure because, aside from web
+development, it&rsquo;s what I use a computer for most.  I want to shine a light on
+the humane potential of ideas that are usually understood as nerd trivia.
+Computers have utterly transformed the practice of writing within the space of
+my lifetime, but it seems to me that writers as a class miss out on many of the
+software tools and patterns taken as a given in more &ldquo;technical&rdquo; fields.</p>
 
 <p>Writing, particularly writing of any real scope or complexity, is very much a
 technical task.  It makes demands, both physical and psychological, of its
@@ -1271,6 +1270,39 @@ I&rsquo;ve written in blog posts so far in 2014:</p>
 6677
 </code></pre>
 
+<p><code>xargs</code> is not the most intuitive command, but it&rsquo;s useful and common enough to
+explain here.  At the end of last chapter, when I said:</p>
+
+<pre><code><b>$ cat `grep -ril '&lt;freeverse&gt;' ~/p1k3/archives` &gt; ~/possible_poems_full</b>
+</code></pre>
+
+<p>I could also have written this as:</p>
+
+<pre><code><b>$ grep -ril '&lt;freeverse&gt;' ~/p1k3/archives | xargs cat &gt; ~/possible_poems_full</b>
+</code></pre>
+
+<p>What this does is take its input, which starts like:</p>
+
+<pre><code>/home/brennen/p1k3/archives/2002/10/16
+/home/brennen/p1k3/archives/2002/10/27
+/home/brennen/p1k3/archives/2002/10/10
+</code></pre>
+
+<p>&hellip;and run <code>cat</code> on all the things in it:</p>
+
+<pre><code>cat /home/brennen/p1k3/archives/2002/10/16 /home/brennen/p1k3/archives/2002/10/27 /home/brennen/p1k3/archives/2002/10/10 ...
+</code></pre>
+
+<p>It can be a better idea to use <code>xargs</code>, because while backticks are
+incredibly useful, they have some limitations.  If you&rsquo;re dealing with a very
+large list of files, for example, you might exceed the maximum allowed length
+for arguments to a command on your system.  <code>xargs</code> is smart enough to know
+that limit and run <code>cat</code> more than once if needed.</p>
+
+<p><code>xargs</code> is actually sort of a pain to think about, and will make you jump
+through some irritating hoops if you have spaces or other weirdness in your
+filenames, but I wind up using it quite a bit.</p>
+
 <p>Maybe I want to see a table of contents:</p>
 
 <!-- exec -->
@@ -1459,7 +1491,7 @@ handles a given abstraction.</p>
 
 <h1><a name=programs-programmering href=#programs-programmering>#</a> 4. programs + programmering</h1>
 
-<p>A bit ago, I said that &ldquo;the way you use the computer is often just to write
+<p>Back in chapter 1, I said that &ldquo;the way you use the computer is often just to write
 little programs that invoke other programs&rdquo;.  In fact, we&rsquo;ve already gone over a
 bunch of these.  Grepping through the text of a previous chapter should pull
 up some good examples:</p>
@@ -1494,9 +1526,8 @@ Fantasy series where every character you like dies horribly than they are like
 individual sentences.)</p>
 
 <p>One-liners like these are all well and good when you&rsquo;re staring at a terminal,
-trying to figure something out - but what about when you&rsquo;ve figured it out and
-you want to repeat it in the future without remembering and typing a giant
-string of weird characters all over again?</p>
+trying to figure something out - but what about when you&rsquo;ve already figured it out and
+you want to repeat it in the future?</p>
 
 <p>It turns out that Bash has you covered.  Since shell commands are just text,
 they can live in a text file as easily as they can be typed.</p>
@@ -1541,69 +1572,33 @@ first important thing to know about any given editor.</p>
 
 <h2><a name=scripting href=#scripting>#</a> scripting</h2>
 
-<p>So back to putting commands in text files.  Let&rsquo;s say I&rsquo;m curious how many
-words I&rsquo;ve written so far in this book.  Since all of my chapters are in files
-called <code>index.md</code>, I can always do something like the following:</p>
+<p>So back to putting commands in text files.</p>
 
 <!-- exec -->
 
 
-<pre><code><b>$ find ../ -name 'index.md' | xargs wc -w</b>
-  852 ../programs/index.md
-  224 ../further_reading/index.md
-  893 ../literary_problem/index.md
- 1990 ../programmerthink/index.md
-  369 ../diff/index.md
- 4346 ../literary_environment/index.md
-  233 ../index.md
- 8907 total
+<pre><code><b>$ cat lspoems</b>
+#!/bin/bash
+
+# find all the marker files and get the name of
+# the directory containing each
+find ~/p1k3/archives -name 'meta-ok-poem' | xargs dirname
 </code></pre>
 
 <!-- end -->
 
 
-<p>That&rsquo;s pretty easy to remember, but let&rsquo;s say I&rsquo;m picky and want to see it in
-the order the chapters are actually arranged.  I could instead write a file
-that lists them all, one-per line:</p>
+
 
 <!-- exec -->
 
 
-<pre><code><b>$ cat ../chapters</b>
-./index.md
-./literary_environment/index.md
-./literary_problem/index.md
-./programmerthink/index.md
-./programs/index.md
-./diff/index.md
-./further_reading/index.md
-./links.md
+<pre><code><b>$ ./lspoems</b>
+/home/brennen/p1k3/archives/2013/2/9
 </code></pre>
 
 <!-- end -->
 
-
-<p>&hellip;and then do something like:</p>
-
-<p> <!-- exec --></p>
-
-<pre><code><b>$ cd .. &amp;&amp; xargs wc &lt; chapters</b>
-   34   233  1399 ./index.md
-  831  4346 27169 ./literary_environment/index.md
-  150   893  5692 ./literary_problem/index.md
-  264  1990 11776 ./programmerthink/index.md
-  139   852  5351 ./programs/index.md
-   37   369  2107 ./diff/index.md
-   38   224  1664 ./further_reading/index.md
-    1     2    20 ./links.md
- 1494  8909 55178 total
-</code></pre>
-
-<!-- end -->
-
-
-<p>(The <code>&amp;&amp;</code> means that if the first command succeeds, the shell will go ahead
-and do the second one.  More about that in a minute.)</p>
 
 <hr />
 

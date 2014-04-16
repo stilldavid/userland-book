@@ -93,6 +93,35 @@ I've written in blog posts so far in 2014:
     $ find ~/p1k3/archives/2014/ -type f | xargs cat | wc -w
     6677
 
+`xargs` is not the most intuitive command, but it's useful and common enough to
+explain here.  At the end of last chapter, when I said:
+
+    $ cat `grep -ril '<freeverse>' ~/p1k3/archives` > ~/possible_poems_full
+
+I could also have written this as:
+
+    $ grep -ril '<freeverse>' ~/p1k3/archives | xargs cat > ~/possible_poems_full
+
+What this does is take its input, which starts like:
+
+    /home/brennen/p1k3/archives/2002/10/16
+    /home/brennen/p1k3/archives/2002/10/27
+    /home/brennen/p1k3/archives/2002/10/10
+
+...and run `cat` on all the things in it:
+
+    cat /home/brennen/p1k3/archives/2002/10/16 /home/brennen/p1k3/archives/2002/10/27 /home/brennen/p1k3/archives/2002/10/10 ...
+
+It can be a better idea to use `xargs`, because while backticks are
+incredibly useful, they have some limitations.  If you're dealing with a very
+large list of files, for example, you might exceed the maximum allowed length
+for arguments to a command on your system.  `xargs` is smart enough to know
+that limit and run `cat` more than once if needed.
+
+`xargs` is actually sort of a pain to think about, and will make you jump
+through some irritating hoops if you have spaces or other weirdness in your
+filenames, but I wind up using it quite a bit.
+
 Maybe I want to see a table of contents:
 
 <!-- exec -->
@@ -102,12 +131,12 @@ Maybe I want to see a table of contents:
     1
     2
     3
+    4
     
     /home/brennen/p1k3/archives/2014/1:
     5
     12
     14
-    15
 
 <!-- end -->
 

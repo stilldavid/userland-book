@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# find all the marker files and get the name of
+# the directory containing each
+find ~/p1k3/archives -name 'meta-ok-poem' | xargs dirname

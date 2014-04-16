@@ -1,14 +1,13 @@
 1. the command line as a literary environment
 =============================================
 
-There're a lot of ways I could try to structure an introduction to the command
-line.  I'm going to start with writing as a point of departure because, aside
-from web development, it's what I use a computer for most.  I want to shine a
-light on the humane potential of ideas that are usually understood as nerd
-trivia.  Computers have utterly transformed the practice of writing within the
-space of my lifetime, but it seems to me that writers as a class miss out on
-many of the software tools and patterns taken as a given in more "technical"
-fields.
+There're a lot of ways to structure an introduction to the command line.  I'm
+going to start with writing as a point of departure because, aside from web
+development, it's what I use a computer for most.  I want to shine a light on
+the humane potential of ideas that are usually understood as nerd trivia.
+Computers have utterly transformed the practice of writing within the space of
+my lifetime, but it seems to me that writers as a class miss out on many of the
+software tools and patterns taken as a given in more "technical" fields.
 
 Writing, particularly writing of any real scope or complexity, is very much a
 technical task.  It makes demands, both physical and psychological, of its
