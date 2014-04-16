@@ -59,10 +59,23 @@ colossal engineering projects.  Vim is like a lovable chainsaw-studded robot
 with the most elegant keyboard interface in history secretly emblazoned on its
 shining diamond heart.
 
-It's worth the time it takes to learn one of the serious editors (there are few
-things in the world of technology as likely to expand your abilities), but
-there are easier places to start.  Nano, for example, is inoffensive and easy
-to pick up, and should be available on most systems.
+It's worth the time it takes to learn one of the serious editors, but there are
+easier places to start.  Nano, for example, is easy to pick up, and should be
+available on most systems.  To start it, just say:
+
+    $ nano file
+
+You should see something like this:
+
+{nano.png}
+
+Arrow keys will move your cursor around, and typing stuff will make it appear
+in the file.  This is pretty much like every other editor you've ever used.  If
+you haven't used Nano before, that stuff along the bottom of the terminal is a
+reference to the most commonly used commands.  `^` is a convention for "Ctrl",
+so `^O` means Ctrl-o (the case of the letter doesn't actually matter), which
+will save the file you're working on.  Ctrl-x will quit, which is probably the
+first important thing to know about any given editor.
 
 scripting
 ---------
