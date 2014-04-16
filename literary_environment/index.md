@@ -193,10 +193,10 @@ lot of RSI.
 sort
 ----
 
-To get back on track, there's a problem here.  Our author list is out of order,
-and thus confusing to reference.  Fortunately, since one of the most basic
-things you can do to a list is to sort it, someone else has already solved this
-problem for us.  Here's a command that will give us some organization:
+There's a problem here.  Our author list is out of order, and thus confusing to
+reference.  Fortunately, since one of the most basic things you can do to a
+list is to sort it, someone else has already solved this problem for us.
+Here's a command that will give us some organization:
 
 <!-- exec -->
 
@@ -379,11 +379,12 @@ program?
 
 <!-- end -->
 
-`<` doesn't come up as often as `|` and `>`, since most commands can work
-directly with files on their own, but it can save you typing `cat` quite as
-often.
+`nl` is a way to **n**umber **l**ines.  This command accomplishes the same
+thing as `cat all_authors | nl`, or `nl all_authors`.  You won't see this as
+often as `|` and `>`, since most utilities can work directly with files on their
+own, but it can save you typing `cat` quite as often.
 
-We'll use these features from here on out.
+We'll use these features liberally from here on out.
 
 man pages and --help
 --------------------

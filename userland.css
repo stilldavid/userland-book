@@ -5,15 +5,17 @@ body {
   margin-left: auto;
   margin-right: auto;
   margin-top: 0em;
+  max-width: 48em;
   padding-left: 1em;
   padding-right: 1em;
-  max-width: 48em;
 }
 
 p, ul li, ol li, ul {
 }
 
-td { vertical-align: top; }
+td {
+  vertical-align: top;
+}
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "Georgia", "DejaVu Serif", "Bitstream Vera Serif", "Lucida Bright", serif;
@@ -39,11 +41,19 @@ pre {
   white-space: pre-wrap;
 }
 
+p code {
+  /* border: 1px solid gray; */
+  font-size: normal;
+  border: 1px solid #ddc;
+  border-radius: 3px;
+  padding: 2px;
+}
+
 .sidenote {
   font-size: small;
   /* margin-right: -170px; */
+  max-width: 200px;
   position: absolute;
   right: 20px;
   top: auto; /* default */
-  max-width: 200px;
 }

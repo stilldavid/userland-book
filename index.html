@@ -287,10 +287,10 @@ lot of RSI.</p>
 
 <h2><a name=sort href=#sort>#</a> sort</h2>
 
-<p>To get back on track, there&rsquo;s a problem here.  Our author list is out of order,
-and thus confusing to reference.  Fortunately, since one of the most basic
-things you can do to a list is to sort it, someone else has already solved this
-problem for us.  Here&rsquo;s a command that will give us some organization:</p>
+<p>There&rsquo;s a problem here.  Our author list is out of order, and thus confusing to
+reference.  Fortunately, since one of the most basic things you can do to a
+list is to sort it, someone else has already solved this problem for us.
+Here&rsquo;s a command that will give us some organization:</p>
 
 <!-- exec -->
 
@@ -497,11 +497,12 @@ program?</p>
 <!-- end -->
 
 
-<p><code>&lt;</code> doesn&rsquo;t come up as often as <code>|</code> and <code>&gt;</code>, since most commands can work
-directly with files on their own, but it can save you typing <code>cat</code> quite as
-often.</p>
+<p><code>nl</code> is a way to <strong>n</strong>umber <strong>l</strong>ines.  This command accomplishes the same
+thing as <code>cat all_authors | nl</code>, or <code>nl all_authors</code>.  You won&rsquo;t see this as
+often as <code>|</code> and <code>&gt;</code>, since most utilities can work directly with files on their
+own, but it can save you typing <code>cat</code> quite as often.</p>
 
-<p>We&rsquo;ll use these features from here on out.</p>
+<p>We&rsquo;ll use these features liberally from here on out.</p>
 
 <h2><a name=man-pages-and-ndash-help href=#man-pages-and-ndash-help>#</a> man pages and &ndash;help</h2>
 
@@ -1470,6 +1471,7 @@ up some good examples:</p>
     $ sort -k2 authors_* | uniq
     $ sort colors | uniq -i -c
     $ sort authors_* | uniq &gt; all_authors
+thing as `cat all_authors | nl`, or `nl all_authors`.  You won't see this as
     $ find ~/p1k3/archives/2010/11 -regextype egrep -regex '.*([0-9]+|index)' -type f | xargs wc -w | grep total
     $ sort authors_* | uniq | wc -l
     $ dict concatenate | head -10
@@ -1518,10 +1520,24 @@ colossal engineering projects.  Vim is like a lovable chainsaw-studded robot
 with the most elegant keyboard interface in history secretly emblazoned on its
 shining diamond heart.</p>
 
-<p>It&rsquo;s worth the time it takes to learn one of the serious editors (there are few
-things in the world of technology as likely to expand your abilities), but
-there are easier places to start.  Nano, for example, is inoffensive and easy
-to pick up, and should be available on most systems.</p>
+<p>It&rsquo;s worth the time it takes to learn one of the serious editors, but there are
+easier places to start.  Nano, for example, is easy to pick up, and should be
+available on most systems.  To start it, just say:</p>
+
+<pre><code><b>$ nano file</b>
+</code></pre>
+
+<p>You should see something like this:</p>
+
+<p>{nano.png}</p>
+
+<p>Arrow keys will move your cursor around, and typing stuff will make it appear
+in the file.  This is pretty much like every other editor you&rsquo;ve ever used.  If
+you haven&rsquo;t used Nano before, that stuff along the bottom of the terminal is a
+reference to the most commonly used commands.  <code>^</code> is a convention for &ldquo;Ctrl&rdquo;,
+so <code>^O</code> means Ctrl-o (the case of the letter doesn&rsquo;t actually matter), which
+will save the file you&rsquo;re working on.  Ctrl-x will quit, which is probably the
+first important thing to know about any given editor.</p>
 
 <h2><a name=scripting href=#scripting>#</a> scripting</h2>
 
@@ -1533,22 +1549,22 @@ called <code>index.md</code>, I can always do something like the following:</p>
 
 
 <pre><code><b>$ find ../ -name 'index.md' | xargs wc -w</b>
-  755 ../programs/index.md
+  852 ../programs/index.md
   224 ../further_reading/index.md
   893 ../literary_problem/index.md
  1990 ../programmerthink/index.md
   369 ../diff/index.md
- 4329 ../literary_environment/index.md
+ 4346 ../literary_environment/index.md
   233 ../index.md
- 8793 total
+ 8907 total
 </code></pre>
 
 <!-- end -->
 
 
 <p>That&rsquo;s pretty easy to remember, but let&rsquo;s say I&rsquo;m picky and want to see it in
-the order the chapters are actually arranged.  I could pretty easily write a
-file that lists them all, one-per line:</p>
+the order the chapters are actually arranged.  I could instead write a file
+that lists them all, one-per line:</p>
 
 <!-- exec -->
 
@@ -1573,21 +1589,21 @@ file that lists them all, one-per line:</p>
 
 <pre><code><b>$ cd .. &amp;&amp; xargs wc &lt; chapters</b>
    34   233  1399 ./index.md
-  830  4329 27052 ./literary_environment/index.md
+  831  4346 27169 ./literary_environment/index.md
   150   893  5692 ./literary_problem/index.md
   264  1990 11776 ./programmerthink/index.md
-  126   755  4807 ./programs/index.md
+  139   852  5351 ./programs/index.md
    37   369  2107 ./diff/index.md
    38   224  1664 ./further_reading/index.md
     1     2    20 ./links.md
- 1480  8795 54517 total
+ 1494  8909 55178 total
 </code></pre>
 
 <!-- end -->
 
 
-<p>(The <code>&amp;&amp;</code> means that if the first command succeeded, the shell go ahead and do
-the second one.)</p>
+<p>(The <code>&amp;&amp;</code> means that if the first command succeeds, the shell will go ahead
+and do the second one.  More about that in a minute.)</p>
 
 <hr />
 

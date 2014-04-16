@@ -87,20 +87,20 @@ called `index.md`, I can always do something like the following:
 <!-- exec -->
 
     $ find ../ -name 'index.md' | xargs wc -w
-      753 ../programs/index.md
+      852 ../programs/index.md
       224 ../further_reading/index.md
       893 ../literary_problem/index.md
      1990 ../programmerthink/index.md
       369 ../diff/index.md
-     4233 ../literary_environment/index.md
+     4329 ../literary_environment/index.md
       233 ../index.md
-     8695 total
+     8890 total
 
 <!-- end -->
 
 That's pretty easy to remember, but let's say I'm picky and want to see it in
-the order the chapters are actually arranged.  I could pretty easily write a
-file that lists them all, one-per line:
+the order the chapters are actually arranged.  I could instead write a file
+that lists them all, one-per line:
 
 <!-- exec -->
 
@@ -122,18 +122,18 @@ file that lists them all, one-per line:
 
     $ cd .. && xargs wc < chapters
        34   233  1399 ./index.md
-      806  4233 26453 ./literary_environment/index.md
+      830  4329 27052 ./literary_environment/index.md
       150   893  5692 ./literary_problem/index.md
       264  1990 11776 ./programmerthink/index.md
-      126   753  4797 ./programs/index.md
+      139   852  5351 ./programs/index.md
        37   369  2107 ./diff/index.md
        38   224  1664 ./further_reading/index.md
         1     2    20 ./links.md
-     1456  8697 53908 total
+     1493  8892 55061 total
 
 <!-- end -->
 
-(The `&&` means that if the first command succeeded, the shell go ahead and do
-the second one.)
+(The `&&` means that if the first command succeeds, the shell will go ahead
+and do the second one.  More about that in a minute.)
 
 
