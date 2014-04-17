@@ -2,6 +2,6 @@
 
 # find all the marker files and get the name of
 # the directory containing each
-find ~/p1k3/archives -name 'meta-ok-poem' | xargs dirname
+find ~/p1k3/archives -name 'meta-ok-poem' | xargs -n1 dirname
 
 exit 0

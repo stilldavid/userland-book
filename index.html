@@ -569,8 +569,11 @@ qsort (3)            - sort an array
 qsort_r (3)          - sort an array
 radixsort (3)        - radix sort
 sort (1)             - sort lines of text files
+sq (1)               - squeeze or unsqueeze a sorted word list
 sradixsort (3)       - radix sort
+texindex (1)         - sort Texinfo index files
 tsort (1)            - perform topological sort
+unsq (1)             - squeeze or unsqueeze a sorted word list
 versionsort (3)      - scan a directory for matching entries
 XConsortium (7)      - X Consortium information
 </code></pre>
@@ -1331,18 +1334,18 @@ filenames, but I wind up using it quite a bit.</p>
 
 
 <pre><code>$ find ~/p1k3/archives/2012/ -type f | xargs perl -ne 'print "$1\n" if m{&lt;h2&gt;(.*?)&lt;/h2&gt;}'
-pursuit
-fragment
-this poem again
-i'll do better next time
-timebinding animals
-more observations on gear nerdery &amp;amp; utility fetishism
-thrift
 A miracle, in fact, means work
 &lt;em&gt;technical notes for late october&lt;/em&gt;, or &lt;em&gt;it gets dork out earlier these days&lt;/em&gt;
-radio
+more observations on gear nerdery &amp;amp; utility fetishism
+timebinding animals
+fragment
+this poem again
+pursuit
+thrift
+i'll do better next time
 light enough to travel
 12:06am
+radio
 "figures like Heinlein and Gingrich"
 </code></pre>
 
@@ -1585,7 +1588,7 @@ first important thing to know about any given editor.</p>
 
 # find all the marker files and get the name of
 # the directory containing each
-find ~/p1k3/archives -name 'meta-ok-poem' | xargs dirname
+find ~/p1k3/archives -name 'meta-ok-poem' | xargs -n1 dirname
 
 exit 0
 </code></pre>
@@ -1599,9 +1602,8 @@ exit 0
 
 
 <pre><code>$ ./okpoems
-/home/brennen/p1k3/archives/2013/2/9
 /home/brennen/p1k3/archives/2012/3/17
-/home/brennen/p1k3/archives/2012/3/26
+/home/brennen/p1k3/archives/2012/2/9
 </code></pre>
 
 <!-- end -->
