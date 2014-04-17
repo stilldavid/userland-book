@@ -19,7 +19,10 @@ favor of demonstrating a rough-and-ready toolset that's helped me immeasurably
 in my own work.
 
 This is very much a work in progress, and some sections may be absent or
-riddled with error.
+riddled with error.  [p1k3.com/userland-book.git](//p1k3.com/userland-book.git)
+should be considered the canonical git repo, but I'm also pushing everything
+to a [GitHub mirror](https://github.com/brennen/userland-book), and welcome
+feedback there.
 
 -- bpb / [p1k3](//p1k3.com) / [@brennen](https://twitter.com/brennen)
 
