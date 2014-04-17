@@ -7,7 +7,7 @@ do textual comparison.  When pen, paper, and typesetting were what scholars
 had to work with, they did some amazingly sophisticated things in order to
 expose the relationships between multiple pieces of text.
 
-{slide: some textual criticism tools}
+{photo: some textual criticism tools}
 
 Here's a book I got in college.  _Gospel Parallels: A Comparison of the
 Synoptic Gospels_, by Burton H. Throckmorton, Jr.  It breaks up three books
@@ -34,4 +34,8 @@ now there are a lot of ways to say "here's how this file is different from this
 file", or "here's how this file is different from itself a year ago".  It turns
 out that these work just about as well for English text as they do for code.
 
-{demo various diff tools, source control}
+{discussion of various diff tools, source control - discussion of diff between
+scripts written earlier for poem tagging.  discussion of diff / wdiff between,
+maybe, various translations of poems or Bible translations or what have you.
+diff between two snapshots of a web page that's obviously undergone editing.
+who knows man, I'm just riffin' here.}

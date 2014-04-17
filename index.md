@@ -18,17 +18,20 @@ obscure, and generally uninviting.  I intend to gloss over many complexities in
 favor of demonstrating a rough-and-ready toolset that's helped me immeasurably
 in my own work.
 
--- bpb
+This is very much a work in progress, and some sections may be absent or
+riddled with error.
 
-contents
---------
+-- bpb / [p1k3](//p1k3.com) / [@brennen](https://twitter.com/brennen)
 
-{{contents}}
-
-license
+copying
 -------
 
 I may eventually just dedicate this thing to the public domain, but for the
 time being please feel free to use it under the terms of Creative Commons BY-SA
 (Attribution / Share-Alike), whatever the latest version is.  I promise I will
 not license it under more restrictive terms than that.
+
+contents
+--------
+
+{{contents}}
