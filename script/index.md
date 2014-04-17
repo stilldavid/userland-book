@@ -178,11 +178,13 @@ That doesn't mean you shouldn't _know_ about them, or that you shouldn't
 _write_ them.  I write little tiny ones all the time, and the ability to read
 other people's scripts comes in handy.  Oftentimes, the best, most tasteful way
 to automate something is to build a script out of the commonly available
-commands.  They're already there on millions of machines.  Many of them have
-been pretty well understood for a generation, and most of them will probably be
-around for a generation or three to come.  They do neat stuff.  Scripts let you
-build on the things you've already figured out on the command line, and give
-repeatable operations a memorable, user-friendly name.
+commands.  The standard tools are already there on millions of machines.  Many
+of them have been pretty well understood for a generation, and most of them
+will probably be around for a generation or three to come.  They do neat stuff.
+Scripts let you build on things you've already figured out, and give repeatable
+operations a memorable, user-friendly name.  They encourage reuse of existing
+programs, and help express your ideas in a repeatable fashion to people who'll
+come after you.
 
 One of the reliable markers of powerful software is that it can be scripted: It
 extends to its users some of the same power that its authors used in creating
