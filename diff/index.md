@@ -1,4 +1,4 @@
-4. diff, wdiff, git
+6. diff, wdiff, git
 ===================
 
 If you're the sort of person who took a few detours into the history of

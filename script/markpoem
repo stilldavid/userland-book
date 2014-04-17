@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# $1 is the first parameter to our script
+POEM=$1
+
+# Complain and exit if we weren't given a path:
+if [ ! $POEM ]
+then
+  echo 'usage: markpoem <path>'
+
+  # Confusingly, an exit status of 0 means to the shell that everything went
+  # fine, while any other number means that something went wrong.
+  exit 64
+fi
+
+if [ ! -e $POEM ]
+then
+  echo "$POEM not found"
+  exit 66
+fi
+
+echo "marking $1 an ok poem"
+
+POEM_BASENAME=$(basename $POEM)
+
+# If the target is a plain file instead of a directory, make it into
+# a directory and move the content into $POEM/index:
+if [ -f $POEM ]
+then
+  echo "making $POEM into a directory, moving content to"
+  echo "  $POEM/index"
+  TEMPFILE="/tmp/$POEM_BASENAME.$(date +%s.%N)"
+  mv $POEM $TEMPFILE
+  mkdir $POEM
+  mv $TEMPFILE $POEM/index
+fi
+
+if [ -d $POEM ]
+then
+  # touch(1) will either create the file or update its timestamp:
+  touch $POEM/meta-ok-poem
+else
+  echo "something broke - why isn't $POEM a directory?"
+  file $POEM
+fi
+
+# Signal that all is copacetic:
+echo kthxbai
+exit 0

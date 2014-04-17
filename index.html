@@ -59,14 +59,16 @@ in my own work.</p>
 </li>
 <li><a href="#a-literary-problem">2. a literary problem</a></li>
 <li><a href="#programmerthink">3. programmerthink</a></li>
-<li><a href="#programs-programmering">4. programs + programmering</a>
+<li><a href="#script">4. script</a>
 
 <ul>
 <li><a href="#learn-you-an-editor">learn you an editor</a></li>
-<li><a href="#scripting">scripting</a></li>
+<li><a href="#d-i-y-utilities">d.i.y. utilities</a></li>
+<li><a href="#a-confession">a confession</a></li>
 </ul>
 </li>
-<li><a href="#diff-wdiff-git">4. diff, wdiff, git</a></li>
+<li><a href="#general-purpose-programmering">5. general purpose programmering</a></li>
+<li><a href="#diff-wdiff-git">6. diff, wdiff, git</a></li>
 <li><a href="#further-reading">further reading</a>
 
 <ul>
@@ -170,7 +172,7 @@ instead of navigating around virtual rooms and hallways with commands like
 <code>LOOK</code> and <code>EAST</code>, you navigate between directories by typing commands like
 <code>ls</code> and <code>cd notes</code>:</p>
 
-<pre><code><b>$ ls</b>
+<pre><code>$ ls
 code  Downloads  notes  p1k3  photos  scraps  userland-book
 $ cd notes
 $ ls
@@ -207,7 +209,7 @@ comes in:</p>
 <!-- exec -->
 
 
-<pre><code><b>$ cat authors_sff</b>
+<pre><code>$ cat authors_sff
 Ursula K. Le Guin
 Jo Walton
 Pat Cadigan
@@ -234,7 +236,7 @@ simple actions.</p>
 <!-- exec -->
 
 
-<pre><code><b>$ cat authors_sff authors_contemporary_fic authors_nat_hist</b>
+<pre><code>$ cat authors_sff authors_contemporary_fic authors_nat_hist
 Ursula K. Le Guin
 Jo Walton
 Pat Cadigan
@@ -261,7 +263,7 @@ something to all three files.  Fortunately, our shell offers a shorthand for
 <!-- exec -->
 
 
-<pre><code><b>$ cat authors_*</b>
+<pre><code>$ cat authors_*
 Eden Robinson
 Vanessa Veselka
 Miriam Toews
@@ -294,7 +296,7 @@ Here&rsquo;s a command that will give us some organization:</p>
 <!-- exec -->
 
 
-<pre><code><b>$ sort authors_*</b>
+<pre><code>$ sort authors_*
 Eden Robinson
 Gwendolyn L. Waring
 James Tiptree, Jr.
@@ -318,7 +320,7 @@ key (by default, sort treats whitespace as a division between fields):</p>
 <!-- exec -->
 
 
-<pre><code><b>$ sort -k2 authors_*</b>
+<pre><code>$ sort -k2 authors_*
 John Brunner
 Pat Cadigan
 Ursula K. Le Guin
@@ -351,7 +353,7 @@ of authors.  Let&rsquo;s make sure our list doesn&rsquo;t contain repeating line
 <!-- exec -->
 
 
-<pre><code><b>$ sort -k2 authors_* | uniq</b>
+<pre><code>$ sort -k2 authors_* | uniq
 John Brunner
 Pat Cadigan
 Ursula K. Le Guin
@@ -392,7 +394,7 @@ count of how often each line occurs, for a file called colors:</p>
 <!-- exec -->
 
 
-<pre><code><b>$ cat colors</b>
+<pre><code>$ cat colors
 RED
 blue
 red
@@ -411,7 +413,7 @@ GREEN
 <!-- exec -->
 
 
-<pre><code><b>$ sort colors | uniq -i -c</b>
+<pre><code>$ sort colors | uniq -i -c
       2 blue
       3 green
       2 red
@@ -447,7 +449,7 @@ the input of another, you&rsquo;d like to just stash it in a file for later use?
 <!-- exec -->
 
 
-<pre><code><b>$ sort authors_* | uniq &gt; all_authors</b>
+<pre><code>$ sort authors_* | uniq &gt; all_authors
 </code></pre>
 
 <!-- end -->
@@ -458,7 +460,7 @@ the input of another, you&rsquo;d like to just stash it in a file for later use?
 <!-- exec -->
 
 
-<pre><code><b>$ cat all_authors</b>
+<pre><code>$ cat all_authors
 Eden Robinson
 Gwendolyn L. Waring
 James Tiptree, Jr.
@@ -480,7 +482,7 @@ program?</p>
 <!-- exec -->
 
 
-<pre><code><b>$ nl &lt; all_authors</b>
+<pre><code>$ nl &lt; all_authors
      1  Eden Robinson
      2  Gwendolyn L. Waring
      3  James Tiptree, Jr.
@@ -512,7 +514,7 @@ certain utility takes, but what if you don&rsquo;t?</p>
 <p>What you want is called a man (short for manual) page.  (It&rsquo;s sort of an
 unfortunate abbreviation.)</p>
 
-<pre><code><b>$ man sort</b>
+<pre><code>$ man sort
 
 SORT(1)                         User Commands                        SORT(1)
 
@@ -532,7 +534,7 @@ DESCRIPTION
 <p>&hellip;and so on.  You can also ask a lot of commands directly for help on how to
 use them:</p>
 
-<pre><code><b>$ uniq --help</b>
+<pre><code>$ uniq --help
 Usage: uniq [OPTION]... [INPUT [OUTPUT]]
 Filter adjacent matching lines from INPUT (or standard input),
 writing to OUTPUT (or standard output).
@@ -552,7 +554,7 @@ have]&hellip;&rdquo;</p>
 <!-- exec -->
 
 
-<pre><code><b>$ apropos sort</b>
+<pre><code>$ apropos sort
 alphasort (3)        - scan a directory for matching entries
 apt-sortpkgs (1)     - Utility to sort package index files
 bsearch (3)          - binary search of a sorted array
@@ -588,7 +590,7 @@ literary traditions, Unix is littered with this sort of convention.</p>
 <p><code>wc</code> stands for <strong>w</strong>ord <strong>c</strong>ount.  It does about what you&rsquo;d expect - it
 counts the number of words in its input.</p>
 
-<pre><code><b>$ wc index.md</b>
+<pre><code>$ wc index.md
   736  4117 24944 index.md
 </code></pre>
 
@@ -598,14 +600,14 @@ obviously, it&rsquo;s a good way to get an idea of how much you&rsquo;ve written
 the tool I used to track my progress the last time I tried National Novel
 Writing Month:</p>
 
-<pre><code><b>$ find ~/p1k3/archives/2010/11 -regextype egrep -regex '.*([0-9]+|index)' -type f | xargs wc -w | grep total</b>
+<pre><code>$ find ~/p1k3/archives/2010/11 -regextype egrep -regex '.*([0-9]+|index)' -type f | xargs wc -w | grep total
  6585 total
 </code></pre>
 
 <!-- exec -->
 
 
-<pre><code><b>$ cowsay 'embarrassing.'</b>
+<pre><code>$ cowsay 'embarrassing.'
  _______________
 &lt; embarrassing. &gt;
  ---------------
@@ -625,7 +627,7 @@ output of other commands.  Want to know <em>how many</em> unique authors we have
 <!-- exec -->
 
 
-<pre><code><b>$ sort authors_* | uniq | wc -l</b>
+<pre><code>$ sort authors_* | uniq | wc -l
 10
 </code></pre>
 
@@ -654,7 +656,7 @@ CDs.</p>
 
 <p>So.  Want to know the definition of a word, or find useful synonyms?</p>
 
-<pre><code><b>$ dict concatenate | head -10</b>
+<pre><code>$ dict concatenate | head -10
 4 definitions found
 
 From The Collaborative International Dictionary of English v.0.48 [gcide]:
@@ -669,12 +671,12 @@ From The Collaborative International Dictionary of English v.0.48 [gcide]:
 
 <p>Need to interactively spell-check your presentation notes?</p>
 
-<pre><code><b>$ aspell check presentation</b>
+<pre><code>$ aspell check presentation
 </code></pre>
 
 <p>Want to know what the calendar looks like for this month?</p>
 
-<pre><code><b>$ cal</b>
+<pre><code>$ cal
      April 2014       
 Su Mo Tu We Th Fr Sa  
        1  2  3  4  5  
@@ -689,7 +691,7 @@ Su Mo Tu We Th Fr Sa
 <!-- exec -->
 
 
-<pre><code><b>$ cal -m9 1950</b>
+<pre><code>$ cal -m9 1950
    September 1950     
 Su Mo Tu We Th Fr Sa  
                 1  2  
@@ -714,7 +716,7 @@ file:</p>
 <!-- exec -->
 
 
-<pre><code><b>$ head -3 colors</b>
+<pre><code>$ head -3 colors
 RED
 blue
 red
@@ -728,7 +730,7 @@ red
 <!-- exec -->
 
 
-<pre><code><b>$ sort colors | uniq -i | tail -1</b>
+<pre><code>$ sort colors | uniq -i | tail -1
 red
 </code></pre>
 
@@ -742,7 +744,7 @@ return only the first field for each line of its input:</p>
 <!-- exec -->
 
 
-<pre><code><b>$ cut -d' ' -f1 ./authors_*</b>
+<pre><code>$ cut -d' ' -f1 ./authors_*
 Eden
 Vanessa
 Miriam
@@ -767,7 +769,7 @@ writing in real life:</p>
 <!-- exec -->
 
 
-<pre><code><b>$ cut -d' ' -f1 ./authors_* | sort | uniq -ci | sort -n | tail -3</b>
+<pre><code>$ cut -d' ' -f1 ./authors_* | sort | uniq -ci | sort -n | tail -3
       1 Ursula
       2 John
       2 Vanessa
@@ -811,7 +813,7 @@ you could instead do:</p>
 <!-- exec -->
 
 
-<pre><code><b>$ sort -u ./authors_* | cut -d' ' -f1 | uniq -ci | sort -n | tail -3</b>
+<pre><code>$ sort -u ./authors_* | cut -d' ' -f1 | uniq -ci | sort -n | tail -3
       1 Ursula
       1 Vanessa
       2 John
@@ -828,7 +830,7 @@ an individual author appears on?</p>
 <!-- exec -->
 
 
-<pre><code><b>$ grep 'Vanessa' ./authors_*</b>
+<pre><code>$ grep 'Vanessa' ./authors_*
 ./authors_contemporary_fic:Vanessa Veselka
 ./authors_sff:Vanessa Veselka
 </code></pre>
@@ -842,7 +844,7 @@ in.   If you don&rsquo;t specify files, it&rsquo;ll look through standard input 
 <!-- exec -->
 
 
-<pre><code><b>$ cat ./authors_* | grep 'Vanessa'</b>
+<pre><code>$ cat ./authors_* | grep 'Vanessa'
 Vanessa Veselka
 Vanessa Veselka
 </code></pre>
@@ -878,7 +880,7 @@ shell to match groups of files, but with more magic.</p>
 <!-- exec -->
 
 
-<pre><code><b>$ grep 'Jo.*' ./authors_*</b>
+<pre><code>$ grep 'Jo.*' ./authors_*
 ./authors_sff:Jo Walton
 ./authors_sff:John Ronald Reuel Tolkien
 ./authors_sff:John Brunner
@@ -921,7 +923,7 @@ means that lots of characters will have special meanings.</p>
 <!-- exec -->
 
 
-<pre><code><b>$ grep -iE '^[a-z]{4} ' ./authors_*</b>
+<pre><code>$ grep -iE '^[a-z]{4} ' ./authors_*
 ./authors_contemporary_fic:Eden Robinson
 ./authors_sff:John Ronald Reuel Tolkien
 ./authors_sff:John Brunner
@@ -935,7 +937,7 @@ means that lots of characters will have special meanings.</p>
 <!-- exec -->
 
 
-<pre><code><b>$ grep -c '^John ' ./all_authors</b>
+<pre><code>$ grep -c '^John ' ./all_authors
 2
 </code></pre>
 
@@ -944,7 +946,7 @@ means that lots of characters will have special meanings.</p>
 
 <p>Lines in this file matching the words &ldquo;magic&rdquo; or &ldquo;magical&rdquo;:</p>
 
-<pre><code><b>$ grep -iE 'magic(al)?' ./index.md</b>
+<pre><code>$ grep -iE 'magic(al)?' ./index.md
 Pipes are some of the most important magic in the shell.  When the people who
 shell to match groups of files, but with more magic.
 `.` and `*` are magical.  In the particular dialect of regexen understood
@@ -959,7 +961,7 @@ Lines in this file matching the words "magic" or "magical":
 <!-- exec -->
 
 
-<pre><code><b>$ grep -iE '(m|tr|pel)agic' /usr/share/dict/words</b>
+<pre><code>$ grep -iE '(m|tr|pel)agic' /usr/share/dict/words
 magic
 magic's
 magical
@@ -1018,7 +1020,7 @@ the least-embarrassing stuff into a single collection.</p>
 <p>I&rsquo;ve hinted at how the contents of my blog are stored as files, but let&rsquo;s take
 a look at the whole thing:</p>
 
-<pre><code><b>$ ls -F ~/p1k3/archives/</b>
+<pre><code>$ ls -F ~/p1k3/archives/
 1997/  2003/  2009/  bones/     meta/
 1998/  2004/  2010/  chapbook/  winfield/
 1999/  2005/  2011/  cli/       wip/
@@ -1044,7 +1046,7 @@ March 1st:</p>
 <!-- exec -->
 
 
-<pre><code><b>$ cat ~/p1k3/archives/2014/3/1</b>
+<pre><code>$ cat ~/p1k3/archives/2014/3/1
 &lt;h1&gt;Saturday, March 1&lt;/h1&gt;
 
 &lt;markdown&gt;
@@ -1063,7 +1065,7 @@ with an actual keyboard.  It's almost certainly for the best.
 <!-- exec -->
 
 
-<pre><code><b>$ cat ~/p1k3/archives/2012/10/9</b>
+<pre><code>$ cat ~/p1k3/archives/2012/10/9
 &lt;h1&gt;tuesday, october 9&lt;/h1&gt;
 
 &lt;freeverse&gt;i am a stateful machine
@@ -1083,7 +1085,7 @@ want to do is get a list of all the entries that contain poems.</p>
 
 <p>Remember <code>grep</code>?</p>
 
-<pre><code><b>$ grep -ri '&lt;freeverse&gt;' ~/p1k3/archives &gt; ~/possible_poems</b>
+<pre><code>$ grep -ri '&lt;freeverse&gt;' ~/p1k3/archives &gt; ~/possible_poems
 </code></pre>
 
 <p>Let&rsquo;s step through this bit by bit:</p>
@@ -1117,13 +1119,13 @@ called <code>possible_poems</code> in my home directory:</p>
 
 <p>This is quite a few instances&hellip;</p>
 
-<pre><code><b>$ wc -l ~/possible_poems</b>
+<pre><code>$ wc -l ~/possible_poems
 679 /home/brennen/possible_poems
 </code></pre>
 
 <p>&hellip;and it&rsquo;s also not super-pretty to look at:</p>
 
-<pre><code><b>$ head -5 ~/possible_poems</b>
+<pre><code>$ head -5 ~/possible_poems
 /home/brennen/p1k3/archives/2011/10/14:&lt;freeverse&gt;i've got this friend has a real knack
 /home/brennen/p1k3/archives/2011/4/25:&lt;freeverse&gt;i can't claim to strive for it
 /home/brennen/p1k3/archives/2011/8/10:&lt;freeverse&gt;one diminishes or becomes greater
@@ -1140,7 +1142,7 @@ to a new file.</p>
 between hundreds of files, I&rsquo;d rather read everything in one file and just weed
 out the bad ones as I go?</p>
 
-<pre><code><b>$ cat `grep -ril '&lt;freeverse&gt;' ~/p1k3/archives` &gt; ~/possible_poems_full</b>
+<pre><code>$ cat `grep -ril '&lt;freeverse&gt;' ~/p1k3/archives` &gt; ~/possible_poems_full
 </code></pre>
 
 <p>This probably bears some explaining.  <code>grep</code> is still doing all the real work
@@ -1156,14 +1158,14 @@ command, it&rsquo;ll get executed and replaced with its result, which in turn ge
 executed as part of the larger command.  So what we&rsquo;re really saying is
 something like:</p>
 
-<pre><code><b>$ cat [all of the files in the blog directory with &lt;freeverse&gt; in them]</b>
+<pre><code>$ cat [all of the files in the blog directory with &lt;freeverse&gt; in them]
 </code></pre>
 
 <p>Did you catch that?  I just wrote a command that rewrote itself as a
 <em>different</em>, more specific command.  And it appears to have worked on the
 first try:</p>
 
-<pre><code><b>$ wc ~/possible_poems_full</b>
+<pre><code>$ wc ~/possible_poems_full
  17628  80980 528699 /home/brennen/possible_poems_full
 </code></pre>
 
@@ -1241,7 +1243,7 @@ not define a directory structure for the years and months, and then write a
 file to hold each day?  That way, all I&rsquo;d have to do is concatenate the files
 in one directory to display any given month:</p>
 
-<pre><code><b>$ cat ~/p1k3/archives/2014/1/* | head -10</b>
+<pre><code>$ cat ~/p1k3/archives/2014/1/* | head -10
 &lt;h1&gt;Sunday, January 12&lt;/h1&gt;
 
 &lt;h2&gt;the one casey is waiting for&lt;/h2&gt;
@@ -1266,19 +1268,19 @@ about my blog posts or re-combine them in certain ways, I can address my
 concerns to this model.  Maybe, for example, I want a rough idea how many words
 I&rsquo;ve written in blog posts so far in 2014:</p>
 
-<pre><code><b>$ find ~/p1k3/archives/2014/ -type f | xargs cat | wc -w</b>
+<pre><code>$ find ~/p1k3/archives/2014/ -type f | xargs cat | wc -w
 6677
 </code></pre>
 
 <p><code>xargs</code> is not the most intuitive command, but it&rsquo;s useful and common enough to
 explain here.  At the end of last chapter, when I said:</p>
 
-<pre><code><b>$ cat `grep -ril '&lt;freeverse&gt;' ~/p1k3/archives` &gt; ~/possible_poems_full</b>
+<pre><code>$ cat `grep -ril '&lt;freeverse&gt;' ~/p1k3/archives` &gt; ~/possible_poems_full
 </code></pre>
 
 <p>I could also have written this as:</p>
 
-<pre><code><b>$ grep -ril '&lt;freeverse&gt;' ~/p1k3/archives | xargs cat &gt; ~/possible_poems_full</b>
+<pre><code>$ grep -ril '&lt;freeverse&gt;' ~/p1k3/archives | xargs cat &gt; ~/possible_poems_full
 </code></pre>
 
 <p>What this does is take its input, which starts like:</p>
@@ -1308,7 +1310,7 @@ filenames, but I wind up using it quite a bit.</p>
 <!-- exec -->
 
 
-<pre><code><b>$ find ~/p1k3/archives/2014/ -type d | xargs ls -v | head -10</b>
+<pre><code>$ find ~/p1k3/archives/2014/ -type d | xargs ls -v | head -10
 /home/brennen/p1k3/archives/2014/:
 1
 2
@@ -1329,7 +1331,7 @@ filenames, but I wind up using it quite a bit.</p>
 <!-- exec -->
 
 
-<pre><code><b>$ find ~/p1k3/archives/2012/ -type f | xargs perl -ne 'print "$1\n" if m{&lt;h2&gt;(.*?)&lt;/h2&gt;}'</b>
+<pre><code>$ find ~/p1k3/archives/2012/ -type f | xargs perl -ne 'print "$1\n" if m{&lt;h2&gt;(.*?)&lt;/h2&gt;}'
 pursuit
 fragment
 this poem again
@@ -1420,7 +1422,7 @@ eventually arrived at this:</p>
 neither my blog code nor web browsers nor my text editor have to know anything
 about the format, but I can easily find files with certain values.  Check it:</p>
 
-<pre><code><b>$ find ~/p1k3/archives -type f | xargs perl -ne 'print "$ARGV[0]: $1 -&gt; $2\n" if m{&lt;!-- ([a-z]+): (.*?) --&gt;};'</b>
+<pre><code>$ find ~/p1k3/archives -type f | xargs perl -ne 'print "$ARGV[0]: $1 -&gt; $2\n" if m{&lt;!-- ([a-z]+): (.*?) --&gt;};'
 /home/brennen/p1k3/archives/2014/2/9: collection -&gt; ok-poems
 </code></pre>
 
@@ -1432,7 +1434,7 @@ look at, but it&rsquo;s simple and searchable.</p>
 directory that can contain some structured metadata in a separate file.
 Imagine something like:</p>
 
-<pre><code><b>$ ls ~/p1k3/archives/2013/2/9</b>
+<pre><code>$ ls ~/p1k3/archives/2013/2/9
 index  Meta
 </code></pre>
 
@@ -1442,7 +1444,7 @@ something like <code>index.html</code>.  As it happens, my blog software already
 this kind of file layout for entries which contain multiple parts, image files,
 and so forth.</p>
 
-<pre><code><b>$ head ~/p1k3/archives/2013/2/9/index</b>
+<pre><code>$ head ~/p1k3/archives/2013/2/9/index
 &lt;h1&gt;saturday, february 9&lt;/h1&gt;
 
 &lt;freeverse&gt;
@@ -1463,7 +1465,7 @@ collection: ok-poems
 <p>What if I put metadata right in the filename itself, and dispense with the grep
 altogether?</p>
 
-<pre><code><b>$ ls ~/p1k3/archives/2013/2/9</b>
+<pre><code>$ ls ~/p1k3/archives/2013/2/9
 index  meta-ok-poem
 
 $ find ~/p1k3/archives -name 'meta-ok-poem'
@@ -1489,7 +1491,7 @@ handles a given abstraction.</p>
 
 <hr />
 
-<h1><a name=programs-programmering href=#programs-programmering>#</a> 4. programs + programmering</h1>
+<h1><a name=script href=#script>#</a> 4. script</h1>
 
 <p>Back in chapter 1, I said that &ldquo;the way you use the computer is often just to write
 little programs that invoke other programs&rdquo;.  In fact, we&rsquo;ve already gone over a
@@ -1499,7 +1501,7 @@ up some good examples:</p>
 <!-- exec -->
 
 
-<pre><code><b>$ grep -E '[a-z]+.*\| ' ../literary_environment/index.md</b>
+<pre><code>$ grep -E '[a-z]+.*\| ' ../literary_environment/index.md
     $ sort -k2 authors_* | uniq
     $ sort colors | uniq -i -c
     $ sort authors_* | uniq &gt; all_authors
@@ -1555,7 +1557,7 @@ shining diamond heart.</p>
 easier places to start.  Nano, for example, is easy to pick up, and should be
 available on most systems.  To start it, just say:</p>
 
-<pre><code><b>$ nano file</b>
+<pre><code>$ nano file
 </code></pre>
 
 <p>You should see something like this:</p>
@@ -1570,19 +1572,23 @@ so <code>^O</code> means Ctrl-o (the case of the letter doesn&rsquo;t actually m
 will save the file you&rsquo;re working on.  Ctrl-x will quit, which is probably the
 first important thing to know about any given editor.</p>
 
-<h2><a name=scripting href=#scripting>#</a> scripting</h2>
+<h2><a name=d-i-y-utilities href=#d-i-y-utilities>#</a> d.i.y. utilities</h2>
 
 <p>So back to putting commands in text files.</p>
+
+<p>{much verbiage about scripts to come}</p>
 
 <!-- exec -->
 
 
-<pre><code><b>$ cat lspoems</b>
+<pre><code>$ cat okpoems
 #!/bin/bash
 
 # find all the marker files and get the name of
 # the directory containing each
 find ~/p1k3/archives -name 'meta-ok-poem' | xargs dirname
+
+exit 0
 </code></pre>
 
 <!-- end -->
@@ -1593,16 +1599,120 @@ find ~/p1k3/archives -name 'meta-ok-poem' | xargs dirname
 <!-- exec -->
 
 
-<pre><code><b>$ ./lspoems</b>
+<pre><code>$ ./okpoems
 /home/brennen/p1k3/archives/2013/2/9
+/home/brennen/p1k3/archives/2012/3/17
+/home/brennen/p1k3/archives/2012/3/26
 </code></pre>
 
 <!-- end -->
 
 
+
+
+<!-- exec -->
+
+
+<pre><code>$ cat markpoem
+#!/bin/bash
+
+# $1 is the first parameter to our script
+POEM=$1
+
+# Complain and exit if we weren't given a path:
+if [ ! $POEM ]
+then
+  echo 'usage: markpoem &lt;path&gt;'
+
+  # Confusingly, an exit status of 0 means to the shell that everything went
+  # fine, while any other number means that something went wrong.
+  exit 64
+fi
+
+if [ ! -e $POEM ]
+then
+  echo "$POEM not found"
+  exit 66
+fi
+
+echo "marking $1 an ok poem"
+
+POEM_BASENAME=$(basename $POEM)
+
+# If the target is a plain file instead of a directory, make it into
+# a directory and move the content into $POEM/index:
+if [ -f $POEM ]
+then
+  echo "making $POEM into a directory, moving content to"
+  echo "  $POEM/index"
+  TEMPFILE="/tmp/$POEM_BASENAME.$(date +%s.%N)"
+  mv $POEM $TEMPFILE
+  mkdir $POEM
+  mv $TEMPFILE $POEM/index
+fi
+
+if [ -d $POEM ]
+then
+  # touch(1) will either create the file or update its timestamp:
+  touch $POEM/meta-ok-poem
+else
+  echo "something broke - why isn't $POEM a directory?"
+  file $POEM
+fi
+
+# Signal that all is copacetic:
+echo kthxbai
+exit 0
+</code></pre>
+
+<!-- end -->
+
+
+<p>These are imperfect, but they were quick to write, they&rsquo;re made out of standard
+commands, and I don&rsquo;t yet hate myself for them.  These are all signs that I&rsquo;m
+not totally on the wrong track with the <code>meta-ok-poem</code> abstraction, and could
+build it into my ongoing writing project.  These scripts would also be easy to
+hook into with custom keybindings in my editor.  With a few more lines of code,
+I can build a system to wade through the list of candidate files one at a time
+and mark the interesting ones.</p>
+
+<h2><a name=a-confession href=#a-confession>#</a> a confession</h2>
+
+<p>I kind of hate shell scripts, and I think it&rsquo;s ok if you hate them too.</p>
+
+<p>That doesn&rsquo;t mean you shouldn&rsquo;t <em>know</em> about them, or that you shouldn&rsquo;t
+<em>write</em> them.  I write little tiny ones all the time, and the ability to read
+other people&rsquo;s scripts comes in handy.  Oftentimes, the best, most tasteful way
+to automate something is to build a script out of the commonly available
+commands.  They&rsquo;re already there on millions of machines.  Many of them have
+been pretty well understood for a generation, and most of them will probably be
+around for a generation or three to come.  They do neat stuff.  Scripts let you
+build on the things you&rsquo;ve already figured out on the command line, and give
+repeatable operations a memorable, user-friendly name.</p>
+
+<p>One of the reliable markers of powerful software is that it can be scripted: It
+extends to its users some of the same power that its authors used in creating
+it.  Scriptable software is to some extent <em>living</em> software.  It&rsquo;s a book that
+you, the reader, get to help write.</p>
+
+<p>In all these ways, shell scripts are wonderful, and a little bit magical, and
+actually, quietly indispensable to the machinery of modern civilization.</p>
+
+<p>Unfortunately, in all the ways that a shell like Bash itself is ugly, finicky,
+and covered in 40 years of weird, incidental cruft, long-form Bash scripts are
+even worse.  Bash is a useful glue language, particularly for things composed
+in the flow of work on the command line.  Syntactic and conceptual innovations
+like pipes are beautiful and necessary.  What Bash is <em>not</em>, despite its power,
+is a very good general purpose programming language.  It turns out those are
+really nice to have at your disposal.</p>
+
 <hr />
 
-<h1><a name=diff-wdiff-git href=#diff-wdiff-git>#</a> 4. diff, wdiff, git</h1>
+<h1><a name=general-purpose-programmering href=#general-purpose-programmering>#</a> 5. general purpose programmering</h1>
+
+<hr />
+
+<h1><a name=diff-wdiff-git href=#diff-wdiff-git>#</a> 6. diff, wdiff, git</h1>
 
 <p>If you&rsquo;re the sort of person who took a few detours into the history of
 religion in college, you might be familiar with some of the ways people used to

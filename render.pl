@@ -59,7 +59,8 @@ sub handle_block {
 sub replace_some_stuff {
   my ($markup) = @_;
 
-  $markup =~ s{<code>(\$ .*?)$}{<code><b>$1</b>}gm;
+  # bold first "$ command" string in a code block
+  # $markup =~ s{<code>(\$ .*?)$}{<code><b>$1</b>}gm;
 
   my @contents;
 
