@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [[ ! $1 ]]
+then
+  echo "usage: findmeta <property>"
+  exit
+fi
+
+# find all the marker files and get the name of
+# the directory containing each
+find ~/p1k3/archives -name $1 | xargs -n1 dirname
+
+exit 0
