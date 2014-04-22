@@ -77,10 +77,14 @@ not license it under more restrictive terms than that.</p>
 <ul>
 <li><a href="#learn-you-an-editor">learn you an editor</a></li>
 <li><a href="#d-i-y-utilities">d.i.y. utilities</a></li>
-<li><a href="#a-confession">a confession</a></li>
 </ul>
 </li>
-<li><a href="#general-purpose-programmering">5. general purpose programmering</a></li>
+<li><a href="#general-purpose-programmering">5. general purpose programmering</a>
+
+<ul>
+<li><a href="#fear-and-loathing">fear and loathing</a></li>
+</ul>
+</li>
 <li><a href="#diff-wdiff-git">6. diff, wdiff, git</a></li>
 <li><a href="#further-reading">7. further reading</a></li>
 <li><a href="#notes">notes</a></li>
@@ -572,11 +576,8 @@ qsort (3)            - sort an array
 qsort_r (3)          - sort an array
 radixsort (3)        - radix sort
 sort (1)             - sort lines of text files
-sq (1)               - squeeze or unsqueeze a sorted word list
 sradixsort (3)       - radix sort
-texindex (1)         - sort Texinfo index files
 tsort (1)            - perform topological sort
-unsq (1)             - squeeze or unsqueeze a sorted word list
 versionsort (3)      - scan a directory for matching entries
 XConsortium (7)      - X Consortium information
 </code></pre>
@@ -1337,18 +1338,18 @@ filenames, but I wind up using it quite a bit.</p>
 
 
 <pre><code>$ find ~/p1k3/archives/2012/ -type f | xargs perl -ne 'print "$1\n" if m{&lt;h2&gt;(.*?)&lt;/h2&gt;}'
-A miracle, in fact, means work
-&lt;em&gt;technical notes for late october&lt;/em&gt;, or &lt;em&gt;it gets dork out earlier these days&lt;/em&gt;
-more observations on gear nerdery &amp;amp; utility fetishism
-timebinding animals
+pursuit
 fragment
 this poem again
-pursuit
-thrift
 i'll do better next time
+timebinding animals
+more observations on gear nerdery &amp;amp; utility fetishism
+thrift
+A miracle, in fact, means work
+&lt;em&gt;technical notes for late october&lt;/em&gt;, or &lt;em&gt;it gets dork out earlier these days&lt;/em&gt;
+radio
 light enough to travel
 12:06am
-radio
 "figures like Heinlein and Gingrich"
 </code></pre>
 
@@ -1605,8 +1606,9 @@ exit 0
 
 
 <pre><code>$ ./okpoems
+/home/brennen/p1k3/archives/2013/2/9
 /home/brennen/p1k3/archives/2012/3/17
-/home/brennen/p1k3/archives/2012/2/9
+/home/brennen/p1k3/archives/2012/3/26
 </code></pre>
 
 <!-- end -->
@@ -1680,21 +1682,138 @@ hook into with custom keybindings in my editor.  With a few more lines of code,
 I can build a system to wade through the list of candidate files one at a time
 and mark the interesting ones.</p>
 
-<h2><a name=a-confession href=#a-confession>#</a> a confession</h2>
+<p>So what&rsquo;s lacking?  Well, probably a bunch of things, feature-wise.  I can
+imagine writing a script to unmark a poem, for example.  That said, there&rsquo;s one
+really glaring problem.  &ldquo;Ok poem&rdquo; is only one kind of property a blog entry
+might possess.  Suppose I wanted a way to express that a poem is terrible?</p>
 
-<p>I kind of hate shell scripts, and I think it&rsquo;s ok if you hate them too.</p>
+<p>It turns out I already know how to add properties to an entry.  If I generalize
+a little, the tools become much more flexible.</p>
+
+<!-- exec -->
+
+
+<pre><code>$ ./addprop /home/brennen/p1k3/archives/2012/3/26 meta-terrible-poem
+marking /home/brennen/p1k3/archives/2012/3/26 with meta-terrible-poem
+kthxbai
+</code></pre>
+
+<!-- end -->
+
+
+
+
+<!-- exec -->
+
+
+<pre><code>$ ./findprop meta-terrible-poem
+/home/brennen/p1k3/archives/2012/3/26
+</code></pre>
+
+<!-- end -->
+
+
+<p><code>addprop</code> is only a little different from <code>markpoem</code>.  It takes two parameters
+instead of one - the target entry and the property to add.</p>
+
+<!-- exec -->
+
+
+<pre><code>$ cat addprop
+#!/bin/bash
+
+ENTRY=$1
+PROPERTY=$2
+
+# Complain and exit if we weren't given a path and a property:
+if [[ ! $ENTRY || ! $PROPERTY ]]
+then
+  echo "usage: addprop &lt;path&gt; &lt;property&gt;"
+  exit 64
+fi
+
+if [ ! -e $ENTRY ]
+then
+  echo "$ENTRY not found"
+  exit 66
+fi
+
+echo "marking $ENTRY with $PROPERTY"
+
+# If the target is a plain file instead of a directory, make it into
+# a directory and move the content into $ENTRY/index:
+if [ -f $ENTRY ]
+then
+  echo "making $ENTRY into a directory, moving content to"
+  echo "  $ENTRY/index"
+
+  # Get a safe temporary file:
+  TEMPFILE=`mktemp`
+
+  mv $ENTRY $TEMPFILE
+  mkdir $ENTRY
+  mv $TEMPFILE $ENTRY/index
+fi
+
+if [ -d $ENTRY ]
+then
+  touch $ENTRY/$PROPERTY
+else
+  echo "something broke - why isn't $ENTRY a directory?"
+  file $ENTRY
+fi
+
+echo kthxbai
+exit 0
+</code></pre>
+
+<!-- end -->
+
+
+<p>Meanwhile, <code>findprop</code> is more or less <code>okpoems</code>, but with a parameter for the
+property to find:</p>
+
+<!-- exec -->
+
+
+<pre><code>$ cat findprop
+#!/bin/bash
+
+if [ ! $1 ]
+then
+  echo "usage: findprop &lt;property&gt;"
+  exit
+fi
+
+# find all the marker files and get the name of
+# the directory containing each
+find ~/p1k3/archives -name $1 | xargs -n1 dirname
+
+exit 0
+</code></pre>
+
+<!-- end -->
+
+
+<hr />
+
+<h1><a name=general-purpose-programmering href=#general-purpose-programmering>#</a> 5. general purpose programmering</h1>
+
+<h2><a name=fear-and-loathing href=#fear-and-loathing>#</a> fear and loathing</h2>
+
+<p>Let me begin this chapter with a confession:  I kind of hate shell scripts, and
+I think it&rsquo;s ok if you hate them too.</p>
 
 <p>That doesn&rsquo;t mean you shouldn&rsquo;t <em>know</em> about them, or that you shouldn&rsquo;t
-<em>write</em> them.  I write little tiny ones all the time, and the ability to read
-other people&rsquo;s scripts comes in handy.  Oftentimes, the best, most tasteful way
-to automate something is to build a script out of the commonly available
-commands.  The standard tools are already there on millions of machines.  Many
-of them have been pretty well understood for a generation, and most of them
-will probably be around for a generation or three to come.  They do neat stuff.
-Scripts let you build on things you&rsquo;ve already figured out, and give repeatable
-operations a memorable, user-friendly name.  They encourage reuse of existing
-programs, and help express your ideas in a repeatable fashion to people who&rsquo;ll
-come after you.</p>
+<em>write</em> them.  I write little tiny ones all the time, and the ability to puzzle
+through other people&rsquo;s scripts comes in handy.  Oftentimes, the best, most
+tasteful way to automate something is to build a script out of the commonly
+available commands.  The standard tools are already there on millions of
+machines.  Many of them have been pretty well understood for a generation, and
+most will probably be around for a generation or three to come.  They do neat
+stuff.  Scripts let you build on things you&rsquo;ve already figured out, and give
+repeatable operations a memorable, user-friendly name.  They encourage reuse of
+existing programs, and help express your ideas to people who&rsquo;ll come after you.</p>
 
 <p>One of the reliable markers of powerful software is that it can be scripted: It
 extends to its users some of the same power that its authors used in creating
@@ -1704,17 +1823,17 @@ you, the reader, get to help write.</p>
 <p>In all these ways, shell scripts are wonderful, and a little bit magical, and
 actually, quietly indispensable to the machinery of modern civilization.</p>
 
-<p>Unfortunately, in all the ways that a shell like Bash itself is ugly, finicky,
-and covered in 40 years of weird, incidental cruft, long-form Bash scripts are
-even worse.  Bash is a useful glue language, particularly for things composed
-in the flow of work on the command line.  Syntactic and conceptual innovations
-like pipes are beautiful and necessary.  What Bash is <em>not</em>, despite its power,
-is a very good general purpose programming language.  It turns out those are
-really nice to have at your disposal.</p>
+<p>Unfortunately, in all the ways that a shell like Bash is weird, finicky, and
+covered in 40 years of incidental cruft, long-form Bash scripts are even worse.
+Bash is a useful glue language, particularly if you&rsquo;re already comfortable
+wiring commands together.  Syntactic and conceptual innovations like pipes are
+beautiful and necessary.  What Bash is <em>not</em>, despite its power, is a very good
+general purpose programming language.  It turns out those are really nice to
+have at your disposal.</p>
 
-<hr />
-
-<h1><a name=general-purpose-programmering href=#general-purpose-programmering>#</a> 5. general purpose programmering</h1>
+<p>Maybe you already know a general-purpose programming language.  A lot of the
+people I imagine reading this are already comfortable in C, PHP, Python, Ruby,
+or JavaScript.</p>
 
 <hr />
 

@@ -91,7 +91,7 @@ So back to putting commands in text files.
     
     # find all the marker files and get the name of
     # the directory containing each
-    find ~/p1k3/archives -name 'meta-ok-poem' | xargs dirname
+    find ~/p1k3/archives -name 'meta-ok-poem' | xargs -n1 dirname
     
     exit 0
 
@@ -169,35 +169,103 @@ hook into with custom keybindings in my editor.  With a few more lines of code,
 I can build a system to wade through the list of candidate files one at a time
 and mark the interesting ones.
 
-a confession
-------------
+So what's lacking?  Well, probably a bunch of things, feature-wise.  I can
+imagine writing a script to unmark a poem, for example.  That said, there's one
+really glaring problem.  "Ok poem" is only one kind of property a blog entry
+might possess.  Suppose I wanted a way to express that a poem is terrible?
 
-I kind of hate shell scripts, and I think it's ok if you hate them too.
+It turns out I already know how to add properties to an entry.  If I generalize
+a little, the tools become much more flexible.
 
-That doesn't mean you shouldn't _know_ about them, or that you shouldn't
-_write_ them.  I write little tiny ones all the time, and the ability to read
-other people's scripts comes in handy.  Oftentimes, the best, most tasteful way
-to automate something is to build a script out of the commonly available
-commands.  The standard tools are already there on millions of machines.  Many
-of them have been pretty well understood for a generation, and most of them
-will probably be around for a generation or three to come.  They do neat stuff.
-Scripts let you build on things you've already figured out, and give repeatable
-operations a memorable, user-friendly name.  They encourage reuse of existing
-programs, and help express your ideas in a repeatable fashion to people who'll
-come after you.
+<!-- exec -->
 
-One of the reliable markers of powerful software is that it can be scripted: It
-extends to its users some of the same power that its authors used in creating
-it.  Scriptable software is to some extent _living_ software.  It's a book that
-you, the reader, get to help write.
+    $ ./addprop /home/brennen/p1k3/archives/2012/3/26 meta-terrible-poem
+    marking /home/brennen/p1k3/archives/2012/3/26 with meta-terrible-poem
+    kthxbai
 
-In all these ways, shell scripts are wonderful, and a little bit magical, and
-actually, quietly indispensable to the machinery of modern civilization.
+<!-- end -->
 
-Unfortunately, in all the ways that a shell like Bash itself is ugly, finicky,
-and covered in 40 years of weird, incidental cruft, long-form Bash scripts are
-even worse.  Bash is a useful glue language, particularly for things composed
-in the flow of work on the command line.  Syntactic and conceptual innovations
-like pipes are beautiful and necessary.  What Bash is _not_, despite its power,
-is a very good general purpose programming language.  It turns out those are
-really nice to have at your disposal.
+<!-- exec -->
+
+    $ ./findprop meta-terrible-poem
+    /home/brennen/p1k3/archives/2012/3/26
+
+<!-- end -->
+
+`addprop` is only a little different from `markpoem`.  It takes two parameters
+instead of one - the target entry and the property to add.  
+
+<!-- exec -->
+
+    $ cat addprop
+    #!/bin/bash
+    
+    ENTRY=$1
+    PROPERTY=$2
+    
+    # Complain and exit if we weren't given a path and a property:
+    if [[ ! $ENTRY || ! $PROPERTY ]]
+    then
+      echo "usage: addprop <path> <property>"
+      exit 64
+    fi
+    
+    if [ ! -e $ENTRY ]
+    then
+      echo "$ENTRY not found"
+      exit 66
+    fi
+    
+    echo "marking $ENTRY with $PROPERTY"
+    
+    # If the target is a plain file instead of a directory, make it into
+    # a directory and move the content into $ENTRY/index:
+    if [ -f $ENTRY ]
+    then
+      echo "making $ENTRY into a directory, moving content to"
+      echo "  $ENTRY/index"
+    
+      # Get a safe temporary file:
+      TEMPFILE=`mktemp`
+    
+      mv $ENTRY $TEMPFILE
+      mkdir $ENTRY
+      mv $TEMPFILE $ENTRY/index
+    fi
+    
+    if [ -d $ENTRY ]
+    then
+      touch $ENTRY/$PROPERTY
+    else
+      echo "something broke - why isn't $ENTRY a directory?"
+      file $ENTRY
+    fi
+    
+    echo kthxbai
+    exit 0
+
+<!-- end -->
+
+Meanwhile, `findprop` is more or less `okpoems`, but with a parameter for the
+property to find:
+
+<!-- exec -->
+
+    $ cat findprop
+    #!/bin/bash
+    
+    if [ ! $1 ]
+    then
+      echo "usage: findprop <property>"
+      exit
+    fi
+    
+    # find all the marker files and get the name of
+    # the directory containing each
+    find ~/p1k3/archives -name $1 | xargs -n1 dirname
+    
+    exit 0
+
+<!-- end -->
+
+
