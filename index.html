@@ -79,12 +79,7 @@ not license it under more restrictive terms than that.</p>
 <li><a href="#d-i-y-utilities">d.i.y. utilities</a></li>
 </ul>
 </li>
-<li><a href="#general-purpose-programmering">5. general purpose programmering</a>
-
-<ul>
-<li><a href="#fear-and-loathing">fear and loathing</a></li>
-</ul>
-</li>
+<li><a href="#general-purpose-programmering">5. general purpose programmering</a></li>
 <li><a href="#diff-wdiff-git">6. diff, wdiff, git</a></li>
 <li><a href="#further-reading">7. further reading</a></li>
 <li><a href="#notes">notes</a></li>
@@ -1787,7 +1782,7 @@ exit 0
 <!-- end -->
 
 
-<p>These scripts aren&rsquo;t much more complicated than their more specific
+<p>These scripts aren&rsquo;t much more complicated than their poem-specific
 counterparts, but now they can be used to solve problems I haven&rsquo;t even thought
 of yet, and included in other scripts that need their functionality.</p>
 
@@ -1795,19 +1790,89 @@ of yet, and included in other scripts that need their functionality.</p>
 
 <h1><a name=general-purpose-programmering href=#general-purpose-programmering>#</a> 5. general purpose programmering</h1>
 
-<h2><a name=fear-and-loathing href=#fear-and-loathing>#</a> fear and loathing</h2>
+<p>I didn&rsquo;t set out to write a book about programming, <em>as such</em>, but because
+programming and the command line are so inextricably linked, this text
+draws near the subject almost of its own accord.</p>
 
-<p>Let me begin this chapter with a confession:  I kind of hate shell scripts, and
-I think it&rsquo;s ok if you hate them too.</p>
+<p>If you&rsquo;re not terribly interested in programming, this chapter can easily
+enough be skipped.</p>
+
+<p style="text-align:center;"> *</p>
+
+<p>As I&rsquo;ve said (and hopefully shown), the commands you write in your shell
+are essentially little programs.  Like other programs, they can be stored
+for later use and recombined with other commands, creating new uses for
+your ideas.</p>
+
+<p>It would be hard to say that there&rsquo;s any <em>one</em> reason command line environments
+remain so vital after decades of evolution and hard-won refinement in computer
+interfaces, but I&rsquo;d suggest that this combinatory nature is somewhere near the
+heart of it.  The command line often lacks the polish of other interfaces we
+depend on, but in exchange it offers a richness and freedom of expression
+rarely seen elsewhere, and invites its users to build upon its basic
+facilities.</p>
+
+<p>What is it that makes last chapter&rsquo;s <code>addprop</code> preferable to the more specific
+<code>markpoem</code>?  Let&rsquo;s look at an alternative implementation of <code>markpoem</code>:</p>
+
+<!-- exec -->
+
+
+<pre><code>$ cat simple_markpoem
+#!/bin/bash
+
+addprop $1 meta-ok-poem
+</code></pre>
+
+<!-- end -->
+
+
+<p>Is this script trivial?  Absolutely.  It&rsquo;s so trivial that it barely seems to
+exist, because I already wrote <code>addprop</code> to do all the heavy lifting and play
+well with others, freeing us to imagine new uses for its central idea without
+worrying about the implementation details.</p>
+
+<p>Unlike <code>markpoem</code>, <code>addprop</code> doesn&rsquo;t know anything about poetry.  All it knows
+about in fact, is putting a file (or three) in a particular place.  And this is
+in keeping with a basic insight of Unix:  Pieces of software that do one very
+simple thing generalize well.  Good command line tools are like a hex wrench,
+a hammer, a utility knife:  They embody knowledge of turning, of striking, of
+cutting &ndash; and with this kind of knowledge at hand, the user can change the
+world even though no individual tool is made with complete knowledge of the
+world as a whole.  There&rsquo;s a lot of power in the accumulation of small
+competencies.</p>
+
+<p>Of course, if your code is only good at one thing, to be of any use, it has to
+talk to code that&rsquo;s good at other things.  There&rsquo;s another basic insight in the
+Unix tradition:  Tools should be composable.  All those little programs have to
+share some assumptions, have to speak some kind of trade language, in order to
+combine usefully.  Which is a lot of how we&rsquo;ve arrived at standard IO,
+pipelines, filesystems, and text as as a lowest-common-denominator medium of
+exchange.  If you think about a lot of these things, they have some seriously
+rough edges, but they give otherwise simple tools ways to communicate without
+being super-complicated.</p>
+
+<p style="text-align:center;"> *</p>
+
+<p>What is the command line?</p>
+
+<p>The command line is an environment of tool use.</p>
+
+<p>So are kitchens, woodshops, libraries, and programming languages.</p>
+
+<p style="text-align:center;"> *</p>
+
+<p>Here&rsquo;s a confession:  I don&rsquo;t like writing shell scripts very much, and I
+can&rsquo;t blame anyone else for feeling the same way.</p>
 
 <p>That doesn&rsquo;t mean you shouldn&rsquo;t <em>know</em> about them, or that you shouldn&rsquo;t
-<em>write</em> them.  I write little tiny ones all the time, and the ability to puzzle
+<em>write</em> them.  I write little ones all the time, and the ability to puzzle
 through other people&rsquo;s scripts comes in handy.  Oftentimes, the best, most
 tasteful way to automate something is to build a script out of the commonly
 available commands.  The standard tools are already there on millions of
 machines.  Many of them have been pretty well understood for a generation, and
 most will probably be around for a generation or three to come.  They do neat
-stuff.  Scripts let you build on things you&rsquo;ve already figured out, and give
+stuff.  Scripts let you build on ideas you&rsquo;ve already worked out, and give
 repeatable operations a memorable, user-friendly name.  They encourage reuse of
 existing programs, and help express your ideas to people who&rsquo;ll come after you.</p>
 
@@ -1824,13 +1889,15 @@ covered in 40 years of incidental cruft, long-form Bash scripts are even worse.
 Bash is a useful glue language, particularly if you&rsquo;re already comfortable
 wiring commands together.  Syntactic and conceptual innovations like pipes are
 beautiful and necessary.  What Bash is <em>not</em>, despite its power, is a very good
-general purpose programming language.</p>
+general purpose programming language.  It&rsquo;s just not especially good at things
+like math, or complex data structures, or not looking like a punctuation-heavy
+variety of alphabet soup.</p>
 
 <p>It turns out that there&rsquo;s a threshold of complexity beyond which life is easier
 if you switch from shell scripting to a more robust language.  Just where this
 threshold is located varies a lot between users and problems, but I often start
-thinking about switching languages before a shell script gets bigger than I can
-view on my screen all at once.  How long is last chapter&rsquo;s <code>addprop</code>?</p>
+thinking about switching languages before a script gets bigger than I can view
+on my screen all at once.  <code>addprop</code> is a good example:</p>
 
 <!-- exec -->
 
@@ -1842,8 +1909,9 @@ view on my screen all at once.  How long is last chapter&rsquo;s <code>addprop</
 <!-- end -->
 
 
-<p>If I were going to add much in the way of features, I&rsquo;d think pretty hard about
-porting it to another language.</p>
+<p>41 lines is a touch over what fits on one screen in the editor I usually use.
+If I were going to add much in the way of features, I&rsquo;d think pretty hard about
+porting it to another language first.</p>
 
 <hr />
 
