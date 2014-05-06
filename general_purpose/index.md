@@ -58,7 +58,7 @@ combine usefully.  Which is a lot of how we've arrived at standard IO,
 pipelines, filesystems, and text as as a lowest-common-denominator medium of
 exchange.  If you think about a lot of these things, they have some seriously
 rough edges, but they give otherwise simple tools ways to communicate without
-being super-complicated.
+becoming super-complicated along the way.
 
 -> * <-
 
