@@ -268,4 +268,6 @@ property to find:
 
 <!-- end -->
 
-
+These scripts aren't much more complicated than their poem-specific
+counterparts, but now they can be used to solve problems I haven't even thought
+of yet, and included in other scripts that need their functionality.

@@ -4,14 +4,12 @@ ENTRY=$1
 PROPERTY=$2
 
 # Complain and exit if we weren't given a path and a property:
-if [[ ! $ENTRY || ! $PROPERTY ]]
-then
+if [[ ! $ENTRY || ! $PROPERTY ]]; then
   echo "usage: addprop <path> <property>"
   exit 64
 fi
 
-if [ ! -e $ENTRY ]
-then
+if [ ! -e $ENTRY ]; then
   echo "$ENTRY not found"
   exit 66
 fi
@@ -20,8 +18,7 @@ echo "marking $ENTRY with $PROPERTY"
 
 # If the target is a plain file instead of a directory, make it into
 # a directory and move the content into $ENTRY/index:
-if [ -f $ENTRY ]
-then
+if [ -f $ENTRY ]; then
   echo "making $ENTRY into a directory, moving content to"
   echo "  $ENTRY/index"
 
@@ -33,8 +30,7 @@ then
   mv $TEMPFILE $ENTRY/index
 fi
 
-if [ -d $ENTRY ]
-then
+if [ -d $ENTRY ]; then
   touch $ENTRY/$PROPERTY
 else
   echo "something broke - why isn't $ENTRY a directory?"

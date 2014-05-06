@@ -1626,8 +1626,7 @@ exit 0
 POEM=$1
 
 # Complain and exit if we weren't given a path:
-if [ ! $POEM ]
-then
+if [ ! $POEM ]; then
   echo 'usage: markpoem &lt;path&gt;'
 
   # Confusingly, an exit status of 0 means to the shell that everything went
@@ -1635,20 +1634,18 @@ then
   exit 64
 fi
 
-if [ ! -e $POEM ]
-then
+if [ ! -e $POEM ]; then
   echo "$POEM not found"
   exit 66
 fi
 
-echo "marking $1 an ok poem"
+echo "marking $POEM an ok poem"
 
 POEM_BASENAME=$(basename $POEM)
 
 # If the target is a plain file instead of a directory, make it into
 # a directory and move the content into $POEM/index:
-if [ -f $POEM ]
-then
+if [ -f $POEM ]; then
   echo "making $POEM into a directory, moving content to"
   echo "  $POEM/index"
   TEMPFILE="/tmp/$POEM_BASENAME.$(date +%s.%N)"
@@ -1657,8 +1654,7 @@ then
   mv $TEMPFILE $POEM/index
 fi
 
-if [ -d $POEM ]
-then
+if [ -d $POEM ]; then
   # touch(1) will either create the file or update its timestamp:
   touch $POEM/meta-ok-poem
 else
@@ -1726,14 +1722,12 @@ ENTRY=$1
 PROPERTY=$2
 
 # Complain and exit if we weren't given a path and a property:
-if [[ ! $ENTRY || ! $PROPERTY ]]
-then
+if [[ ! $ENTRY || ! $PROPERTY ]]; then
   echo "usage: addprop &lt;path&gt; &lt;property&gt;"
   exit 64
 fi
 
-if [ ! -e $ENTRY ]
-then
+if [ ! -e $ENTRY ]; then
   echo "$ENTRY not found"
   exit 66
 fi
@@ -1742,8 +1736,7 @@ echo "marking $ENTRY with $PROPERTY"
 
 # If the target is a plain file instead of a directory, make it into
 # a directory and move the content into $ENTRY/index:
-if [ -f $ENTRY ]
-then
+if [ -f $ENTRY ]; then
   echo "making $ENTRY into a directory, moving content to"
   echo "  $ENTRY/index"
 
@@ -1755,8 +1748,7 @@ then
   mv $TEMPFILE $ENTRY/index
 fi
 
-if [ -d $ENTRY ]
-then
+if [ -d $ENTRY ]; then
   touch $ENTRY/$PROPERTY
 else
   echo "something broke - why isn't $ENTRY a directory?"
@@ -1795,6 +1787,10 @@ exit 0
 <!-- end -->
 
 
+<p>These scripts aren&rsquo;t much more complicated than their more specific
+counterparts, but now they can be used to solve problems I haven&rsquo;t even thought
+of yet, and included in other scripts that need their functionality.</p>
+
 <hr />
 
 <h1><a name=general-purpose-programmering href=#general-purpose-programmering>#</a> 5. general purpose programmering</h1>
@@ -1820,20 +1816,34 @@ extends to its users some of the same power that its authors used in creating
 it.  Scriptable software is to some extent <em>living</em> software.  It&rsquo;s a book that
 you, the reader, get to help write.</p>
 
-<p>In all these ways, shell scripts are wonderful, and a little bit magical, and
-actually, quietly indispensable to the machinery of modern civilization.</p>
+<p>In all these ways, shell scripts are wonderful, a little bit magical, and
+quietly indispensable to the machinery of modern civilization.</p>
 
 <p>Unfortunately, in all the ways that a shell like Bash is weird, finicky, and
 covered in 40 years of incidental cruft, long-form Bash scripts are even worse.
 Bash is a useful glue language, particularly if you&rsquo;re already comfortable
 wiring commands together.  Syntactic and conceptual innovations like pipes are
 beautiful and necessary.  What Bash is <em>not</em>, despite its power, is a very good
-general purpose programming language.  It turns out those are really nice to
-have at your disposal.</p>
+general purpose programming language.</p>
 
-<p>Maybe you already know a general-purpose programming language.  A lot of the
-people I imagine reading this are already comfortable in C, PHP, Python, Ruby,
-or JavaScript.</p>
+<p>It turns out that there&rsquo;s a threshold of complexity beyond which life is easier
+if you switch from shell scripting to a more robust language.  Just where this
+threshold is located varies a lot between users and problems, but I often start
+thinking about switching languages before a shell script gets bigger than I can
+view on my screen all at once.  How long is last chapter&rsquo;s <code>addprop</code>?</p>
+
+<!-- exec -->
+
+
+<pre><code>$ wc -l ../script/addprop
+41 ../script/addprop
+</code></pre>
+
+<!-- end -->
+
+
+<p>If I were going to add much in the way of features, I&rsquo;d think pretty hard about
+porting it to another language.</p>
 
 <hr />
 
