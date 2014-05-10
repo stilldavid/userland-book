@@ -66,7 +66,7 @@ What is the command line?
 
 The command line is an environment of tool use.
 
-So are kitchens, woodshops, libraries, and programming languages.
+So are kitchens, workshops, libraries, and programming languages.
 
 -> * <-
 
@@ -101,11 +101,11 @@ general purpose programming language.  It's just not especially good at things
 like math, or complex data structures, or not looking like a punctuation-heavy
 variety of alphabet soup.
 
-It turns out that there's a threshold of complexity beyond which life is easier
-if you switch from shell scripting to a more robust language.  Just where this
-threshold is located varies a lot between users and problems, but I often start
-thinking about switching languages before a script gets bigger than I can view
-on my screen all at once.  `addprop` is a good example:
+It turns out that there's a threshold of complexity beyond which life becomes
+easier if you switch from shell scripting to a more robust language.  Just
+where this threshold is located varies a lot between users and problems, but I
+often start thinking about switching languages before a script gets bigger than
+I can view on my screen all at once.  `addprop` is a good example:
 
 <!-- exec -->
 
