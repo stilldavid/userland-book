@@ -10,6 +10,11 @@ body {
   padding-right: 1em;
 }
 
+hr {
+  margin-bottom: 2em;
+  margin-top: 2em;
+}
+
 p, ul li, ol li, ul {
 }
 
@@ -35,6 +40,8 @@ a {
 
 pre {
   background-color: #ddc;
+  margin-top: 2em;
+  margin-bottom: 2em;
   margin-left: 2em;
   max-width: 56em;
   padding: 1em;
