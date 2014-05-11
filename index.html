@@ -51,7 +51,7 @@ not license it under more restrictive terms than that.</p>
 <li><a href="#contents">contents</a></li>
 </ul>
 </li>
-<li><a href="#the-command-line-as-a-literary-environment">1. the command line as a literary environment</a>
+<li><a href="#the-command-line-as-literary-environment">1. the command line as literary environment</a>
 
 <ul>
 <li><a href="#terms-and-definitions-twisty-little-passages">terms and definitions / twisty little passages</a></li>
@@ -80,7 +80,12 @@ not license it under more restrictive terms than that.</p>
 </ul>
 </li>
 <li><a href="#general-purpose-programmering">5. general purpose programmering</a></li>
-<li><a href="#diff-wdiff-git">6. diff, wdiff, git</a></li>
+<li><a href="#one-of-these-things-is-not-like-the-others">6. one of these things is not like the others</a>
+
+<ul>
+<li><a href="#diff">diff</a></li>
+</ul>
+</li>
 <li><a href="#further-reading">7. further reading</a></li>
 <li><a href="#notes">notes</a></li>
 </ul>
@@ -89,7 +94,7 @@ not license it under more restrictive terms than that.</p>
 
 <hr />
 
-<h1><a name=the-command-line-as-a-literary-environment href=#the-command-line-as-a-literary-environment>#</a> 1. the command line as a literary environment</h1>
+<h1><a name=the-command-line-as-literary-environment href=#the-command-line-as-literary-environment>#</a> 1. the command line as literary environment</h1>
 
 <p>There&rsquo;re a lot of ways to structure an introduction to the command line.  I&rsquo;m
 going to start with writing as a point of departure because, aside from web
@@ -2003,17 +2008,17 @@ got Shakespeare and Montaigne.</p>
 
 <hr />
 
-<h1><a name=diff-wdiff-git href=#diff-wdiff-git>#</a> 6. diff, wdiff, git</h1>
+<h1><a name=one-of-these-things-is-not-like-the-others href=#one-of-these-things-is-not-like-the-others>#</a> 6. one of these things is not like the others</h1>
 
 <p>If you&rsquo;re the sort of person who took a few detours into the history of
 religion in college, you might be familiar with some of the ways people used to
-do textual comparison.  When pen, paper, and typesetting were what scholars
-had to work with, they did some amazingly sophisticated things in order to
+do textual comparison.  When pen, paper, and typesetting were what scholars had
+to work with, they did some surprisingly sophisticated things in order to
 expose the relationships between multiple pieces of text.</p>
 
 <p>{photo: some textual criticism tools}</p>
 
-<p>Here&rsquo;s a book I got in college.  <em>Gospel Parallels: A Comparison of the
+<p>Here&rsquo;s a book I got in college:  <em>Gospel Parallels: A Comparison of the
 Synoptic Gospels</em>, by Burton H. Throckmorton, Jr.  It breaks up three books
 from the Bible by the stories and themes that they contain, and shows the
 overlapping sections of each book that contain parallel texts.  You can work
@@ -2030,19 +2035,194 @@ Even if you&rsquo;re a writer or editor and work with a lot of revisions of a te
 there&rsquo;s a good chance you rarely do this kind of comparison on your own work,
 because that shit is <em>tedious</em>.</p>
 
-<p>And yet it turns out that academics aren&rsquo;t the only people who need tools for
-comparing different versions of a text.  Programmers, in fact, need to do this
+<h2><a name=diff href=#diff>#</a> diff</h2>
+
+<p>It turns out that academics aren&rsquo;t the only people who need tools for comparing
+different versions of a text.  Working programmers, in fact, need to do this
 <em>constantly</em>.  Programmers are also happiest when putting off the <em>actual</em> task
 at hand to solve some incidental problem that cropped up along the way, so by
 now there are a lot of ways to say &ldquo;here&rsquo;s how this file is different from this
-file&rdquo;, or &ldquo;here&rsquo;s how this file is different from itself a year ago&rdquo;.  It turns
-out that these work just about as well for English text as they do for code.</p>
+file&rdquo;, or &ldquo;here&rsquo;s how this file is different from itself a year ago&rdquo;.</p>
 
-<p>{discussion of various diff tools, source control - discussion of diff between
-scripts written earlier for poem tagging.  discussion of diff / wdiff between,
-maybe, various translations of poems or Bible translations or what have you.
-diff between two snapshots of a web page that&rsquo;s obviously undergone editing.
-who knows man, I&rsquo;m just riffin' here.}</p>
+<p>Let&rsquo;s look at a couple of shell scripts from an earlier chapter:</p>
+
+<!-- exec -->
+
+
+<pre><code>$ cat ../script/okpoems
+#!/bin/bash
+
+# find all the marker files and get the name of
+# the directory containing each
+find ~/p1k3/archives -name 'meta-ok-poem' | xargs -n1 dirname
+
+exit 0
+</code></pre>
+
+<!-- end -->
+
+
+
+
+<!-- exec -->
+
+
+<pre><code>$ cat ../script/findprop
+#!/bin/bash
+
+if [ ! $1 ]
+then
+  echo "usage: findprop &lt;property&gt;"
+  exit
+fi
+
+# find all the marker files and get the name of
+# the directory containing each
+find ~/p1k3/archives -name $1 | xargs -n1 dirname
+
+exit 0
+</code></pre>
+
+<!-- end -->
+
+
+<p>It&rsquo;s pretty obvious these are similar files, but do we know what <em>exactly</em>
+changed between them at a glance?  It wouldn&rsquo;t be hard to figure out, once.  If
+you wanted to be really certain about it, you could print them out, set them
+side by side, and go over them with a highlighter.</p>
+
+<p>Now imagine doing that for a bunch of files, some of them hundreds or even
+thousands of lines long.  I&rsquo;ve actually done that before, but I didn&rsquo;t feel
+smart while I was doing it.  This is a job for software.</p>
+
+<!-- exec -->
+
+
+<pre><code>$ diff ../script/okpoems ../script/findprop
+2a3,8
+&gt; if [ ! $1 ]
+&gt; then
+&gt;   echo "usage: findprop &lt;property&gt;"
+&gt;   exit
+&gt; fi
+&gt; 
+5c11
+&lt; find ~/p1k3/archives -name 'meta-ok-poem' | xargs -n1 dirname
+---
+&gt; find ~/p1k3/archives -name $1 | xargs -n1 dirname
+</code></pre>
+
+<!-- end -->
+
+
+<p>That&rsquo;s not the most human-friendly output, but it&rsquo;s a little simpler than it
+seems at first glance.  It&rsquo;s basically just a way of describing the changes
+needed to turn <code>okpoems</code> into <code>findprop</code>.  The string <code>2a3,8</code> can be read as
+&ldquo;at line 2, add lines 3 through 8&rdquo;.  Lines with a <code>&gt;</code> in front of them are
+added.  <code>5c11</code> can be read as &ldquo;line 5 in the original file becomes line 11 in
+the new file&rdquo;, and the <code>&lt;</code> line is replaced with the <code>&gt;</code> line.  If you wanted,
+you could take a copy of the original file and apply these instructions by hand
+in your text editor, and you&rsquo;d wind up with the new file.</p>
+
+<p>A lot of people (me included) prefer what&rsquo;s known as a &ldquo;unified&rdquo; diff, because
+it&rsquo;s easier to read and offers context for the changed lines.  We can ask for
+one of these with <code>diff -u</code>:</p>
+
+<!-- exec -->
+
+
+<pre><code>$ diff -u ../script/okpoems ../script/findprop
+--- ../script/okpoems   2014-04-19 00:08:03.321230818 -0600
++++ ../script/findprop  2014-04-21 21:51:29.360846449 -0600
+@@ -1,7 +1,13 @@
+ #!/bin/bash
+
++if [ ! $1 ]
++then
++  echo "usage: findprop &lt;property&gt;"
++  exit
++fi
++
+ # find all the marker files and get the name of
+ # the directory containing each
+-find ~/p1k3/archives -name 'meta-ok-poem' | xargs -n1 dirname
++find ~/p1k3/archives -name $1 | xargs -n1 dirname
+
+ exit 0
+</code></pre>
+
+<!-- end -->
+
+
+<p>That&rsquo;s a little longer, and has some metadata we might not always care about,
+but if you look for lines starting with <code>+</code> and <code>-</code>, it&rsquo;s easy to read as
+&ldquo;added these, took away these&rdquo;.  This diff tells us at a glance that we added
+some lines to complain if we didn&rsquo;t get a command line argument, and replaced
+<code>'meta-ok-poem'</code> in the <code>find</code> command with that argument.  Since it shows us
+some context, we have a pretty good idea where those lines are in the file
+and what they&rsquo;re for.</p>
+
+<p>What if we don&rsquo;t care exactly <em>how</em> the files differ, but only whether they
+do?</p>
+
+<!-- exec -->
+
+
+<pre><code>$ diff -q ../script/okpoems ../script/findprop
+Files ../script/okpoems and ../script/findprop differ
+</code></pre>
+
+<!-- end -->
+
+
+<p>I use <code>diff</code> a lot in the course of my day job, because I spend a lot of time
+needing to know just how two programs differ.  Just as importantly, I often
+need to know how (or whether!) the <em>output</em> of programs differs.  As a concrete
+example, I want to make sure that <code>findprop meta-ok-poem</code> is really a suitable
+replacement for <code>okpoems</code>.  Since I expect their output to be identical, I can
+do this:</p>
+
+<!-- exec -->
+
+
+<pre><code>$ ../script/okpoems &gt; okpoem_output
+</code></pre>
+
+<!-- end -->
+
+
+
+
+<!-- exec -->
+
+
+<pre><code>$ ../script/findprop meta-ok-poem &gt; findprop_output
+</code></pre>
+
+<!-- end -->
+
+
+
+
+<!-- exec -->
+
+
+<pre><code>$ diff -s okpoem_output findprop_output
+Files okpoem_output and findprop_output are identical
+</code></pre>
+
+<!-- end -->
+
+
+<p>The <code>-s</code> just means that <code>diff</code> should explicitly tell us if files are the
+<strong>s</strong>ame.  Otherwise, it&rsquo;d output nothing at all, because there aren&rsquo;t any
+differences.</p>
+
+<p>What&rsquo;s worth noticing about this is that <code>diff</code> doesn&rsquo;t really care whether
+it&rsquo;s looking at shell scripts or a list of filenames or what-have-you.  Its
+specialty is text files with lines made out of characters, which works well for
+lots of programming languages and suchlike things, but could just as easily be
+applied to an English text.</p>
 
 <hr />
 

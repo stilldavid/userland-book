@@ -1,5 +1,5 @@
-1. the command line as a literary environment
-=============================================
+1. the command line as literary environment
+===========================================
 
 There're a lot of ways to structure an introduction to the command line.  I'm
 going to start with writing as a point of departure because, aside from web
