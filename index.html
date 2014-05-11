@@ -11,35 +11,33 @@
 
 <h1><a name=a-book-about-the-command-line-for-humans href=#a-book-about-the-command-line-for-humans>#</a> a book about the command line for humans</h1>
 
-<p>Late last year, <a href="//p1k3.com/2013/8/4">a side trip</a> into simple text utilities
-got me thinking about how many of my writing habits depend on the Linux command
-line.  This struck me as a decent hook for talking about the tools I use every
-day with an audience of mixed technical background.</p>
+<p>Late last year, <a href="//p1k3.com/2013/8/4">a side trip</a> into text utilities got me
+thinking about how much my writing habits depend on the Linux command line.
+This struck me as a good hook for talking about the tools I use every day
+with an audience of mixed technical background.</p>
 
 <p>So now I&rsquo;m writing a (short, haphazard) book.  This isn&rsquo;t a book about system
 administration, or writing big software systems, or becoming a wizard.  I am
 not a wizard, and I don&rsquo;t subscribe to the idea that wizardry is a requirement
 for using these tools.  In fact I barely know what I&rsquo;m doing most of the time,
-but hey, I get some stuff done.</p>
+but I still get some stuff done.</p>
 
-<p>My hope herein is that I can convey something useful to people I know who use
-computers every day, but for whom the command line environment is mystifying,
-obscure, and generally uninviting.  I intend to gloss over many complexities in
-favor of demonstrating a rough-and-ready toolset that&rsquo;s helped me immeasurably
-in my own work.</p>
+<p>My hope herein is to convey something useful to people who use computers every
+day, but for whom the command line environment seems mystifying, obscure, or
+generally uninviting.  I intend to gloss over many complexities in favor of
+demonstrating a rough-and-ready toolset.</p>
 
-<p>This is very much a work in progress, and some sections may be absent or
-riddled with error.  <a href="//p1k3.com/userland-book.git">p1k3.com/userland-book.git</a>
-should be considered the canonical git repo, but I&rsquo;m also pushing everything
-to a <a href="https://github.com/brennen/userland-book">GitHub mirror</a>, and welcome
-feedback there.</p>
+<p>This is a work in progress, and some sections may be unfinished or riddled with
+error.  <a href="//p1k3.com/userland-book.git">p1k3.com/userland-book.git</a> should be
+considered the canonical git repo, but I&rsquo;m pushing everything to a <a href="https://github.com/brennen/userland-book">GitHub
+mirror</a>, and welcome feedback there.</p>
 
 <p>&ndash; bpb / <a href="//p1k3.com">p1k3</a> / <a href="https://twitter.com/brennen">@brennen</a></p>
 
 <h2><a name=copying href=#copying>#</a> copying</h2>
 
-<p>I may eventually just dedicate this thing to the public domain, but for the
-time being please feel free to use it under the terms of Creative Commons BY-SA
+<p>I may eventually dedicate this thing to the public domain, but for the time
+being please feel free to use it under the terms of Creative Commons BY-SA
 (Attribution / Share-Alike), whatever the latest version is.  I promise I will
 not license it under more restrictive terms than that.</p>
 
@@ -1522,13 +1520,12 @@ thing as `cat all_authors | nl`, or `nl all_authors`.  You won't see this as
 
 
 <p>None of these one-liners do all that much, but they all take input of one sort
-or another and transform it into something new by doing a series of things to
-it.  They&rsquo;re little formal sentences describing how to make one thing into
-another, which is as good a definition of programming as most.  Or at least
-this is a good way to describe programming-in-the-small.  (A lot of the
-programs we use day-to-day are more like essays, novels, or interminable
-Fantasy series where every character you like dies horribly than they are like
-individual sentences.)</p>
+or another and apply one or more transformations to it.  They&rsquo;re little formal
+sentences describing how to make one thing into another, which is as good a
+definition of programming as most.  Or at least this is a good way to describe
+programming-in-the-small.  (A lot of the programs we use day-to-day are more
+like essays, novels, or interminable Fantasy series where every character you
+like dies horribly than they are like individual sentences.)</p>
 
 <p>One-liners like these are all well and good when you&rsquo;re staring at a terminal,
 trying to figure something out - but what about when you&rsquo;ve already figured it out and
@@ -1577,7 +1574,8 @@ first important thing to know about any given editor.</p>
 
 <h2><a name=d-i-y-utilities href=#d-i-y-utilities>#</a> d.i.y. utilities</h2>
 
-<p>So back to putting commands in text files.  Here&rsquo;s a file I just created:</p>
+<p>So back to putting commands in text files.  Here&rsquo;s a file I just created in
+my editor:</p>
 
 <!-- exec -->
 
@@ -1607,9 +1605,9 @@ interpret the contents of the file.  <code>/bin/bash</code> is the path on the f
 where Bash itself lives.  You might see this referred to as a shebang or a hash
 bang.</p>
 
-<p>Lines that start with a <code>#</code> are comments.  The <code>exit 0</code> tells Bash that the
-currently running script should exit with a status of 0, which basically means
-&ldquo;nothing went wrong&rdquo;.</p>
+<p>Lines that start with a <code>#</code> are comments, used to describe the code to a human
+reader.  The <code>exit 0</code> tells Bash that the currently running script should exit
+with a status of 0, which basically means &ldquo;nothing went wrong&rdquo;.</p>
 
 <p>If you examine the directory listing for <code>okpoems</code>, you&rsquo;ll see something
 important:</p>
@@ -1708,10 +1706,10 @@ exit 0
 <p>Both of these scripts are imperfect, but they were quick to write, they&rsquo;re made
 out of standard commands, and I don&rsquo;t yet hate myself for them:  All signs that
 I&rsquo;m not totally on the wrong track with the <code>meta-ok-poem</code> abstraction, and
-could build it into my ongoing writing project.  <code>okpoems</code> and <code>markpoem</code> would
-also be easy to hook into with custom keybindings in my editor.  With a few
-more lines of code, I can build a system to wade through the list of candidate
-files and quickly mark the interesting ones.</p>
+could live with it as part of an ongoing writing project.  <code>okpoems</code> and
+<code>markpoem</code> would also be easy to use with custom keybindings in my editor.  In
+a few more lines of code, I can build a system to wade through the list of
+candidate files and quickly mark the interesting ones.</p>
 
 <h2><a name=generality href=#generality>#</a> generality</h2>
 
@@ -1843,6 +1841,30 @@ background in writing code.</p>
 
 <p style="text-align:center;"> *</p>
 
+<p>If you&rsquo;ve used computers for more than a few years, you&rsquo;re probably viscerally
+aware that most software is fragile and most systems decay.  In the time since
+I took my first tentative steps into the little world of a computer (a friend&rsquo;s
+dad&rsquo;s unidentifiable gaming machine, my own father&rsquo;s blue monochrome Zenith
+laptop, the Apple II) the churn has been overwhelming.  By now I&rsquo;ve learned my
+way around vastly more software &ndash; operating systems, programming languages and
+development environments, games, editors, chat clients, mail systems &ndash; than I
+presently could use if I wanted to.  Most of it has gone the way of some
+ancient civilization, surviving (if at all) only in faint, half-understood
+cultural echoes and occasional museum-piece displays.  Every user of technology
+becomes, in time, a refugee from an irretrievably recent past.</p>
+
+<p>And yet, despite all this, the shell endures.  Most of the ideas in this book
+are older than I am.  Most of them could have been applied in 1994 or
+thereabouts, when I first logged on to multiuser systems running AT&amp;T Unix.
+Since the early 1990s, systems built on a fundamental substrate of Unix-like
+behavior and abstractions have proliferated wildly, becoming foundational at
+once to the modern web, the ecosystem of free and open software, and the
+technological dominance ca. 2014 of companies like Apple, Google, and Facebook.</p>
+
+<p>Why is this, exactly?</p>
+
+<p style="text-align:center;"> *</p>
+
 <p>As I&rsquo;ve said (and hopefully shown), the commands you write in your shell
 are essentially little programs.  Like other programs, they can be stored
 for later use and recombined with other commands, creating new uses for
@@ -1892,8 +1914,8 @@ Unix tradition:  Tools should be composable.  All those little programs have to
 share some assumptions, have to speak some kind of trade language, in order to
 combine usefully.  Which is how we&rsquo;ve arrived at standard IO, pipelines,
 filesystems, and text as as a lowest-common-denominator medium of exchange.  If
-you think about most of these things, they have some seriously rough edges, but
-they give otherwise simple tools ways to communicate without becoming
+you think about most of these things, they have some very rough edges, but they
+give otherwise simple tools ways to communicate without becoming
 super-complicated along the way.</p>
 
 <p style="text-align:center;"> *</p>
@@ -1940,8 +1962,8 @@ variety of alphabet soup.</p>
 <p>It turns out that there&rsquo;s a threshold of complexity beyond which life becomes
 easier if you switch from shell scripting to a more robust language.  Just
 where this threshold is located varies a lot between users and problems, but I
-often start thinking about switching languages before a script gets bigger than
-I can view on my screen all at once.  <code>addprop</code> is a good example:</p>
+often think about switching languages before a script gets bigger than I can
+view on my screen all at once.  <code>addprop</code> is a good example:</p>
 
 <!-- exec -->
 
@@ -1962,7 +1984,22 @@ JavaScript, your code can participate in the shell environment as a first class
 citizen simply by respecting the conventions of standard IO, files, and command
 line arguments.  Often, in order to create a useful utility, it&rsquo;s only
 necessary to deal with <code>STDIN</code>, or operate on a particular sort of file, and
-most languages will offer simple conventions for doing these things.</p>
+most languages offer simple conventions for doing these things.</p>
+
+<p style="text-align:center;"> *</p>
+
+<p>I think the shell can be taught and understood as a humane environment, despite
+all its uglinesses and complications, because it offers the materials of its
+own construction to its users, whatever their concerns.  The writer, the
+philosopher, the scientist, the programmer:  Files and text and pipes know
+little enough about these things, but in their very indifference to the
+specifics of any one complex purpose, they&rsquo;re adaptable to the basic needs of
+many.  Simple utilities which enact simple kinds of knowledge survive and
+recombine because there is a wisdom to be found in small things.</p>
+
+<p>Files and text know nothing about poetry, nothing in particular of the human
+soul.  Neither do pen and ink, printing presses or codex books, but somehow we
+got Shakespeare and Montaigne.</p>
 
 <hr />
 

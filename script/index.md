@@ -24,13 +24,12 @@ up some good examples:
 <!-- end -->
 
 None of these one-liners do all that much, but they all take input of one sort
-or another and transform it into something new by doing a series of things to
-it.  They're little formal sentences describing how to make one thing into
-another, which is as good a definition of programming as most.  Or at least
-this is a good way to describe programming-in-the-small.  (A lot of the
-programs we use day-to-day are more like essays, novels, or interminable
-Fantasy series where every character you like dies horribly than they are like
-individual sentences.)
+or another and apply one or more transformations to it.  They're little formal
+sentences describing how to make one thing into another, which is as good a
+definition of programming as most.  Or at least this is a good way to describe
+programming-in-the-small.  (A lot of the programs we use day-to-day are more
+like essays, novels, or interminable Fantasy series where every character you
+like dies horribly than they are like individual sentences.)
 
 One-liners like these are all well and good when you're staring at a terminal,
 trying to figure something out - but what about when you've already figured it out and
@@ -80,7 +79,8 @@ first important thing to know about any given editor.
 d.i.y. utilities
 ----------------
 
-So back to putting commands in text files.  Here's a file I just created:
+So back to putting commands in text files.  Here's a file I just created in
+my editor:
 
 <!-- exec -->
 
@@ -106,9 +106,9 @@ interpret the contents of the file.  `/bin/bash` is the path on the filesystem
 where Bash itself lives.  You might see this referred to as a shebang or a hash
 bang.
 
-Lines that start with a `#` are comments.  The `exit 0` tells Bash that the
-currently running script should exit with a status of 0, which basically means
-"nothing went wrong".
+Lines that start with a `#` are comments, used to describe the code to a human
+reader.  The `exit 0` tells Bash that the currently running script should exit
+with a status of 0, which basically means "nothing went wrong".
 
 If you examine the directory listing for `okpoems`, you'll see something
 important:
@@ -198,10 +198,10 @@ a script with a little more substance to it:
 Both of these scripts are imperfect, but they were quick to write, they're made
 out of standard commands, and I don't yet hate myself for them:  All signs that
 I'm not totally on the wrong track with the `meta-ok-poem` abstraction, and
-could build it into my ongoing writing project.  `okpoems` and `markpoem` would
-also be easy to hook into with custom keybindings in my editor.  With a few
-more lines of code, I can build a system to wade through the list of candidate
-files and quickly mark the interesting ones.
+could live with it as part of an ongoing writing project.  `okpoems` and
+`markpoem` would also be easy to use with custom keybindings in my editor.  In
+a few more lines of code, I can build a system to wade through the list of
+candidate files and quickly mark the interesting ones.
 
 generality
 ----------

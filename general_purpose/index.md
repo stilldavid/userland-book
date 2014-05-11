@@ -12,6 +12,30 @@ background in writing code.
 
 -> * <-
 
+If you've used computers for more than a few years, you're probably viscerally
+aware that most software is fragile and most systems decay.  In the time since
+I took my first tentative steps into the little world of a computer (a friend's
+dad's unidentifiable gaming machine, my own father's blue monochrome Zenith
+laptop, the Apple II) the churn has been overwhelming.  By now I've learned my
+way around vastly more software -- operating systems, programming languages and
+development environments, games, editors, chat clients, mail systems -- than I
+presently could use if I wanted to.  Most of it has gone the way of some
+ancient civilization, surviving (if at all) only in faint, half-understood
+cultural echoes and occasional museum-piece displays.  Every user of technology
+becomes, in time, a refugee from an irretrievably recent past.
+
+And yet, despite all this, the shell endures.  Most of the ideas in this book
+are older than I am.  Most of them could have been applied in 1994 or
+thereabouts, when I first logged on to multiuser systems running AT&T Unix.
+Since the early 1990s, systems built on a fundamental substrate of Unix-like
+behavior and abstractions have proliferated wildly, becoming foundational at
+once to the modern web, the ecosystem of free and open software, and the
+technological dominance ca. 2014 of companies like Apple, Google, and Facebook.
+
+Why is this, exactly?
+
+-> * <-
+
 As I've said (and hopefully shown), the commands you write in your shell
 are essentially little programs.  Like other programs, they can be stored
 for later use and recombined with other commands, creating new uses for
@@ -58,8 +82,8 @@ Unix tradition:  Tools should be composable.  All those little programs have to
 share some assumptions, have to speak some kind of trade language, in order to
 combine usefully.  Which is how we've arrived at standard IO, pipelines,
 filesystems, and text as as a lowest-common-denominator medium of exchange.  If
-you think about most of these things, they have some seriously rough edges, but
-they give otherwise simple tools ways to communicate without becoming
+you think about most of these things, they have some very rough edges, but they
+give otherwise simple tools ways to communicate without becoming
 super-complicated along the way.
 
 -> * <-
@@ -106,8 +130,8 @@ variety of alphabet soup.
 It turns out that there's a threshold of complexity beyond which life becomes
 easier if you switch from shell scripting to a more robust language.  Just
 where this threshold is located varies a lot between users and problems, but I
-often start thinking about switching languages before a script gets bigger than
-I can view on my screen all at once.  `addprop` is a good example:
+often think about switching languages before a script gets bigger than I can
+view on my screen all at once.  `addprop` is a good example:
 
 <!-- exec -->
 
@@ -125,6 +149,19 @@ JavaScript, your code can participate in the shell environment as a first class
 citizen simply by respecting the conventions of standard IO, files, and command
 line arguments.  Often, in order to create a useful utility, it's only
 necessary to deal with `STDIN`, or operate on a particular sort of file, and
-most languages will offer simple conventions for doing these things.
+most languages offer simple conventions for doing these things.
 
+-> * <-
 
+I think the shell can be taught and understood as a humane environment, despite
+all its uglinesses and complications, because it offers the materials of its
+own construction to its users, whatever their concerns.  The writer, the
+philosopher, the scientist, the programmer:  Files and text and pipes know
+little enough about these things, but in their very indifference to the
+specifics of any one complex purpose, they're adaptable to the basic needs of
+many.  Simple utilities which enact simple kinds of knowledge survive and
+recombine because there is a wisdom to be found in small things.
+
+Files and text know nothing about poetry, nothing in particular of the human
+soul.  Neither do pen and ink, printing presses or codex books, but somehow we
+got Shakespeare and Montaigne.
