@@ -77,6 +77,8 @@ not license it under more restrictive terms than that.</p>
 <ul>
 <li><a href="#learn-you-an-editor">learn you an editor</a></li>
 <li><a href="#d-i-y-utilities">d.i.y. utilities</a></li>
+<li><a href="#heavy-lifting">heavy lifting</a></li>
+<li><a href="#generality">generality</a></li>
 </ul>
 </li>
 <li><a href="#general-purpose-programmering">5. general purpose programmering</a></li>
@@ -426,7 +428,7 @@ GREEN
 <p>There&rsquo;s something really important going on in this line:  The <code>|</code>, usually
 called a &ldquo;pipe&rdquo;, and probably found on your backslash key, is telling your
 shell that instead of printing the output of <code>sort colors</code> right to your
-terminal screen, it should send it to <code>uniq -i -c</code>.</p>
+terminal, it should send it to <code>uniq -i -c</code>.</p>
 
 <p>{mario.gif}</p>
 
@@ -1575,9 +1577,7 @@ first important thing to know about any given editor.</p>
 
 <h2><a name=d-i-y-utilities href=#d-i-y-utilities>#</a> d.i.y. utilities</h2>
 
-<p>So back to putting commands in text files.</p>
-
-<p>{much verbiage about scripts to come}</p>
+<p>So back to putting commands in text files.  Here&rsquo;s a file I just created:</p>
 
 <!-- exec -->
 
@@ -1595,7 +1595,44 @@ exit 0
 <!-- end -->
 
 
+<p>This is known as a script.  There are a handful of things to notice here.
+First, there&rsquo;s this fragment:</p>
 
+<pre><code>#!/bin/bash
+</code></pre>
+
+<p>The <code>#!</code> right at the beginning, followed by the path to a program, is a
+special sequence that lets the kernel know what program should be used to
+interpret the contents of the file.  <code>/bin/bash</code> is the path on the filesystem
+where Bash itself lives.  You might see this referred to as a shebang or a hash
+bang.</p>
+
+<p>Lines that start with a <code>#</code> are comments.  The <code>exit 0</code> tells Bash that the
+currently running script should exit with a status of 0, which basically means
+&ldquo;nothing went wrong&rdquo;.</p>
+
+<p>If you examine the directory listing for <code>okpoems</code>, you&rsquo;ll see something
+important:</p>
+
+<!-- exec -->
+
+
+<pre><code>$ ls -l okpoems
+-rwxrwxr-x 1 brennen brennen 163 Apr 19 00:08 okpoems
+</code></pre>
+
+<!-- end -->
+
+
+<p>That looks pretty cryptic.  For the moment, just remember that those little
+<code>x</code>s in the first bit mean that the file has been marked e<strong>x</strong>ecutable.  We
+accomplish this by saying something like:</p>
+
+<pre><code>$ chmod +x ./okpoems
+</code></pre>
+
+<p>Once that&rsquo;s done, it and the shebang line in combination mean that typing
+<code>./okpoems</code> will have the same effect as typing <code>bash okpoems</code>:</p>
 
 <!-- exec -->
 
@@ -1609,7 +1646,10 @@ exit 0
 <!-- end -->
 
 
+<h2><a name=heavy-lifting href=#heavy-lifting>#</a> heavy lifting</h2>
 
+<p><code>okpoems</code> demonstrates the basics, but it doesn&rsquo;t do very much.  Here&rsquo;s
+a script with a little more substance to it:</p>
 
 <!-- exec -->
 
@@ -1665,21 +1705,23 @@ exit 0
 <!-- end -->
 
 
-<p>These are imperfect, but they were quick to write, they&rsquo;re made out of standard
-commands, and I don&rsquo;t yet hate myself for them.  These are all signs that I&rsquo;m
-not totally on the wrong track with the <code>meta-ok-poem</code> abstraction, and could
-build it into my ongoing writing project.  These scripts would also be easy to
-hook into with custom keybindings in my editor.  With a few more lines of code,
-I can build a system to wade through the list of candidate files one at a time
-and mark the interesting ones.</p>
+<p>Both of these scripts are imperfect, but they were quick to write, they&rsquo;re made
+out of standard commands, and I don&rsquo;t yet hate myself for them:  All signs that
+I&rsquo;m not totally on the wrong track with the <code>meta-ok-poem</code> abstraction, and
+could build it into my ongoing writing project.  <code>okpoems</code> and <code>markpoem</code> would
+also be easy to hook into with custom keybindings in my editor.  With a few
+more lines of code, I can build a system to wade through the list of candidate
+files and quickly mark the interesting ones.</p>
 
-<p>So what&rsquo;s lacking?  Well, probably a bunch of things, feature-wise.  I can
+<h2><a name=generality href=#generality>#</a> generality</h2>
+
+<p>So what&rsquo;s lacking here?  Well, probably a bunch of things, feature-wise.  I can
 imagine writing a script to unmark a poem, for example.  That said, there&rsquo;s one
 really glaring problem.  &ldquo;Ok poem&rdquo; is only one kind of property a blog entry
 might possess.  Suppose I wanted a way to express that a poem is terrible?</p>
 
 <p>It turns out I already know how to add properties to an entry.  If I generalize
-a little, the tools become much more flexible.</p>
+just a little, the tools become much more flexible.</p>
 
 <!-- exec -->
 
@@ -1705,7 +1747,7 @@ kthxbai
 
 
 <p><code>addprop</code> is only a little different from <code>markpoem</code>.  It takes two parameters
-instead of one - the target entry and the property to add.</p>
+instead of one - the target entry and a property to add.</p>
 
 <!-- exec -->
 
@@ -1795,7 +1837,9 @@ programming and the command line are so inextricably linked, this text
 draws near the subject almost of its own accord.</p>
 
 <p>If you&rsquo;re not terribly interested in programming, this chapter can easily
-enough be skipped.</p>
+enough be skipped.  It&rsquo;s more in the way of philosophical rambling than
+concrete instruction, and will be of most use to those with an existing
+background in writing code.</p>
 
 <p style="text-align:center;"> *</p>
 
@@ -1806,7 +1850,7 @@ your ideas.</p>
 
 <p>It would be hard to say that there&rsquo;s any <em>one</em> reason command line environments
 remain so vital after decades of evolution and hard-won refinement in computer
-interfaces, but I&rsquo;d suggest that this combinatory nature is somewhere near the
+interfaces, but it seems like this combinatory nature is somewhere near the
 heart of it.  The command line often lacks the polish of other interfaces we
 depend on, but in exchange it offers a richness and freedom of expression
 rarely seen elsewhere, and invites its users to build upon its basic
@@ -1846,11 +1890,11 @@ competencies.</p>
 talk to code that&rsquo;s good at other things.  There&rsquo;s another basic insight in the
 Unix tradition:  Tools should be composable.  All those little programs have to
 share some assumptions, have to speak some kind of trade language, in order to
-combine usefully.  Which is a lot of how we&rsquo;ve arrived at standard IO,
-pipelines, filesystems, and text as as a lowest-common-denominator medium of
-exchange.  If you think about a lot of these things, they have some seriously
-rough edges, but they give otherwise simple tools ways to communicate without
-becoming super-complicated along the way.</p>
+combine usefully.  Which is how we&rsquo;ve arrived at standard IO, pipelines,
+filesystems, and text as as a lowest-common-denominator medium of exchange.  If
+you think about most of these things, they have some seriously rough edges, but
+they give otherwise simple tools ways to communicate without becoming
+super-complicated along the way.</p>
 
 <p style="text-align:center;"> *</p>
 
@@ -1858,7 +1902,7 @@ becoming super-complicated along the way.</p>
 
 <p>The command line is an environment of tool use.</p>
 
-<p>So are kitchens, woodshops, libraries, and programming languages.</p>
+<p>So are kitchens, workshops, libraries, and programming languages.</p>
 
 <p style="text-align:center;"> *</p>
 
@@ -1893,11 +1937,11 @@ general purpose programming language.  It&rsquo;s just not especially good at th
 like math, or complex data structures, or not looking like a punctuation-heavy
 variety of alphabet soup.</p>
 
-<p>It turns out that there&rsquo;s a threshold of complexity beyond which life is easier
-if you switch from shell scripting to a more robust language.  Just where this
-threshold is located varies a lot between users and problems, but I often start
-thinking about switching languages before a script gets bigger than I can view
-on my screen all at once.  <code>addprop</code> is a good example:</p>
+<p>It turns out that there&rsquo;s a threshold of complexity beyond which life becomes
+easier if you switch from shell scripting to a more robust language.  Just
+where this threshold is located varies a lot between users and problems, but I
+often start thinking about switching languages before a script gets bigger than
+I can view on my screen all at once.  <code>addprop</code> is a good example:</p>
 
 <!-- exec -->
 
@@ -1912,6 +1956,13 @@ on my screen all at once.  <code>addprop</code> is a good example:</p>
 <p>41 lines is a touch over what fits on one screen in the editor I usually use.
 If I were going to add much in the way of features, I&rsquo;d think pretty hard about
 porting it to another language first.</p>
+
+<p>What&rsquo;s cool is that if you know a language like C, Python, Perl, Ruby, PHP, or
+JavaScript, your code can participate in the shell environment as a first class
+citizen simply by respecting the conventions of standard IO, files, and command
+line arguments.  Often, in order to create a useful utility, it&rsquo;s only
+necessary to deal with <code>STDIN</code>, or operate on a particular sort of file, and
+most languages will offer simple conventions for doing these things.</p>
 
 <hr />
 

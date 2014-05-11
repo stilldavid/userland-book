@@ -80,9 +80,7 @@ first important thing to know about any given editor.
 d.i.y. utilities
 ----------------
 
-So back to putting commands in text files.
-
-{much verbiage about scripts to come}
+So back to putting commands in text files.  Here's a file I just created:
 
 <!-- exec -->
 
@@ -97,6 +95,40 @@ So back to putting commands in text files.
 
 <!-- end -->
 
+This is known as a script.  There are a handful of things to notice here.
+First, there's this fragment:
+
+    #!/bin/bash
+
+The `#!` right at the beginning, followed by the path to a program, is a
+special sequence that lets the kernel know what program should be used to
+interpret the contents of the file.  `/bin/bash` is the path on the filesystem
+where Bash itself lives.  You might see this referred to as a shebang or a hash
+bang.
+
+Lines that start with a `#` are comments.  The `exit 0` tells Bash that the
+currently running script should exit with a status of 0, which basically means
+"nothing went wrong".
+
+If you examine the directory listing for `okpoems`, you'll see something
+important:
+
+<!-- exec -->
+
+    $ ls -l okpoems
+    -rwxrwxr-x 1 brennen brennen 163 Apr 19 00:08 okpoems
+
+<!-- end -->
+
+That looks pretty cryptic.  For the moment, just remember that those little
+`x`s in the first bit mean that the file has been marked e**x**ecutable.  We
+accomplish this by saying something like:
+
+    $ chmod +x ./okpoems
+
+Once that's done, it and the shebang line in combination mean that typing
+`./okpoems` will have the same effect as typing `bash okpoems`:
+
 <!-- exec -->
 
     $ ./okpoems
@@ -105,6 +137,12 @@ So back to putting commands in text files.
     /home/brennen/p1k3/archives/2012/3/26
 
 <!-- end -->
+
+heavy lifting
+-------------
+
+`okpoems` demonstrates the basics, but it doesn't do very much.  Here's
+a script with a little more substance to it:
 
 <!-- exec -->
 
@@ -115,8 +153,7 @@ So back to putting commands in text files.
     POEM=$1
     
     # Complain and exit if we weren't given a path:
-    if [ ! $POEM ]
-    then
+    if [ ! $POEM ]; then
       echo 'usage: markpoem <path>'
     
       # Confusingly, an exit status of 0 means to the shell that everything went
@@ -124,20 +161,18 @@ So back to putting commands in text files.
       exit 64
     fi
     
-    if [ ! -e $POEM ]
-    then
+    if [ ! -e $POEM ]; then
       echo "$POEM not found"
       exit 66
     fi
     
-    echo "marking $1 an ok poem"
+    echo "marking $POEM an ok poem"
     
     POEM_BASENAME=$(basename $POEM)
     
     # If the target is a plain file instead of a directory, make it into
     # a directory and move the content into $POEM/index:
-    if [ -f $POEM ]
-    then
+    if [ -f $POEM ]; then
       echo "making $POEM into a directory, moving content to"
       echo "  $POEM/index"
       TEMPFILE="/tmp/$POEM_BASENAME.$(date +%s.%N)"
@@ -146,8 +181,7 @@ So back to putting commands in text files.
       mv $TEMPFILE $POEM/index
     fi
     
-    if [ -d $POEM ]
-    then
+    if [ -d $POEM ]; then
       # touch(1) will either create the file or update its timestamp:
       touch $POEM/meta-ok-poem
     else
@@ -161,21 +195,24 @@ So back to putting commands in text files.
 
 <!-- end -->
 
-These are imperfect, but they were quick to write, they're made out of standard
-commands, and I don't yet hate myself for them.  These are all signs that I'm
-not totally on the wrong track with the `meta-ok-poem` abstraction, and could
-build it into my ongoing writing project.  These scripts would also be easy to
-hook into with custom keybindings in my editor.  With a few more lines of code,
-I can build a system to wade through the list of candidate files one at a time
-and mark the interesting ones.
+Both of these scripts are imperfect, but they were quick to write, they're made
+out of standard commands, and I don't yet hate myself for them:  All signs that
+I'm not totally on the wrong track with the `meta-ok-poem` abstraction, and
+could build it into my ongoing writing project.  `okpoems` and `markpoem` would
+also be easy to hook into with custom keybindings in my editor.  With a few
+more lines of code, I can build a system to wade through the list of candidate
+files and quickly mark the interesting ones.
 
-So what's lacking?  Well, probably a bunch of things, feature-wise.  I can
+generality
+----------
+
+So what's lacking here?  Well, probably a bunch of things, feature-wise.  I can
 imagine writing a script to unmark a poem, for example.  That said, there's one
 really glaring problem.  "Ok poem" is only one kind of property a blog entry
 might possess.  Suppose I wanted a way to express that a poem is terrible?
 
 It turns out I already know how to add properties to an entry.  If I generalize
-a little, the tools become much more flexible.
+just a little, the tools become much more flexible.
 
 <!-- exec -->
 
@@ -193,7 +230,7 @@ a little, the tools become much more flexible.
 <!-- end -->
 
 `addprop` is only a little different from `markpoem`.  It takes two parameters
-instead of one - the target entry and the property to add.  
+instead of one - the target entry and a property to add.
 
 <!-- exec -->
 
@@ -204,14 +241,12 @@ instead of one - the target entry and the property to add.
     PROPERTY=$2
     
     # Complain and exit if we weren't given a path and a property:
-    if [[ ! $ENTRY || ! $PROPERTY ]]
-    then
+    if [[ ! $ENTRY || ! $PROPERTY ]]; then
       echo "usage: addprop <path> <property>"
       exit 64
     fi
     
-    if [ ! -e $ENTRY ]
-    then
+    if [ ! -e $ENTRY ]; then
       echo "$ENTRY not found"
       exit 66
     fi
@@ -220,8 +255,7 @@ instead of one - the target entry and the property to add.
     
     # If the target is a plain file instead of a directory, make it into
     # a directory and move the content into $ENTRY/index:
-    if [ -f $ENTRY ]
-    then
+    if [ -f $ENTRY ]; then
       echo "making $ENTRY into a directory, moving content to"
       echo "  $ENTRY/index"
     
@@ -233,8 +267,7 @@ instead of one - the target entry and the property to add.
       mv $TEMPFILE $ENTRY/index
     fi
     
-    if [ -d $ENTRY ]
-    then
+    if [ -d $ENTRY ]; then
       touch $ENTRY/$PROPERTY
     else
       echo "something broke - why isn't $ENTRY a directory?"

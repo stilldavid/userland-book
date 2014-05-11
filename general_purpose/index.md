@@ -6,7 +6,9 @@ programming and the command line are so inextricably linked, this text
 draws near the subject almost of its own accord.
 
 If you're not terribly interested in programming, this chapter can easily
-enough be skipped.
+enough be skipped.  It's more in the way of philosophical rambling than
+concrete instruction, and will be of most use to those with an existing
+background in writing code.
 
 -> * <-
 
@@ -17,7 +19,7 @@ your ideas.
 
 It would be hard to say that there's any _one_ reason command line environments
 remain so vital after decades of evolution and hard-won refinement in computer
-interfaces, but I'd suggest that this combinatory nature is somewhere near the
+interfaces, but it seems like this combinatory nature is somewhere near the
 heart of it.  The command line often lacks the polish of other interfaces we
 depend on, but in exchange it offers a richness and freedom of expression
 rarely seen elsewhere, and invites its users to build upon its basic
@@ -54,11 +56,11 @@ Of course, if your code is only good at one thing, to be of any use, it has to
 talk to code that's good at other things.  There's another basic insight in the
 Unix tradition:  Tools should be composable.  All those little programs have to
 share some assumptions, have to speak some kind of trade language, in order to
-combine usefully.  Which is a lot of how we've arrived at standard IO,
-pipelines, filesystems, and text as as a lowest-common-denominator medium of
-exchange.  If you think about a lot of these things, they have some seriously
-rough edges, but they give otherwise simple tools ways to communicate without
-becoming super-complicated along the way.
+combine usefully.  Which is how we've arrived at standard IO, pipelines,
+filesystems, and text as as a lowest-common-denominator medium of exchange.  If
+you think about most of these things, they have some seriously rough edges, but
+they give otherwise simple tools ways to communicate without becoming
+super-complicated along the way.
 
 -> * <-
 
@@ -117,3 +119,12 @@ I can view on my screen all at once.  `addprop` is a good example:
 41 lines is a touch over what fits on one screen in the editor I usually use.
 If I were going to add much in the way of features, I'd think pretty hard about
 porting it to another language first.
+
+What's cool is that if you know a language like C, Python, Perl, Ruby, PHP, or
+JavaScript, your code can participate in the shell environment as a first class
+citizen simply by respecting the conventions of standard IO, files, and command
+line arguments.  Often, in order to create a useful utility, it's only
+necessary to deal with `STDIN`, or operate on a particular sort of file, and
+most languages will offer simple conventions for doing these things.
+
+

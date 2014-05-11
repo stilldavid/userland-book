@@ -316,7 +316,7 @@ count of how often each line occurs, for a file called colors:
 There's something really important going on in this line:  The `|`, usually
 called a "pipe", and probably found on your backslash key, is telling your
 shell that instead of printing the output of `sort colors` right to your
-terminal screen, it should send it to `uniq -i -c`.
+terminal, it should send it to `uniq -i -c`.
 
 {mario.gif}
 
