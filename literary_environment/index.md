@@ -318,7 +318,7 @@ called a "pipe", and probably found on your backslash key, is telling your
 shell that instead of printing the output of `sort colors` right to your
 terminal, it should send it to `uniq -i -c`.
 
-{mario.gif}
+-> <img src="images/pipe.gif"> <-
 
 Pipes are some of the most important magic in the shell.  When the people who
 built Unix in the first place give interviews about the stuff they remember
@@ -513,8 +513,6 @@ I'll preface this by saying that, of course, almost anyone who is writing
 anything on a computer is going to use Google and Wikipedia, and the answer to
 questions like "what does this word mean" or "what day did Easter fall on in
 1992" is readily available to all of us.
-
-{lmgtfy.gif}
 
 That said, not everything has to live on the web all the time.  Sometimes you
 know that if you jump over to your browser you're going to wind up lost in a
