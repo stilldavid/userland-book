@@ -28,7 +28,7 @@ What software are we actually talking about when we say "the command line"?
 For the purposes of this discussion, we're talking about an environment built
 on a very old paradigm called Unix.
 
-{jurassic park dot gif}
+-> <img src="images/jp_unix.jpg" height=320 width=470> <-
 
 ...except what classical Unix really looks like is this:
 
