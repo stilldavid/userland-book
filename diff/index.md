@@ -180,10 +180,133 @@ The `-s` just means that `diff` should explicitly tell us if files are the
 **s**ame.  Otherwise, it'd output nothing at all, because there aren't any
 differences.
 
-What's worth noticing about this is that `diff` doesn't really care whether
-it's looking at shell scripts or a list of filenames or what-have-you.  Its
+What's worth noticing here is that `diff` doesn't really care whether it's
+looking at shell scripts or a list of filenames or what-have-you.  Its
 specialty is text files with lines made out of characters, which works well for
-lots of programming languages and suchlike things, but could just as easily be
-applied to an English text.
+lots of programming languages, but could just as easily be applied to an
+English text.
 
+Since I have a couple of versions ready to hand, let's apply this to a text
+with some well-known variations and a bit of a literary legacy.  Here's the
+first day of the Genesis creation narrative in a couple of English
+translations:
 
+<!-- exec -->
+
+    $ cat genesis_nkj
+    In the beginning God created the heavens and the earth.  The earth was without
+    form, and void; and darkness was on the face of the deep.  And the Spirit of
+    God was hovering over the face of the waters.  Then God said, "Let there be
+    light"; and there was light.  And God saw the light, that it was good; and God
+    divided the light from the darkness.  God called the light Day, and the darkness
+    He called Night.  So the evening and the morning were the first day.
+
+<!-- end -->
+
+<!-- exec -->
+
+    $ cat genesis_nrsv
+    In the beginning when God created the heavens and the earth, the earth was a
+    formless void and darkness covered the face of the deep, while a wind from
+    God swept over the face of the waters.  Then God said, "Let there be light";
+    and there was light.  And God saw that the light was good; and God separated
+    the light from the darkness.  God called the light Day, and the darkness he
+    called Night.  And there was evening and there was morning, the first day.
+
+<!-- end -->
+
+What happens if we diff them?
+
+<!-- exec -->
+
+    $ diff -u genesis_nkj genesis_nrsv
+    --- genesis_nkj	2014-05-11 16:28:29.692508461 -0600
+    +++ genesis_nrsv	2014-05-11 16:28:29.744508459 -0600
+    @@ -1,6 +1,6 @@
+    -In the beginning God created the heavens and the earth.  The earth was without
+    -form, and void; and darkness was on the face of the deep.  And the Spirit of
+    -God was hovering over the face of the waters.  Then God said, "Let there be
+    -light"; and there was light.  And God saw the light, that it was good; and God
+    -divided the light from the darkness.  God called the light Day, and the darkness
+    -He called Night.  So the evening and the morning were the first day.
+    +In the beginning when God created the heavens and the earth, the earth was a
+    +formless void and darkness covered the face of the deep, while a wind from
+    +God swept over the face of the waters.  Then God said, "Let there be light";
+    +and there was light.  And God saw that the light was good; and God separated
+    +the light from the darkness.  God called the light Day, and the darkness he
+    +called Night.  And there was evening and there was morning, the first day.
+
+<!-- end -->
+
+Kind of useless, right?  If a given line differs by so much as a character,
+it's not the same line.  This highlights the limitations of `diff` for comparing
+things that
+
+- aren't logically grouped by line
+- aren't easily thought of as versions of the same text with some lines changed
+
+We could edit the files into a more logically defined structure, like
+one-line-per-verse, and try again:
+
+<!-- exec -->
+
+    $ diff -u genesis_nkj_by_verse genesis_nrsv_by_verse
+    --- genesis_nkj_by_verse	2014-05-11 16:51:14.312457198 -0600
+    +++ genesis_nrsv_by_verse	2014-05-11 16:53:02.484453134 -0600
+    @@ -1,5 +1,5 @@
+    -In the beginning God created the heavens and the earth.
+    -The earth was without form, and void; and darkness was on the face of the deep.  And the Spirit of God was hovering over the face of the waters.
+    +In the beginning when God created the heavens and the earth,
+    +the earth was a formless void and darkness covered the face of the deep, while a wind from God swept over the face of the waters.
+     Then God said, "Let there be light"; and there was light.
+    -And God saw the light, that it was good; and God divided the light from the darkness.
+    -God called the light Day, and the darkness He called Night.  So the evening and the morning were the first day.
+    +And God saw that the light was good; and God separated the light from the darkness.
+    +God called the light Day, and the darkness he called Night.  And there was evening and there was morning, the first day.
+
+<!-- end -->
+
+That's a little better, but editing all that text felt suspiciously like work
+just to get a quick comparison, and anyway the output still doesn't feel very
+useful.
+
+wdiff
+-----
+
+For cases like this, I'm fond of a tool called `wdiff`:
+
+<!-- exec -->
+
+    $ wdiff genesis_nkj genesis_nrsv
+    In the beginning {+when+} God created the heavens and the [-earth.  The-] {+earth, the+} earth was [-without
+    form, and void;-] {+a
+    formless void+} and darkness [-was on-] {+covered+} the face of the [-deep.  And the Spirit of-] {+deep, while a wind from+}
+    God [-was hovering-] {+swept+} over the face of the waters.  Then God said, "Let there be light";
+    and there was light.  And God saw [-the light,-] that [-it-] {+the light+} was good; and God
+    [-divided-] {+separated+}
+    the light from the darkness.  God called the light Day, and the darkness
+    [-He-] {+he+}
+    called Night.  [-So the-]  {+And there was+} evening and [-the morning were-] {+there was morning,+} the first day.
+
+<!-- end -->
+
+Deleted words are surrounded by `[- -]` and inserted ones by `{+ +}`.  You can
+even ask it to spit out HTML tags for insertion and deletion...
+
+    $ wdiff -w '<del>' -x '</del>' -y '<ins>' -z '</ins>' genesis_nkj genesis_nrsv
+
+...and come up with something your browser will render like this:
+
+<blockquote>
+<p>In the beginning <ins>when</ins> God created the heavens and the <del>earth.  The</del> <ins>earth, the</ins> earth was <del>without
+form, and void;</del> <ins>a
+formless void</ins> and darkness <del>was on</del> <ins>covered</ins> the face of the <del>deep.  And the Spirit of</del> <ins>deep, while a wind from</ins>
+God <del>was hovering</del> <ins>swept</ins> over the face of the waters.  Then God said, "Let there be light";
+and there was light.  And God saw <del>the light,</del> that <del>it</del> <ins>the light</ins> was good; and God
+<del>divided</del> <ins>separated</ins>
+the light from the darkness.  God called the light Day, and the darkness
+<del>He</del> <ins>he</ins>
+called Night.  <del>So the</del>  <ins>And there was</ins> evening and <del>the morning were</del> <ins>there was morning,</ins> the first day.</p>
+</blockquote>
+
+Burton H. Throckmorton, Jr. this ain't.  Still, it has its uses.
