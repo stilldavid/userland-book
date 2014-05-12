@@ -84,9 +84,11 @@ not license it under more restrictive terms than that.</p>
 
 <ul>
 <li><a href="#diff">diff</a></li>
+<li><a href="#wdiff">wdiff</a></li>
 </ul>
 </li>
-<li><a href="#further-reading">7. further reading</a></li>
+<li><a href="#version-control">7. version control</a></li>
+<li><a href="#further-reading">8. further reading</a></li>
 <li><a href="#notes">notes</a></li>
 </ul>
 
@@ -2218,15 +2220,212 @@ Files okpoem_output and findprop_output are identical
 <strong>s</strong>ame.  Otherwise, it&rsquo;d output nothing at all, because there aren&rsquo;t any
 differences.</p>
 
-<p>What&rsquo;s worth noticing about this is that <code>diff</code> doesn&rsquo;t really care whether
-it&rsquo;s looking at shell scripts or a list of filenames or what-have-you.  Its
+<p>What&rsquo;s worth noticing here is that <code>diff</code> doesn&rsquo;t really care whether it&rsquo;s
+looking at shell scripts or a list of filenames or what-have-you.  Its
 specialty is text files with lines made out of characters, which works well for
-lots of programming languages and suchlike things, but could just as easily be
-applied to an English text.</p>
+lots of programming languages, but could just as easily be applied to an
+English text.</p>
+
+<p>Since I have a couple of versions ready to hand, let&rsquo;s apply this to a text
+with some well-known variations and a bit of a literary legacy.  Here&rsquo;s the
+first day of the Genesis creation narrative in a couple of English
+translations:</p>
+
+<!-- exec -->
+
+
+<pre><code>$ cat genesis_nkj
+In the beginning God created the heavens and the earth.  The earth was without
+form, and void; and darkness was on the face of the deep.  And the Spirit of
+God was hovering over the face of the waters.  Then God said, "Let there be
+light"; and there was light.  And God saw the light, that it was good; and God
+divided the light from the darkness.  God called the light Day, and the darkness
+He called Night.  So the evening and the morning were the first day.
+</code></pre>
+
+<!-- end -->
+
+
+
+
+<!-- exec -->
+
+
+<pre><code>$ cat genesis_nrsv
+In the beginning when God created the heavens and the earth, the earth was a
+formless void and darkness covered the face of the deep, while a wind from
+God swept over the face of the waters.  Then God said, "Let there be light";
+and there was light.  And God saw that the light was good; and God separated
+the light from the darkness.  God called the light Day, and the darkness he
+called Night.  And there was evening and there was morning, the first day.
+</code></pre>
+
+<!-- end -->
+
+
+<p>What happens if we diff them?</p>
+
+<!-- exec -->
+
+
+<pre><code>$ diff -u genesis_nkj genesis_nrsv
+--- genesis_nkj 2014-05-11 16:28:29.692508461 -0600
++++ genesis_nrsv    2014-05-11 16:28:29.744508459 -0600
+@@ -1,6 +1,6 @@
+-In the beginning God created the heavens and the earth.  The earth was without
+-form, and void; and darkness was on the face of the deep.  And the Spirit of
+-God was hovering over the face of the waters.  Then God said, "Let there be
+-light"; and there was light.  And God saw the light, that it was good; and God
+-divided the light from the darkness.  God called the light Day, and the darkness
+-He called Night.  So the evening and the morning were the first day.
++In the beginning when God created the heavens and the earth, the earth was a
++formless void and darkness covered the face of the deep, while a wind from
++God swept over the face of the waters.  Then God said, "Let there be light";
++and there was light.  And God saw that the light was good; and God separated
++the light from the darkness.  God called the light Day, and the darkness he
++called Night.  And there was evening and there was morning, the first day.
+</code></pre>
+
+<!-- end -->
+
+
+<p>Kind of useless, right?  If a given line differs by so much as a character,
+it&rsquo;s not the same line.  This highlights the limitations of <code>diff</code> for comparing
+things that</p>
+
+<ul>
+<li>aren&rsquo;t logically grouped by line</li>
+<li>aren&rsquo;t easily thought of as versions of the same text with some lines changed</li>
+</ul>
+
+
+<p>We could edit the files into a more logically defined structure, like
+one-line-per-verse, and try again:</p>
+
+<!-- exec -->
+
+
+<pre><code>$ diff -u genesis_nkj_by_verse genesis_nrsv_by_verse
+--- genesis_nkj_by_verse    2014-05-11 16:51:14.312457198 -0600
++++ genesis_nrsv_by_verse   2014-05-11 16:53:02.484453134 -0600
+@@ -1,5 +1,5 @@
+-In the beginning God created the heavens and the earth.
+-The earth was without form, and void; and darkness was on the face of the deep.  And the Spirit of God was hovering over the face of the waters.
++In the beginning when God created the heavens and the earth,
++the earth was a formless void and darkness covered the face of the deep, while a wind from God swept over the face of the waters.
+ Then God said, "Let there be light"; and there was light.
+-And God saw the light, that it was good; and God divided the light from the darkness.
+-God called the light Day, and the darkness He called Night.  So the evening and the morning were the first day.
++And God saw that the light was good; and God separated the light from the darkness.
++God called the light Day, and the darkness he called Night.  And there was evening and there was morning, the first day.
+</code></pre>
+
+<!-- end -->
+
+
+<p>That&rsquo;s a little better, but editing all that text felt suspiciously like work
+just to get a quick comparison, and anyway the output still doesn&rsquo;t feel very
+useful.</p>
+
+<h2><a name=wdiff href=#wdiff>#</a> wdiff</h2>
+
+<p>For cases like this, I&rsquo;m fond of a tool called <code>wdiff</code>:</p>
+
+<!-- exec -->
+
+
+<pre><code>$ wdiff genesis_nkj genesis_nrsv
+In the beginning {+when+} God created the heavens and the [-earth.  The-] {+earth, the+} earth was [-without
+form, and void;-] {+a
+formless void+} and darkness [-was on-] {+covered+} the face of the [-deep.  And the Spirit of-] {+deep, while a wind from+}
+God [-was hovering-] {+swept+} over the face of the waters.  Then God said, "Let there be light";
+and there was light.  And God saw [-the light,-] that [-it-] {+the light+} was good; and God
+[-divided-] {+separated+}
+the light from the darkness.  God called the light Day, and the darkness
+[-He-] {+he+}
+called Night.  [-So the-]  {+And there was+} evening and [-the morning were-] {+there was morning,+} the first day.
+</code></pre>
+
+<!-- end -->
+
+
+<p>Deleted words are surrounded by <code>[- -]</code> and inserted ones by <code>{+ +}</code>.  You can
+even ask it to spit out HTML tags for insertion and deletion&hellip;</p>
+
+<pre><code>$ wdiff -w '&lt;del&gt;' -x '&lt;/del&gt;' -y '&lt;ins&gt;' -z '&lt;/ins&gt;' genesis_nkj genesis_nrsv
+</code></pre>
+
+<p>&hellip;and come up with something your browser will render like this:</p>
+
+<blockquote>
+<p>In the beginning <ins>when</ins> God created the heavens and the <del>earth.  The</del> <ins>earth, the</ins> earth was <del>without
+form, and void;</del> <ins>a
+formless void</ins> and darkness <del>was on</del> <ins>covered</ins> the face of the <del>deep.  And the Spirit of</del> <ins>deep, while a wind from</ins>
+God <del>was hovering</del> <ins>swept</ins> over the face of the waters.  Then God said, "Let there be light";
+and there was light.  And God saw <del>the light,</del> that <del>it</del> <ins>the light</ins> was good; and God
+<del>divided</del> <ins>separated</ins>
+the light from the darkness.  God called the light Day, and the darkness
+<del>He</del> <ins>he</ins>
+called Night.  <del>So the</del>  <ins>And there was</ins> evening and <del>the morning were</del> <ins>there was morning,</ins> the first day.</p>
+</blockquote>
+
+
+<p>Burton H. Throckmorton, Jr. this ain&rsquo;t.  Still, it has its uses.</p>
 
 <hr />
 
-<h1><a name=further-reading href=#further-reading>#</a> 7. further reading</h1>
+<h1><a name=version-control href=#version-control>#</a> 7. version control</h1>
+
+<p>Tools like <code>diff</code> and <code>wdiff</code> are useful when you have two versions of a file
+and need to reason about their differences.  Very often, however, the questions
+it&rsquo;s useful to ask about a file are along the lines of &ldquo;how have I changed this
+file today?&rdquo; or &ldquo;in what ways does this file differ from a year ago?&rdquo;</p>
+
+<p>It&rsquo;s certainly possible to manually keep snapshots of a file from different
+points in time.  It&rsquo;s even <em>theoretically</em> possible to be rigorous and
+organized about this, but no one I&rsquo;ve ever known has quite managed it.  It used
+to be common to see directories like this:</p>
+
+<!-- exec -->
+
+
+<pre><code>$ ls some_project/
+current
+current.bak
+v1
+v2
+v3
+v3_january
+</code></pre>
+
+<!-- end -->
+
+
+<p>And in fact, as of mid-2014, it&rsquo;s still pretty common.  Any number of the
+smarter people you know probably have desktops full of folder icons full of
+still <em>other</em> folder icons named things like <code>version_six_KEEP</code> which in turn
+are full of files called things like <code>use_this_one.jpg</code>.  Still, the last
+decade or so has seen a widespread realization in the technical community that
+this is a problem better solved by software.</p>
+
+<p>The software in question is variously known as revision tracking, source code
+management, version control, and probably half a dozen other things.  As some
+of the terms might lead you to expect, it&rsquo;s overwhelmingly designed with
+programmers in mind, and it mostly works with the kinds of text files that
+programmers rely on.  Because it&rsquo;s built by and for people with an inordinately
+high tolerance for jargon and complexity, it tends towards weird interfaces
+(even by the standards of the command line) and confusing vocabulary.</p>
+
+<p>If you&rsquo;re writing programs in any serious way, you should be using version
+control for anything bigger than a few lines of code.  Being able to reason
+about change across time is essential to your work, and explicit visibility of
+the changes you&rsquo;re making at any given time is astonishingly useful.</p>
+
+<p>{work in progress}</p>
+
+<hr />
+
+<h1><a name=further-reading href=#further-reading>#</a> 8. further reading</h1>
 
 <ul>
 <li><em>The Unix Programming Environment</em> - Brian W. Kernighan, Rob Pike</li>
