@@ -10,6 +10,30 @@ body {
   padding-right: 1em;
 }
 
+#toc {
+  position: fixed;
+  left: 15px;
+  top: 15px;
+}
+
+.contents ul li {
+  list-style: none;
+}
+
+ul li {
+  list-style: square;
+}
+
+/*
+#toc #toc-full {
+  display: none;
+}
+
+#toc:hover #toc-full {
+  display: block;
+}
+*/
+
 hr {
   margin-bottom: 2em;
   margin-top: 2em;
