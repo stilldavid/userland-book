@@ -66,7 +66,7 @@ available on most systems.  To start it, just say:
 
 You should see something like this:
 
-{nano.png}
+-> ![nano](images/nano.png) <-
 
 Arrow keys will move your cursor around, and typing stuff will make it appear
 in the file.  This is pretty much like every other editor you've ever used.  If
