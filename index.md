@@ -1,3 +1,9 @@
+<div id=toc>
+<p><a href="#contents">contents</a></p>
+<div id=toc-full>
+{{contents}}
+</div></div>
+
 a book about the command line for humans
 ========================================
 
