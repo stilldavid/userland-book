@@ -180,11 +180,12 @@ The `-s` just means that `diff` should explicitly tell us if files are the
 **s**ame.  Otherwise, it'd output nothing at all, because there aren't any
 differences.
 
-What's worth noticing here is that `diff` doesn't really care whether it's
-looking at shell scripts or a list of filenames or what-have-you.  Its
-specialty is text files with lines made out of characters, which works well for
-lots of programming languages, but could just as easily be applied to an
-English text.
+As with many other tools, `diff` doesn't very much care whether it's looking at
+shell scripts or a list of filenames or what-have-you.  If you read the man
+page, you'll find some features geared towards people writing C-like
+programming languages, but its real specialty is just text files with lines
+made out of characters, which works well for lots of code, but certainly could
+be applied to English prose.
 
 Since I have a couple of versions ready to hand, let's apply this to a text
 with some well-known variations and a bit of a literary legacy.  Here's the
@@ -266,9 +267,9 @@ one-line-per-verse, and try again:
 
 <!-- end -->
 
-That's a little better, but editing all that text felt suspiciously like work
-just to get a quick comparison, and anyway the output still doesn't feel very
-useful.
+It might be a little more descriptive, but editing all that text just for a
+quick comparison felt suspiciously like work, and anyway the output still
+doesn't seem very useful.
 
 wdiff
 -----

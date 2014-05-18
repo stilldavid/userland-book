@@ -236,57 +236,19 @@ key (by default, sort treats whitespace as a division between fields):
 <!-- end -->
 
 That's closer, right?  It sorted on "Cadigan" and "Veselka" instead of "Pat"
-and "Vanessa".  But of course it's still not really good enough, because the
-second field in each line isn't necessarily the person's last name.
+and "Vanessa".  (Of course, it's still far from perfect, because the
+second field in each line isn't necessarily the person's last name.)
 
-Let's set that one aside for a minute and deal with a different problem.
-
-uniq
-----
-
-Notice how Vanessa Veselka shows up twice in our list of authors?  That's
-useful if we want to remember that she's in more than one category, but
-it's redundant if we're just worried about membership in the overall set
-of authors.  Let's make sure our list doesn't contain repeating lines:
-
-<!-- exec -->
-
-    $ sort -k2 authors_* | uniq
-    John Brunner
-    Pat Cadigan
-    Ursula K. Le Guin
-    Gwendolyn L. Waring
-    Eden Robinson
-    John Ronald Reuel Tolkien
-    James Tiptree, Jr.
-    Miriam Toews
-    Vanessa Veselka
-    Jo Walton
-
-<!-- end -->
-
-There are a couple of important things to remember about `uniq`.
-
-The first is that, in order to be useful, it requires its input to be
-pre-sorted:  It moves through the lines in its input, and if it sees a line
-more than once in sequence, it will only print that line once.  If you have a
-bunch of files and you just want to see the unique lines across all of those
-files, you probably need to run them through `sort` first.
-
-The second is that `uniq` is very literal-minded.  Unless you tell it
-otherwise, it cares what case the letters on a line are, and it pays attention
-to things like whitespace.
-
-options, standard IO, and redirection
--------------------------------------
+options
+-------
 
 Above, when we wanted to ask `sort` to behave differently, we gave it what is
 known as an option.  Most programs with command-line interfaces will allow
 their behavior to be changed by adding various options.  Options usually 
 (but not always!) look like `-o` or `--option`.
 
-For example, if we wanted to see unique lines, irrespective of case, with a
-count of how often each line occurs, for a file called colors:
+For example, if we wanted to see just the unique lines, irrespective of case,
+for a file called colors:
 
 <!-- exec -->
 
@@ -301,22 +263,79 @@ count of how often each line occurs, for a file called colors:
 
 <!-- end -->
 
-...then we could do the following, where `-i` stands for "case **i**nsensitive and
-`-c` stands for "**c**ount":
+We could write this:
 
 <!-- exec -->
 
-    $ sort colors | uniq -i -c
-          2 blue
-          3 green
-          2 red
+    $ sort -uf colors
+    blue
+    Green
+    RED
 
 <!-- end -->
 
-There's something really important going on in this line:  The `|`, usually
-called a "pipe", and probably found on your backslash key, is telling your
-shell that instead of printing the output of `sort colors` right to your
-terminal, it should send it to `uniq -i -c`.
+Here `-u` stands for **u**nique and `-f` stands for **f**old case, which means
+to treat upper- and lower-case letters as the same for comparison purposes.  You'll
+often see a group of short options following the `-` like this.
+
+uniq
+----
+
+Did you notice how Vanessa Veselka shows up twice in our list of authors?
+That's useful if we want to remember that she's in more than one category, but
+it's redundant if we're just worried about membership in the overall set of
+authors.  We can make sure our list doesn't contain repeating lines by using
+`sort`, just like with that list of colors:
+
+<!-- exec -->
+
+    $ sort -u -k2 authors_*
+    John Brunner
+    Pat Cadigan
+    Ursula K. Le Guin
+    Gwendolyn L. Waring
+    Eden Robinson
+    John Ronald Reuel Tolkien
+    James Tiptree, Jr.
+    Miriam Toews
+    Vanessa Veselka
+    Jo Walton
+
+<!-- end -->
+
+But there's another approach to this - `sort` is good at only displaying a line
+once, but suppose we wanted to see a count of how many different lists an
+author shows up on?  `sort` doesn't do that, but a command called `uniq` does,
+if you give it the option `-c` for **c**ount.
+
+`uniq` is a program that moves through the lines in its input, and if it sees a
+line more than once in sequence, it will only print that line once.  If you
+have a bunch of files and you just want to see the unique lines across all of
+those files, you probably need to run them through `sort` first.  How do you do
+that?
+
+<!-- exec -->
+
+    $ sort authors_* | uniq -c
+          1 Eden Robinson
+          1 Gwendolyn L. Waring
+          1 James Tiptree, Jr.
+          1 John Brunner
+          1 John Ronald Reuel Tolkien
+          1 Jo Walton
+          1 Miriam Toews
+          1 Pat Cadigan
+          1 Ursula K. Le Guin
+          2 Vanessa Veselka
+
+<!-- end -->
+
+standard IO
+-----------
+
+The `|` is called a "pipe".  In the command above, it tells your shell that
+instead of printing the output of `sort authors_*` right to your terminal, it
+should send it to `uniq -c`.
 
 -> <img src="images/pipe.gif"> <-
 
@@ -327,13 +346,14 @@ all of the new stuff it immediately made possible.
 
 Pipes let you control a thing called "standard IO".  In the world of the
 command line, programs take **i**nput and produce **o**utput.  A pipe is a way
-to hook the output from one program to the input of another.  Unlike a lot of
-the weirdly named things you'll encounter in software, the metaphor here is
-obvious and makes pretty good sense.  It even kind of looks like a physical
-pipe.
+to hook the output from one program to the input of another.
 
-So what happens if, instead of wanting to send the output of one program to
-the input of another, you'd like to just stash it in a file for later use?
+Unlike a lot of the weirdly named things you'll encounter in software, the
+metaphor here is obvious and makes pretty good sense.  It even kind of looks
+like a physical pipe.
+
+What if, instead of sending the output of one program to the input of another,
+you'd like to store it in a file for later use?
 
 Check it out:
 
@@ -359,8 +379,9 @@ Check it out:
 
 <!-- end -->
 
-What if you want to take a file, and send it directly to the input of a given
-program?
+I like to think of the `>` as looking like a little funnel.
+
+You can also take a file and send it directly to the input of a given program:
 
 <!-- exec -->
 
@@ -379,18 +400,18 @@ program?
 <!-- end -->
 
 `nl` is a way to **n**umber **l**ines.  This command accomplishes the same
-thing as `cat all_authors | nl`, or `nl all_authors`.  You won't see this as
-often as `|` and `>`, since most utilities can work directly with files on their
-own, but it can save you typing `cat` quite as often.
+thing as `cat all_authors | nl`, or `nl all_authors`.  You won't see this used
+as much as `|` and `>`, since most utilities can work directly with files on
+their own, but it can save you typing `cat` quite as often.
 
 We'll use these features liberally from here on out.
 
 man pages and --help
 --------------------
 
-I mentioned that the behavior of most commands can be changed by giving them
-different options.  All well and good if you happen to know what options a
-certain utility takes, but what if you don't?
+So you can change the behavior of most commands by giving them different
+options.  All well and good if you happen to know what options a certain
+utility takes, but what if you don't?
 
 What you want is called a man (short for manual) page.  (It's sort of an
 unfortunate abbreviation.)
@@ -411,8 +432,9 @@ unfortunate abbreviation.)
     DESCRIPTION
            Write sorted concatenation of all FILE(s) to standard output.
 
-...and so on.  You can also ask a lot of commands directly for help on how to
-use them:
+...and so on.
+
+You can also ask a lot of commands directly for help on how to use them:
 
     $ uniq --help
     Usage: uniq [OPTION]... [INPUT [OUTPUT]]
@@ -426,8 +448,8 @@ use them:
 If you're not sure what _program_ you want to use to solve a given problem, you
 might try searching all the man pages on the system for a keyword.  `man`
 itself has an option to let you do this - `man -k keyword` - but most systems
-have an alias for this called `apropos`, which I like to use because it's easy
-to remember if you imagine yourself saying "apropos of [some problem I
+have a shortcut for this called `apropos`, which I like to use because it's
+easy to remember if you imagine yourself saying "apropos of [some problem I
 have]..."
 
 <!-- exec -->

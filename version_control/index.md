@@ -23,24 +23,22 @@ to be common to see directories like this:
 
 <!-- end -->
 
-And in fact, as of mid-2014, it's still pretty common.  Any number of the
-smarter people you know probably have desktops full of folder icons full of
-still _other_ folder icons named things like `version_six_KEEP` which in turn
-are full of files called things like `use_this_one.jpg`.  Still, the last
-decade or so has seen a widespread realization in the technical community that
-this is a problem better solved by software.
+And in fact, as of mid-2014, it's still pretty common.  Any number of smart
+people you know probably have desktops full of folder icons full of still
+_other_ folder icons named things like `version_six_KEEP` which in turn are
+full of files called things like `use_this_one.jpg`.  Still, the last decade or
+so has seen a widespread realization in the technical world that this is a
+problem for software.
 
 The software in question is variously known as revision tracking, source code
-management, version control, and probably half a dozen other things.  As some
-of the terms might lead you to expect, it's overwhelmingly designed with
-programmers in mind, and it mostly works with the kinds of text files that
-programmers rely on.  Because it's built by and for people with an inordinately
-high tolerance for jargon and complexity, it tends towards weird interfaces
-(even by the standards of the command line) and confusing vocabulary.
+management, revision version control, and probably half a dozen other things.
+As some of the terms suggest, it's overwhelmingly designed with programmers in
+mind, and it works best with the kinds of text files that programmers rely on.
+Because it's built by and for people with an inordinately high tolerance for
+jargon and complexity, it tends towards weird interfaces (even by the standards
+of the command line) and confusing vocabulary.
 
-If you're writing programs in any serious way, you should be using version
-control for anything bigger than a few lines of code.  Being able to reason
-about change across time is essential to your work, and explicit visibility of
-the changes you're making at any given time is astonishingly useful.
+If you're writing programs in any serious way, you should probably be using
+version control.  
 
-{work in progress}
+{this chapter a work in progress}

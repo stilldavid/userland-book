@@ -28,8 +28,9 @@
 <li><a href="#cat">cat</a></li>
 <li><a href="#wildcards">wildcards</a></li>
 <li><a href="#sort">sort</a></li>
+<li><a href="#options">options</a></li>
 <li><a href="#uniq">uniq</a></li>
-<li><a href="#options-standard-IO-and-redirection">options, standard IO, and redirection</a></li>
+<li><a href="#standard-IO">standard IO</a></li>
 <li><a href="#man-pages-and-ndash-help">man pages and &ndash;help</a></li>
 <li><a href="#wc">wc</a></li>
 <li><a href="#reference-tools-dict-cal">reference tools: dict, cal</a></li>
@@ -114,8 +115,9 @@ not license it under more restrictive terms than that.</p>
 <li><a href="#cat">cat</a></li>
 <li><a href="#wildcards">wildcards</a></li>
 <li><a href="#sort">sort</a></li>
+<li><a href="#options">options</a></li>
 <li><a href="#uniq">uniq</a></li>
-<li><a href="#options-standard-IO-and-redirection">options, standard IO, and redirection</a></li>
+<li><a href="#standard-IO">standard IO</a></li>
 <li><a href="#man-pages-and-ndash-help">man pages and &ndash;help</a></li>
 <li><a href="#wc">wc</a></li>
 <li><a href="#reference-tools-dict-cal">reference tools: dict, cal</a></li>
@@ -401,58 +403,18 @@ Jo Walton
 
 
 <p>That&rsquo;s closer, right?  It sorted on &ldquo;Cadigan&rdquo; and &ldquo;Veselka&rdquo; instead of &ldquo;Pat&rdquo;
-and &ldquo;Vanessa&rdquo;.  But of course it&rsquo;s still not really good enough, because the
-second field in each line isn&rsquo;t necessarily the person&rsquo;s last name.</p>
+and &ldquo;Vanessa&rdquo;.  (Of course, it&rsquo;s still far from perfect, because the
+second field in each line isn&rsquo;t necessarily the person&rsquo;s last name.)</p>
 
-<p>Let&rsquo;s set that one aside for a minute and deal with a different problem.</p>
-
-<h2><a name=uniq href=#uniq>#</a> uniq</h2>
-
-<p>Notice how Vanessa Veselka shows up twice in our list of authors?  That&rsquo;s
-useful if we want to remember that she&rsquo;s in more than one category, but
-it&rsquo;s redundant if we&rsquo;re just worried about membership in the overall set
-of authors.  Let&rsquo;s make sure our list doesn&rsquo;t contain repeating lines:</p>
-
-<!-- exec -->
-
-
-<pre><code>$ sort -k2 authors_* | uniq
-John Brunner
-Pat Cadigan
-Ursula K. Le Guin
-Gwendolyn L. Waring
-Eden Robinson
-John Ronald Reuel Tolkien
-James Tiptree, Jr.
-Miriam Toews
-Vanessa Veselka
-Jo Walton
-</code></pre>
-
-<!-- end -->
-
-
-<p>There are a couple of important things to remember about <code>uniq</code>.</p>
-
-<p>The first is that, in order to be useful, it requires its input to be
-pre-sorted:  It moves through the lines in its input, and if it sees a line
-more than once in sequence, it will only print that line once.  If you have a
-bunch of files and you just want to see the unique lines across all of those
-files, you probably need to run them through <code>sort</code> first.</p>
-
-<p>The second is that <code>uniq</code> is very literal-minded.  Unless you tell it
-otherwise, it cares what case the letters on a line are, and it pays attention
-to things like whitespace.</p>
-
-<h2><a name=options-standard-IO-and-redirection href=#options-standard-IO-and-redirection>#</a> options, standard IO, and redirection</h2>
+<h2><a name=options href=#options>#</a> options</h2>
 
 <p>Above, when we wanted to ask <code>sort</code> to behave differently, we gave it what is
 known as an option.  Most programs with command-line interfaces will allow
 their behavior to be changed by adding various options.  Options usually
 (but not always!) look like <code>-o</code> or <code>--option</code>.</p>
 
-<p>For example, if we wanted to see unique lines, irrespective of case, with a
-count of how often each line occurs, for a file called colors:</p>
+<p>For example, if we wanted to see just the unique lines, irrespective of case,
+for a file called colors:</p>
 
 <!-- exec -->
 
@@ -470,25 +432,86 @@ GREEN
 <!-- end -->
 
 
-<p>&hellip;then we could do the following, where <code>-i</code> stands for &ldquo;case <strong>i</strong>nsensitive and
-<code>-c</code> stands for &rdquo;<strong>c</strong>ount":</p>
+<p>We could write this:</p>
 
 <!-- exec -->
 
 
-<pre><code>$ sort colors | uniq -i -c
-      2 blue
-      3 green
-      2 red
+<pre><code>$ sort -uf colors
+blue
+Green
+RED
 </code></pre>
 
 <!-- end -->
 
 
-<p>There&rsquo;s something really important going on in this line:  The <code>|</code>, usually
-called a &ldquo;pipe&rdquo;, and probably found on your backslash key, is telling your
-shell that instead of printing the output of <code>sort colors</code> right to your
-terminal, it should send it to <code>uniq -i -c</code>.</p>
+<p>Here <code>-u</code> stands for <strong>u</strong>nique and <code>-f</code> stands for <strong>f</strong>old case, which means
+to treat upper- and lower-case letters as the same for comparison purposes.  You&rsquo;ll
+often see a group of short options following the <code>-</code> like this.</p>
+
+<h2><a name=uniq href=#uniq>#</a> uniq</h2>
+
+<p>Did you notice how Vanessa Veselka shows up twice in our list of authors?
+That&rsquo;s useful if we want to remember that she&rsquo;s in more than one category, but
+it&rsquo;s redundant if we&rsquo;re just worried about membership in the overall set of
+authors.  We can make sure our list doesn&rsquo;t contain repeating lines by using
+<code>sort</code>, just like with that list of colors:</p>
+
+<!-- exec -->
+
+
+<pre><code>$ sort -u -k2 authors_*
+John Brunner
+Pat Cadigan
+Ursula K. Le Guin
+Gwendolyn L. Waring
+Eden Robinson
+John Ronald Reuel Tolkien
+James Tiptree, Jr.
+Miriam Toews
+Vanessa Veselka
+Jo Walton
+</code></pre>
+
+<!-- end -->
+
+
+<p>But there&rsquo;s another approach to this - <code>sort</code> is good at only displaying a line
+once, but suppose we wanted to see a count of how many different lists an
+author shows up on?  <code>sort</code> doesn&rsquo;t do that, but a command called <code>uniq</code> does,
+if you give it the option <code>-c</code> for <strong>c</strong>ount.</p>
+
+<p><code>uniq</code> is a program that moves through the lines in its input, and if it sees a
+line more than once in sequence, it will only print that line once.  If you
+have a bunch of files and you just want to see the unique lines across all of
+those files, you probably need to run them through <code>sort</code> first.  How do you do
+that?</p>
+
+<!-- exec -->
+
+
+<pre><code>$ sort authors_* | uniq -c
+      1 Eden Robinson
+      1 Gwendolyn L. Waring
+      1 James Tiptree, Jr.
+      1 John Brunner
+      1 John Ronald Reuel Tolkien
+      1 Jo Walton
+      1 Miriam Toews
+      1 Pat Cadigan
+      1 Ursula K. Le Guin
+      2 Vanessa Veselka
+</code></pre>
+
+<!-- end -->
+
+
+<h2><a name=standard-IO href=#standard-IO>#</a> standard IO</h2>
+
+<p>The <code>|</code> is called a &ldquo;pipe&rdquo;.  In the command above, it tells your shell that
+instead of printing the output of <code>sort authors_*</code> right to your terminal, it
+should send it to <code>uniq -c</code>.</p>
 
 <p style="text-align:center;"> <img src="images/pipe.gif"></p>
 
@@ -499,13 +522,14 @@ all of the new stuff it immediately made possible.</p>
 
 <p>Pipes let you control a thing called &ldquo;standard IO&rdquo;.  In the world of the
 command line, programs take <strong>i</strong>nput and produce <strong>o</strong>utput.  A pipe is a way
-to hook the output from one program to the input of another.  Unlike a lot of
-the weirdly named things you&rsquo;ll encounter in software, the metaphor here is
-obvious and makes pretty good sense.  It even kind of looks like a physical
-pipe.</p>
+to hook the output from one program to the input of another.</p>
 
-<p>So what happens if, instead of wanting to send the output of one program to
-the input of another, you&rsquo;d like to just stash it in a file for later use?</p>
+<p>Unlike a lot of the weirdly named things you&rsquo;ll encounter in software, the
+metaphor here is obvious and makes pretty good sense.  It even kind of looks
+like a physical pipe.</p>
+
+<p>What if, instead of sending the output of one program to the input of another,
+you&rsquo;d like to store it in a file for later use?</p>
 
 <p>Check it out:</p>
 
@@ -539,8 +563,9 @@ Vanessa Veselka
 <!-- end -->
 
 
-<p>What if you want to take a file, and send it directly to the input of a given
-program?</p>
+<p>I like to think of the <code>&gt;</code> as looking like a little funnel.</p>
+
+<p>You can also take a file and send it directly to the input of a given program:</p>
 
 <!-- exec -->
 
@@ -562,17 +587,17 @@ program?</p>
 
 
 <p><code>nl</code> is a way to <strong>n</strong>umber <strong>l</strong>ines.  This command accomplishes the same
-thing as <code>cat all_authors | nl</code>, or <code>nl all_authors</code>.  You won&rsquo;t see this as
-often as <code>|</code> and <code>&gt;</code>, since most utilities can work directly with files on their
-own, but it can save you typing <code>cat</code> quite as often.</p>
+thing as <code>cat all_authors | nl</code>, or <code>nl all_authors</code>.  You won&rsquo;t see this used
+as much as <code>|</code> and <code>&gt;</code>, since most utilities can work directly with files on
+their own, but it can save you typing <code>cat</code> quite as often.</p>
 
 <p>We&rsquo;ll use these features liberally from here on out.</p>
 
 <h2><a name=man-pages-and-ndash-help href=#man-pages-and-ndash-help>#</a> man pages and &ndash;help</h2>
 
-<p>I mentioned that the behavior of most commands can be changed by giving them
-different options.  All well and good if you happen to know what options a
-certain utility takes, but what if you don&rsquo;t?</p>
+<p>So you can change the behavior of most commands by giving them different
+options.  All well and good if you happen to know what options a certain
+utility takes, but what if you don&rsquo;t?</p>
 
 <p>What you want is called a man (short for manual) page.  (It&rsquo;s sort of an
 unfortunate abbreviation.)</p>
@@ -594,8 +619,9 @@ DESCRIPTION
        Write sorted concatenation of all FILE(s) to standard output.
 </code></pre>
 
-<p>&hellip;and so on.  You can also ask a lot of commands directly for help on how to
-use them:</p>
+<p>&hellip;and so on.</p>
+
+<p>You can also ask a lot of commands directly for help on how to use them:</p>
 
 <pre><code>$ uniq --help
 Usage: uniq [OPTION]... [INPUT [OUTPUT]]
@@ -610,8 +636,8 @@ With no options, matching lines are merged to the first occurrence.
 <p>If you&rsquo;re not sure what <em>program</em> you want to use to solve a given problem, you
 might try searching all the man pages on the system for a keyword.  <code>man</code>
 itself has an option to let you do this - <code>man -k keyword</code> - but most systems
-have an alias for this called <code>apropos</code>, which I like to use because it&rsquo;s easy
-to remember if you imagine yourself saying &ldquo;apropos of [some problem I
+have a shortcut for this called <code>apropos</code>, which I like to use because it&rsquo;s
+easy to remember if you imagine yourself saying &ldquo;apropos of [some problem I
 have]&hellip;&rdquo;</p>
 
 <!-- exec -->
@@ -633,11 +659,8 @@ qsort (3)            - sort an array
 qsort_r (3)          - sort an array
 radixsort (3)        - radix sort
 sort (1)             - sort lines of text files
-sq (1)               - squeeze or unsqueeze a sorted word list
 sradixsort (3)       - radix sort
-texindex (1)         - sort Texinfo index files
 tsort (1)            - perform topological sort
-unsq (1)             - squeeze or unsqueeze a sorted word list
 versionsort (3)      - scan a directory for matching entries
 XConsortium (7)      - X Consortium information
 </code></pre>
@@ -1396,18 +1419,18 @@ filenames, but I wind up using it quite a bit.</p>
 
 
 <pre><code>$ find ~/p1k3/archives/2012/ -type f | xargs perl -ne 'print "$1\n" if m{&lt;h2&gt;(.*?)&lt;/h2&gt;}'
-A miracle, in fact, means work
-&lt;em&gt;technical notes for late october&lt;/em&gt;, or &lt;em&gt;it gets dork out earlier these days&lt;/em&gt;
-more observations on gear nerdery &amp;amp; utility fetishism
-timebinding animals
+pursuit
 fragment
 this poem again
-pursuit
-thrift
 i'll do better next time
+timebinding animals
+more observations on gear nerdery &amp;amp; utility fetishism
+thrift
+A miracle, in fact, means work
+&lt;em&gt;technical notes for late october&lt;/em&gt;, or &lt;em&gt;it gets dork out earlier these days&lt;/em&gt;
+radio
 light enough to travel
 12:06am
-radio
 "figures like Heinlein and Gingrich"
 </code></pre>
 
@@ -1566,10 +1589,9 @@ up some good examples:</p>
 
 
 <pre><code>$ grep -E '[a-z]+.*\| ' ../literary_environment/index.md
-    $ sort -k2 authors_* | uniq
-    $ sort colors | uniq -i -c
+    $ sort authors_* | uniq -c
     $ sort authors_* | uniq &gt; all_authors
-thing as `cat all_authors | nl`, or `nl all_authors`.  You won't see this as
+thing as `cat all_authors | nl`, or `nl all_authors`.  You won't see this used
     $ find ~/p1k3/archives/2010/11 -regextype egrep -regex '.*([0-9]+|index)' -type f | xargs wc -w | grep total
     $ sort authors_* | uniq | wc -l
     $ dict concatenate | head -10
@@ -1679,7 +1701,7 @@ important:</p>
 
 
 <pre><code>$ ls -l okpoems
--rwxr-xr-x 1 brennen brennen 163 Apr 17 15:16 okpoems
+-rwxrwxr-x 1 brennen brennen 163 Apr 19 00:08 okpoems
 </code></pre>
 
 <!-- end -->
@@ -1699,8 +1721,9 @@ accomplish this by saying something like:</p>
 
 
 <pre><code>$ ./okpoems
+/home/brennen/p1k3/archives/2013/2/9
 /home/brennen/p1k3/archives/2012/3/17
-/home/brennen/p1k3/archives/2012/2/9
+/home/brennen/p1k3/archives/2012/3/26
 </code></pre>
 
 <!-- end -->
@@ -2189,8 +2212,8 @@ one of these with <code>diff -u</code>:</p>
 
 
 <pre><code>$ diff -u ../script/okpoems ../script/findprop
---- ../script/okpoems   2014-04-17 15:16:59.852962836 -0600
-+++ ../script/findprop  2014-05-12 15:50:27.358501804 -0600
+--- ../script/okpoems   2014-04-19 00:08:03.321230818 -0600
++++ ../script/findprop  2014-04-21 21:51:29.360846449 -0600
 @@ -1,7 +1,13 @@
  #!/bin/bash
 
@@ -2275,11 +2298,12 @@ Files okpoem_output and findprop_output are identical
 <strong>s</strong>ame.  Otherwise, it&rsquo;d output nothing at all, because there aren&rsquo;t any
 differences.</p>
 
-<p>What&rsquo;s worth noticing here is that <code>diff</code> doesn&rsquo;t really care whether it&rsquo;s
-looking at shell scripts or a list of filenames or what-have-you.  Its
-specialty is text files with lines made out of characters, which works well for
-lots of programming languages, but could just as easily be applied to an
-English text.</p>
+<p>As with many other tools, <code>diff</code> doesn&rsquo;t very much care whether it&rsquo;s looking at
+shell scripts or a list of filenames or what-have-you.  If you read the man
+page, you&rsquo;ll find some features geared towards people writing C-like
+programming languages, but its real specialty is just text files with lines
+made out of characters, which works well for lots of code, but certainly could
+be applied to English prose.</p>
 
 <p>Since I have a couple of versions ready to hand, let&rsquo;s apply this to a text
 with some well-known variations and a bit of a literary legacy.  Here&rsquo;s the
@@ -2324,8 +2348,8 @@ called Night.  And there was evening and there was morning, the first day.
 
 
 <pre><code>$ diff -u genesis_nkj genesis_nrsv
---- genesis_nkj 2014-05-12 15:50:27.346501744 -0600
-+++ genesis_nrsv    2014-05-12 15:50:27.346501744 -0600
+--- genesis_nkj 2014-05-11 16:28:29.692508461 -0600
++++ genesis_nrsv    2014-05-11 16:28:29.744508459 -0600
 @@ -1,6 +1,6 @@
 -In the beginning God created the heavens and the earth.  The earth was without
 -form, and void; and darkness was on the face of the deep.  And the Spirit of
@@ -2361,8 +2385,8 @@ one-line-per-verse, and try again:</p>
 
 
 <pre><code>$ diff -u genesis_nkj_by_verse genesis_nrsv_by_verse
---- genesis_nkj_by_verse    2014-05-12 15:50:27.346501744 -0600
-+++ genesis_nrsv_by_verse   2014-05-12 15:50:27.346501744 -0600
+--- genesis_nkj_by_verse    2014-05-11 16:51:14.312457198 -0600
++++ genesis_nrsv_by_verse   2014-05-11 16:53:02.484453134 -0600
 @@ -1,5 +1,5 @@
 -In the beginning God created the heavens and the earth.
 -The earth was without form, and void; and darkness was on the face of the deep.  And the Spirit of God was hovering over the face of the waters.
@@ -2378,9 +2402,9 @@ one-line-per-verse, and try again:</p>
 <!-- end -->
 
 
-<p>That&rsquo;s a little better, but editing all that text felt suspiciously like work
-just to get a quick comparison, and anyway the output still doesn&rsquo;t feel very
-useful.</p>
+<p>It might be a little more descriptive, but editing all that text just for a
+quick comparison felt suspiciously like work, and anyway the output still
+doesn&rsquo;t seem very useful.</p>
 
 <h2><a name=wdiff href=#wdiff>#</a> wdiff</h2>
 
@@ -2456,27 +2480,25 @@ v3_january
 <!-- end -->
 
 
-<p>And in fact, as of mid-2014, it&rsquo;s still pretty common.  Any number of the
-smarter people you know probably have desktops full of folder icons full of
-still <em>other</em> folder icons named things like <code>version_six_KEEP</code> which in turn
-are full of files called things like <code>use_this_one.jpg</code>.  Still, the last
-decade or so has seen a widespread realization in the technical community that
-this is a problem better solved by software.</p>
+<p>And in fact, as of mid-2014, it&rsquo;s still pretty common.  Any number of smart
+people you know probably have desktops full of folder icons full of still
+<em>other</em> folder icons named things like <code>version_six_KEEP</code> which in turn are
+full of files called things like <code>use_this_one.jpg</code>.  Still, the last decade or
+so has seen a widespread realization in the technical world that this is a
+problem for software.</p>
 
 <p>The software in question is variously known as revision tracking, source code
-management, version control, and probably half a dozen other things.  As some
-of the terms might lead you to expect, it&rsquo;s overwhelmingly designed with
-programmers in mind, and it mostly works with the kinds of text files that
-programmers rely on.  Because it&rsquo;s built by and for people with an inordinately
-high tolerance for jargon and complexity, it tends towards weird interfaces
-(even by the standards of the command line) and confusing vocabulary.</p>
+management, revision version control, and probably half a dozen other things.
+As some of the terms suggest, it&rsquo;s overwhelmingly designed with programmers in
+mind, and it works best with the kinds of text files that programmers rely on.
+Because it&rsquo;s built by and for people with an inordinately high tolerance for
+jargon and complexity, it tends towards weird interfaces (even by the standards
+of the command line) and confusing vocabulary.</p>
 
-<p>If you&rsquo;re writing programs in any serious way, you should be using version
-control for anything bigger than a few lines of code.  Being able to reason
-about change across time is essential to your work, and explicit visibility of
-the changes you&rsquo;re making at any given time is astonishingly useful.</p>
+<p>If you&rsquo;re writing programs in any serious way, you should probably be using
+version control.</p>
 
-<p>{work in progress}</p>
+<p>{this chapter a work in progress}</p>
 
 <hr />
 
