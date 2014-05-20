@@ -31,9 +31,8 @@
 <li><a href="#options">options</a></li>
 <li><a href="#uniq">uniq</a></li>
 <li><a href="#standard-IO">standard IO</a></li>
-<li><a href="#man-pages-and-ndash-help">man pages and &ndash;help</a></li>
+<li><a href="#man-pages-and-code-help-code">man pages and <code>&ndash;help</code></a></li>
 <li><a href="#wc">wc</a></li>
-<li><a href="#reference-tools-dict-cal">reference tools: dict, cal</a></li>
 <li><a href="#head-tail-and-cut">head, tail, and cut</a></li>
 <li><a href="#finding-text-grep">finding text: grep</a></li>
 <li><a href="#now-you-have-n-problems-regex-rabbit-holes">now you have n problems: regex + rabbit holes</a></li>
@@ -118,9 +117,8 @@ not license it under more restrictive terms than that.</p>
 <li><a href="#options">options</a></li>
 <li><a href="#uniq">uniq</a></li>
 <li><a href="#standard-IO">standard IO</a></li>
-<li><a href="#man-pages-and-ndash-help">man pages and &ndash;help</a></li>
+<li><a href="#man-pages-and-code-help-code">man pages and <code>&ndash;help</code></a></li>
 <li><a href="#wc">wc</a></li>
-<li><a href="#reference-tools-dict-cal">reference tools: dict, cal</a></li>
 <li><a href="#head-tail-and-cut">head, tail, and cut</a></li>
 <li><a href="#finding-text-grep">finding text: grep</a></li>
 <li><a href="#now-you-have-n-problems-regex-rabbit-holes">now you have n problems: regex + rabbit holes</a></li>
@@ -380,7 +378,7 @@ Vanessa Veselka
 
 <p>Does it bother you that they aren&rsquo;t sorted by last name?  Me too.  As a partial
 solution, we can ask <code>sort</code> to use the second &ldquo;field&rdquo; in each line as its sort
-key (by default, sort treats whitespace as a division between fields):</p>
+<strong>k</strong>ey (by default, sort treats whitespace as a division between fields):</p>
 
 <!-- exec -->
 
@@ -477,7 +475,7 @@ Jo Walton
 <!-- end -->
 
 
-<p>But there&rsquo;s another approach to this - <code>sort</code> is good at only displaying a line
+<p>But there&rsquo;s another approach to this &ndash; <code>sort</code> is good at only displaying a line
 once, but suppose we wanted to see a count of how many different lists an
 author shows up on?  <code>sort</code> doesn&rsquo;t do that, but a command called <code>uniq</code> does,
 if you give it the option <code>-c</code> for <strong>c</strong>ount.</p>
@@ -520,7 +518,7 @@ built Unix in the first place give interviews about the stuff they remember
 from the early days, a lot of them reminisce about the invention of pipes and
 all of the new stuff it immediately made possible.</p>
 
-<p>Pipes let you control a thing called &ldquo;standard IO&rdquo;.  In the world of the
+<p>Pipes help you control a thing called &ldquo;standard IO&rdquo;.  In the world of the
 command line, programs take <strong>i</strong>nput and produce <strong>o</strong>utput.  A pipe is a way
 to hook the output from one program to the input of another.</p>
 
@@ -536,7 +534,7 @@ you&rsquo;d like to store it in a file for later use?</p>
 <!-- exec -->
 
 
-<pre><code>$ sort authors_* | uniq &gt; all_authors
+<pre><code>$ sort authors_* | uniq &gt; ./all_authors
 </code></pre>
 
 <!-- end -->
@@ -563,9 +561,49 @@ Vanessa Veselka
 <!-- end -->
 
 
-<p>I like to think of the <code>&gt;</code> as looking like a little funnel.</p>
+<p>I like to think of the <code>&gt;</code> as looking like a little funnel.  It can be
+dangerous &ndash; you should always make sure that you&rsquo;re not going to clobber
+an existing file you actually want to keep.</p>
 
-<p>You can also take a file and send it directly to the input of a given program:</p>
+<p>If you want to tack more stuff on to the end of an existing file, you can use
+<code>&gt;&gt;</code> instead.  To test that, let&rsquo;s use <code>echo</code>, which prints out whatever string
+you give it on a line by itself:</p>
+
+<!-- exec -->
+
+
+<pre><code>$ echo 'hello' &gt; hello_world
+</code></pre>
+
+<!-- end -->
+
+
+
+
+<!-- exec -->
+
+
+<pre><code>$ echo 'world' &gt;&gt; hello_world
+</code></pre>
+
+<!-- end -->
+
+
+
+
+<!-- exec -->
+
+
+<pre><code>$ cat hello_world
+hello
+world
+</code></pre>
+
+<!-- end -->
+
+
+<p>You can also take a file and pull it directly back into the input of a given
+program, which is a bit like a funnel going the other direction:</p>
 
 <!-- exec -->
 
@@ -586,21 +624,33 @@ Vanessa Veselka
 <!-- end -->
 
 
-<p><code>nl</code> is a way to <strong>n</strong>umber <strong>l</strong>ines.  This command accomplishes the same
-thing as <code>cat all_authors | nl</code>, or <code>nl all_authors</code>.  You won&rsquo;t see this used
-as much as <code>|</code> and <code>&gt;</code>, since most utilities can work directly with files on
-their own, but it can save you typing <code>cat</code> quite as often.</p>
+<p><code>nl</code> is a way to <strong>n</strong>umber <strong>l</strong>ines.  This command accomplishes pretty much
+the same thing as <code>cat all_authors | nl</code>, or <code>nl all_authors</code>.  You won&rsquo;t see
+it used as often as <code>|</code> and <code>&gt;</code>, since most utilities can read files on their
+own, but it can save you typing <code>cat</code> quite as often.</p>
 
 <p>We&rsquo;ll use these features liberally from here on out.</p>
 
-<h2><a name=man-pages-and-ndash-help href=#man-pages-and-ndash-help>#</a> man pages and &ndash;help</h2>
+<h2><a name=man-pages-and-code-help-code href=#man-pages-and-code-help-code>#</a> man pages and <code>--help</code></h2>
 
-<p>So you can change the behavior of most commands by giving them different
-options.  All well and good if you happen to know what options a certain
-utility takes, but what if you don&rsquo;t?</p>
+<p>You can change the behavior of most tools by giving them different options.
+This is all well and good if you already know what options are available,
+but what if you don&rsquo;t?</p>
 
-<p>What you want is called a man (short for manual) page.  (It&rsquo;s sort of an
-unfortunate abbreviation.)</p>
+<p>Often, you can ask the tool itself:</p>
+
+<pre><code>$ uniq --help
+Usage: uniq [OPTION]... [INPUT [OUTPUT]]
+Filter adjacent matching lines from INPUT (or standard input),
+writing to OUTPUT (or standard output).
+
+With no options, matching lines are merged to the first occurrence.
+</code></pre>
+
+<p>&hellip;and so on.</p>
+
+<p>If that doesn&rsquo;t work, what you want is called a a man (short for manual) page.
+(It&rsquo;s sort of an unfortunate abbreviation.)</p>
 
 <pre><code>$ man sort
 
@@ -621,58 +671,39 @@ DESCRIPTION
 
 <p>&hellip;and so on.</p>
 
-<p>You can also ask a lot of commands directly for help on how to use them:</p>
-
-<pre><code>$ uniq --help
-Usage: uniq [OPTION]... [INPUT [OUTPUT]]
-Filter adjacent matching lines from INPUT (or standard input),
-writing to OUTPUT (or standard output).
-
-With no options, matching lines are merged to the first occurrence.
-</code></pre>
-
-<p>&hellip;and so on.</p>
-
 <p>If you&rsquo;re not sure what <em>program</em> you want to use to solve a given problem, you
 might try searching all the man pages on the system for a keyword.  <code>man</code>
 itself has an option to let you do this - <code>man -k keyword</code> - but most systems
-have a shortcut for this called <code>apropos</code>, which I like to use because it&rsquo;s
-easy to remember if you imagine yourself saying &ldquo;apropos of [some problem I
-have]&hellip;&rdquo;</p>
+also have a shortcut called <code>apropos</code>, which I like to use because it&rsquo;s easy to
+remember if you imagine yourself saying &ldquo;apropos of [some problem I have]&hellip;&rdquo;</p>
 
 <!-- exec -->
 
 
-<pre><code>$ apropos sort
-alphasort (3)        - scan a directory for matching entries
+<pre><code>$ apropos -s1 sort
 apt-sortpkgs (1)     - Utility to sort package index files
-bsearch (3)          - binary search of a sorted array
 bunzip2 (1)          - a block-sorting file compressor, v1.0.6
 bzip2 (1)            - a block-sorting file compressor, v1.0.6
 comm (1)             - compare two sorted files line by line
-FcFontSetSort (3)    - Add to a font set
-FcFontSetSortDestroy (3) - DEPRECATED destroy a font set
-FcFontSort (3)       - Return list of matching fonts
-heapsort (3)         - sort functions
-mergesort (3)        - sort functions
-qsort (3)            - sort an array
-qsort_r (3)          - sort an array
-radixsort (3)        - radix sort
 sort (1)             - sort lines of text files
-sradixsort (3)       - radix sort
 tsort (1)            - perform topological sort
-versionsort (3)      - scan a directory for matching entries
-XConsortium (7)      - X Consortium information
 </code></pre>
 
 <!-- end -->
 
 
-<p>It can be useful to know that the manual represented by <code>man</code> has numbered
-sections for different kinds of manual pages.  Most of what the average user
-needs to know about lives in section 1, so you&rsquo;ll often see the names of
-different commands and programs written like <code>sort(1)</code> or <code>cat(1)</code>.  Like other
-literary traditions, Unix is littered with this sort of convention.</p>
+<p>It&rsquo;s useful to know that the manual represented by <code>man</code> has numbered sections
+for different kinds of manual pages.  Most of what the average user needs to
+know about lives in section 1, &ldquo;User Commands&rdquo;, so you&rsquo;ll often see the names
+of different tools written like <code>sort(1)</code> or <code>cat(1)</code>.  This can be a good way
+to make it clear in writing that you&rsquo;re talking about a specific piece of
+software rather than a verb or a small carnivorous mammal.  (I specified <code>-s1</code>
+for section 1 above just to cut down on clutter, though in practice I usually
+don&rsquo;t bother.)</p>
+
+<p>Like other literary traditions, Unix is littered with this sort of convention.
+This one just happens to date from a time when the manual was still a physical
+book.</p>
 
 <h2><a name=wc href=#wc>#</a> wc</h2>
 
@@ -725,71 +756,6 @@ output of other commands.  Want to know <em>how many</em> unique authors we have
 
 <p>This kind of thing is obviously trivial, but it comes in handy more often than
 you might think.</p>
-
-<h2><a name=reference-tools-dict-cal href=#reference-tools-dict-cal>#</a> reference tools: dict, cal</h2>
-
-<p>I&rsquo;ll preface this by saying that, of course, almost anyone who is writing
-anything on a computer is going to use Google and Wikipedia, and the answer to
-questions like &ldquo;what does this word mean&rdquo; or &ldquo;what day did Easter fall on in
-1992&rdquo; is readily available to all of us.</p>
-
-<p>That said, not everything has to live on the web all the time.  Sometimes you
-know that if you jump over to your browser you&rsquo;re going to wind up lost in a
-forest of cat GIFs and drama-laden social network updates.  Sometimes you&rsquo;re
-writing a presentation on a Raspberry Pi, where trying to use a web browser is
-like travelling back in time to the part of the 1990s when people were running
-Netscape Navigator on 486s and we were all getting real excited about burnable
-CDs.</p>
-
-<p>So.  Want to know the definition of a word, or find useful synonyms?</p>
-
-<pre><code>$ dict concatenate | head -10
-4 definitions found
-
-From The Collaborative International Dictionary of English v.0.48 [gcide]:
-
-  Concatenate \Con*cat"e*nate\ (k[o^]n*k[a^]t"[-e]*n[=a]t), v. t.
-     [imp. &amp; p. p. {Concatenated}; p. pr. &amp; vb. n.
-     {Concatenating}.] [L. concatenatus, p. p. of concatenare to
-     concatenate. See {Catenate}.]
-     To link together; to unite in a series or chain, as things
-     depending on one another.
-</code></pre>
-
-<p>Need to interactively spell-check your presentation notes?</p>
-
-<pre><code>$ aspell check presentation
-</code></pre>
-
-<p>Want to know what the calendar looks like for this month?</p>
-
-<pre><code>$ cal
-     April 2014       
-Su Mo Tu We Th Fr Sa  
-       1  2  3  4  5  
- 6  7  8  9 10 11 12  
-13 14 15 16 17 18 19  
-20 21 22 23 24 25 26  
-27 28 29 30           
-</code></pre>
-
-<p>How about for September, 1950?</p>
-
-<!-- exec -->
-
-
-<pre><code>$ cal -m9 1950
-   September 1950     
-Su Mo Tu We Th Fr Sa  
-                1  2  
- 3  4  5  6  7  8  9  
-10 11 12 13 14 15 16  
-17 18 19 20 21 22 23  
-24 25 26 27 28 29 30  
-</code></pre>
-
-<!-- end -->
-
 
 <h2><a name=head-tail-and-cut href=#head-tail-and-cut>#</a> head, tail, and cut</h2>
 
@@ -1590,11 +1556,10 @@ up some good examples:</p>
 
 <pre><code>$ grep -E '[a-z]+.*\| ' ../literary_environment/index.md
     $ sort authors_* | uniq -c
-    $ sort authors_* | uniq &gt; all_authors
-thing as `cat all_authors | nl`, or `nl all_authors`.  You won't see this used
+    $ sort authors_* | uniq &gt; ./all_authors
+the same thing as `cat all_authors | nl`, or `nl all_authors`.  You won't see
     $ find ~/p1k3/archives/2010/11 -regextype egrep -regex '.*([0-9]+|index)' -type f | xargs wc -w | grep total
     $ sort authors_* | uniq | wc -l
-    $ dict concatenate | head -10
     $ sort colors | uniq -i | tail -1
     $ cut -d' ' -f1 ./authors_* | sort | uniq -ci | sort -n | tail -3
     $ sort -u ./authors_* | cut -d' ' -f1 | uniq -ci | sort -n | tail -3
@@ -1984,13 +1949,13 @@ well with others, freeing us to imagine new uses for its central idea without
 worrying about the implementation details.</p>
 
 <p>Unlike <code>markpoem</code>, <code>addprop</code> doesn&rsquo;t know anything about poetry.  All it knows
-about in fact, is putting a file (or three) in a particular place.  And this is
-in keeping with a basic insight of Unix:  Pieces of software that do one very
-simple thing generalize well.  Good command line tools are like a hex wrench,
-a hammer, a utility knife:  They embody knowledge of turning, of striking, of
-cutting &ndash; and with this kind of knowledge at hand, the user can change the
-world even though no individual tool is made with complete knowledge of the
-world as a whole.  There&rsquo;s a lot of power in the accumulation of small
+about, in fact, is putting a file (or three) in a particular place.  And this
+is in keeping with a basic insight of Unix:  Pieces of software that do one
+very simple thing generalize well.  Good command line tools are like a hex
+wrench, a hammer, a utility knife:  They embody knowledge of turning, of
+striking, of cutting &ndash; and with this kind of knowledge at hand, the user can
+change the world even though no individual tool is made with complete knowledge
+of the world as a whole.  There&rsquo;s a lot of power in the accumulation of small
 competencies.</p>
 
 <p>Of course, if your code is only good at one thing, to be of any use, it has to
@@ -2074,7 +2039,7 @@ most languages offer simple conventions for doing these things.</p>
 <p style="text-align:center;"> *</p>
 
 <p>I think the shell can be taught and understood as a humane environment, despite
-all its uglinesses and complications, because it offers the materials of its
+all of its ugliness and complication, because it offers the materials of its
 own construction to its users, whatever their concerns.  The writer, the
 philosopher, the scientist, the programmer:  Files and text and pipes know
 little enough about these things, but in their very indifference to the

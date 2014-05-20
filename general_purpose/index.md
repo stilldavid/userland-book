@@ -67,13 +67,13 @@ well with others, freeing us to imagine new uses for its central idea without
 worrying about the implementation details.
 
 Unlike `markpoem`, `addprop` doesn't know anything about poetry.  All it knows
-about in fact, is putting a file (or three) in a particular place.  And this is
-in keeping with a basic insight of Unix:  Pieces of software that do one very
-simple thing generalize well.  Good command line tools are like a hex wrench,
-a hammer, a utility knife:  They embody knowledge of turning, of striking, of
-cutting -- and with this kind of knowledge at hand, the user can change the
-world even though no individual tool is made with complete knowledge of the
-world as a whole.  There's a lot of power in the accumulation of small
+about, in fact, is putting a file (or three) in a particular place.  And this
+is in keeping with a basic insight of Unix:  Pieces of software that do one
+very simple thing generalize well.  Good command line tools are like a hex
+wrench, a hammer, a utility knife:  They embody knowledge of turning, of
+striking, of cutting -- and with this kind of knowledge at hand, the user can
+change the world even though no individual tool is made with complete knowledge
+of the world as a whole.  There's a lot of power in the accumulation of small
 competencies.
 
 Of course, if your code is only good at one thing, to be of any use, it has to
@@ -154,7 +154,7 @@ most languages offer simple conventions for doing these things.
 -> * <-
 
 I think the shell can be taught and understood as a humane environment, despite
-all its uglinesses and complications, because it offers the materials of its
+all of its ugliness and complication, because it offers the materials of its
 own construction to its users, whatever their concerns.  The writer, the
 philosopher, the scientist, the programmer:  Files and text and pipes know
 little enough about these things, but in their very indifference to the

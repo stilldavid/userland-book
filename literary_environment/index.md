@@ -216,7 +216,7 @@ Here's a command that will give us some organization:
 
 Does it bother you that they aren't sorted by last name?  Me too.  As a partial
 solution, we can ask `sort` to use the second "field" in each line as its sort
-key (by default, sort treats whitespace as a division between fields):
+**k**ey (by default, sort treats whitespace as a division between fields):
 
 <!-- exec -->
 
@@ -303,16 +303,15 @@ authors.  We can make sure our list doesn't contain repeating lines by using
 
 <!-- end -->
 
-But there's another approach to this - `sort` is good at only displaying a line
+But there's another approach to this -- `sort` is good at only displaying a line
 once, but suppose we wanted to see a count of how many different lists an
 author shows up on?  `sort` doesn't do that, but a command called `uniq` does,
 if you give it the option `-c` for **c**ount.
 
-`uniq` is a program that moves through the lines in its input, and if it sees a
-line more than once in sequence, it will only print that line once.  If you
-have a bunch of files and you just want to see the unique lines across all of
-those files, you probably need to run them through `sort` first.  How do you do
-that?
+`uniq` moves through the lines in its input, and if it sees a line more than
+once in sequence, it will only print that line once.  If you have a bunch of
+files and you just want to see the unique lines across all of those files, you
+probably need to run them through `sort` first.  How do you do that?
 
 <!-- exec -->
 
@@ -344,7 +343,7 @@ built Unix in the first place give interviews about the stuff they remember
 from the early days, a lot of them reminisce about the invention of pipes and
 all of the new stuff it immediately made possible.
 
-Pipes let you control a thing called "standard IO".  In the world of the
+Pipes help you control a thing called "standard IO".  In the world of the
 command line, programs take **i**nput and produce **o**utput.  A pipe is a way
 to hook the output from one program to the input of another.
 
@@ -359,7 +358,7 @@ Check it out:
 
 <!-- exec -->
 
-    $ sort authors_* | uniq > all_authors
+    $ sort authors_* | uniq > ./all_authors
     
 <!-- end -->
 
@@ -379,9 +378,36 @@ Check it out:
 
 <!-- end -->
 
-I like to think of the `>` as looking like a little funnel.
+I like to think of the `>` as looking like a little funnel.  It can be
+dangerous -- you should always make sure that you're not going to clobber
+an existing file you actually want to keep.
 
-You can also take a file and send it directly to the input of a given program:
+If you want to tack more stuff on to the end of an existing file, you can use
+`>>` instead.  To test that, let's use `echo`, which prints out whatever string
+you give it on a line by itself:
+
+<!-- exec -->
+
+    $ echo 'hello' > hello_world
+    
+<!-- end -->
+
+<!-- exec -->
+
+    $ echo 'world' >> hello_world
+    
+<!-- end -->
+
+<!-- exec -->
+
+    $ cat hello_world
+    hello
+    world
+
+<!-- end -->
+
+You can also take a file and pull it directly back into the input of a given
+program, which is a bit like a funnel going the other direction:
 
 <!-- exec -->
 
@@ -399,22 +425,47 @@ You can also take a file and send it directly to the input of a given program:
 
 <!-- end -->
 
-`nl` is a way to **n**umber **l**ines.  This command accomplishes the same
-thing as `cat all_authors | nl`, or `nl all_authors`.  You won't see this used
-as much as `|` and `>`, since most utilities can work directly with files on
-their own, but it can save you typing `cat` quite as often.
+`nl` is just a way to **n**umber **l**ines.  This command accomplishes pretty much
+the same thing as `cat all_authors | nl`, or `nl all_authors`.  You won't see
+it used as often as `|` and `>`, since most utilities can read files on their
+own, but it can save you typing `cat` quite as often.
 
 We'll use these features liberally from here on out.
 
-man pages and --help
---------------------
+`--help` and man pages
+----------------------
 
-So you can change the behavior of most commands by giving them different
-options.  All well and good if you happen to know what options a certain
-utility takes, but what if you don't?
+You can change the behavior of most tools by giving them different options.
+This is all well and good if you already know what options are available,
+but what if you don't?
 
-What you want is called a man (short for manual) page.  (It's sort of an
-unfortunate abbreviation.)
+Often, you can ask the tool itself:
+
+    $ sort --help
+    Usage: sort [OPTION]... [FILE]...
+      or:  sort [OPTION]... --files0-from=F
+    Write sorted concatenation of all FILE(s) to standard output.
+    
+    Mandatory arguments to long options are mandatory for short options too.
+    Ordering options:
+    
+      -b, --ignore-leading-blanks  ignore leading blanks
+      -d, --dictionary-order      consider only blanks and alphanumeric characters
+      -f, --ignore-case           fold lower case to upper case characters
+      -g, --general-numeric-sort  compare according to general numerical value
+      -i, --ignore-nonprinting    consider only printable characters
+      -M, --month-sort            compare (unknown) < 'JAN' < ... < 'DEC'
+      -h, --human-numeric-sort    compare human readable numbers (e.g., 2K 1G)
+      -n, --numeric-sort          compare according to string numerical value
+      -R, --random-sort           sort by random hash of keys
+          --random-source=FILE    get random bytes from FILE
+      -r, --reverse               reverse the result of comparisons
+
+...and so on.  (It goes on for a while in this vein.)
+
+If that doesn't work, or doesn't provide enough info, the next thing to try is
+called a man page.  ("man" is short for "manual".  It's sort of an unfortunate
+abbreviation.)
 
     $ man sort
 
@@ -432,56 +483,39 @@ unfortunate abbreviation.)
     DESCRIPTION
            Write sorted concatenation of all FILE(s) to standard output.
 
-...and so on.
-
-You can also ask a lot of commands directly for help on how to use them:
-
-    $ uniq --help
-    Usage: uniq [OPTION]... [INPUT [OUTPUT]]
-    Filter adjacent matching lines from INPUT (or standard input),
-    writing to OUTPUT (or standard output).
-
-    With no options, matching lines are merged to the first occurrence.
-
-...and so on.
+...and so on.  Manual pages vary in quality, and it can take a while to get
+used to reading them, but they're very often the best place to look for help.
 
 If you're not sure what _program_ you want to use to solve a given problem, you
 might try searching all the man pages on the system for a keyword.  `man`
 itself has an option to let you do this - `man -k keyword` - but most systems
-have a shortcut for this called `apropos`, which I like to use because it's
-easy to remember if you imagine yourself saying "apropos of [some problem I
-have]..."
+also have a shortcut called `apropos`, which I like to use because it's easy to
+remember if you imagine yourself saying "apropos of [some problem I have]..."
 
 <!-- exec -->
 
-    $ apropos sort
-    alphasort (3)        - scan a directory for matching entries
+    $ apropos -s1 sort
     apt-sortpkgs (1)     - Utility to sort package index files
-    bsearch (3)          - binary search of a sorted array
     bunzip2 (1)          - a block-sorting file compressor, v1.0.6
     bzip2 (1)            - a block-sorting file compressor, v1.0.6
     comm (1)             - compare two sorted files line by line
-    FcFontSetSort (3)    - Add to a font set
-    FcFontSetSortDestroy (3) - DEPRECATED destroy a font set
-    FcFontSort (3)       - Return list of matching fonts
-    heapsort (3)         - sort functions
-    mergesort (3)        - sort functions
-    qsort (3)            - sort an array
-    qsort_r (3)          - sort an array
-    radixsort (3)        - radix sort
     sort (1)             - sort lines of text files
-    sradixsort (3)       - radix sort
     tsort (1)            - perform topological sort
-    versionsort (3)      - scan a directory for matching entries
-    XConsortium (7)      - X Consortium information
 
 <!-- end -->
 
-It can be useful to know that the manual represented by `man` has numbered
-sections for different kinds of manual pages.  Most of what the average user
-needs to know about lives in section 1, so you'll often see the names of
-different commands and programs written like `sort(1)` or `cat(1)`.  Like other
-literary traditions, Unix is littered with this sort of convention.
+It's useful to know that the manual represented by `man` has numbered sections
+for different kinds of manual pages.  Most of what the average user needs to
+know about lives in section 1, "User Commands", so you'll often see the names
+of different tools written like `sort(1)` or `cat(1)`.  This can be a good way
+to make it clear in writing that you're talking about a specific piece of
+software rather than a verb or a small carnivorous mammal.  (I specified `-s1`
+for section 1 above just to cut down on clutter, though in practice I usually
+don't bother.)
+
+Like other literary traditions, Unix is littered with this sort of convention.
+This one just happens to date from a time when the manual was still a physical
+book.
 
 wc
 --
@@ -527,67 +561,6 @@ output of other commands.  Want to know _how many_ unique authors we have?
 
 This kind of thing is obviously trivial, but it comes in handy more often than
 you might think.
-
-reference tools: dict, cal
---------------------------
-
-I'll preface this by saying that, of course, almost anyone who is writing
-anything on a computer is going to use Google and Wikipedia, and the answer to
-questions like "what does this word mean" or "what day did Easter fall on in
-1992" is readily available to all of us.
-
-That said, not everything has to live on the web all the time.  Sometimes you
-know that if you jump over to your browser you're going to wind up lost in a
-forest of cat GIFs and drama-laden social network updates.  Sometimes you're
-writing a presentation on a Raspberry Pi, where trying to use a web browser is
-like travelling back in time to the part of the 1990s when people were running
-Netscape Navigator on 486s and we were all getting real excited about burnable
-CDs.
-
-So.  Want to know the definition of a word, or find useful synonyms?
-
-    $ dict concatenate | head -10
-    4 definitions found
-    
-    From The Collaborative International Dictionary of English v.0.48 [gcide]:
-    
-      Concatenate \Con*cat"e*nate\ (k[o^]n*k[a^]t"[-e]*n[=a]t), v. t.
-         [imp. & p. p. {Concatenated}; p. pr. & vb. n.
-         {Concatenating}.] [L. concatenatus, p. p. of concatenare to
-         concatenate. See {Catenate}.]
-         To link together; to unite in a series or chain, as things
-         depending on one another.
-
-Need to interactively spell-check your presentation notes?
-
-    $ aspell check presentation
-
-Want to know what the calendar looks like for this month?
-
-    $ cal
-         April 2014       
-    Su Mo Tu We Th Fr Sa  
-           1  2  3  4  5  
-     6  7  8  9 10 11 12  
-    13 14 15 16 17 18 19  
-    20 21 22 23 24 25 26  
-    27 28 29 30           
-
-How about for September, 1950?
-
-<!-- exec -->
-
-    $ cal -m9 1950
-       September 1950     
-    Su Mo Tu We Th Fr Sa  
-                    1  2  
-     3  4  5  6  7  8  9  
-    10 11 12 13 14 15 16  
-    17 18 19 20 21 22 23  
-    24 25 26 27 28 29 30  
-                          
-
-<!-- end -->
 
 head, tail, and cut
 -------------------
