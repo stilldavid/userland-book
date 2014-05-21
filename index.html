@@ -31,7 +31,7 @@
 <li><a href="#options">options</a></li>
 <li><a href="#uniq">uniq</a></li>
 <li><a href="#standard-IO">standard IO</a></li>
-<li><a href="#man-pages-and-code-help-code">man pages and <code>&ndash;help</code></a></li>
+<li><a href="#code-help-code-and-man-pages"><code>&ndash;help</code> and man pages</a></li>
 <li><a href="#wc">wc</a></li>
 <li><a href="#head-tail-and-cut">head, tail, and cut</a></li>
 <li><a href="#finding-text-grep">finding text: grep</a></li>
@@ -57,7 +57,6 @@
 <li><a href="#wdiff">wdiff</a></li>
 </ul>
 </li>
-<li><a href="#version-control">7. version control</a></li>
 <li><a href="#further-reading">8. further reading</a></li>
 </ul>
 
@@ -117,7 +116,7 @@ not license it under more restrictive terms than that.</p>
 <li><a href="#options">options</a></li>
 <li><a href="#uniq">uniq</a></li>
 <li><a href="#standard-IO">standard IO</a></li>
-<li><a href="#man-pages-and-code-help-code">man pages and <code>&ndash;help</code></a></li>
+<li><a href="#code-help-code-and-man-pages"><code>&ndash;help</code> and man pages</a></li>
 <li><a href="#wc">wc</a></li>
 <li><a href="#head-tail-and-cut">head, tail, and cut</a></li>
 <li><a href="#finding-text-grep">finding text: grep</a></li>
@@ -143,7 +142,6 @@ not license it under more restrictive terms than that.</p>
 <li><a href="#wdiff">wdiff</a></li>
 </ul>
 </li>
-<li><a href="#version-control">7. version control</a></li>
 <li><a href="#further-reading">8. further reading</a></li>
 </ul>
 
@@ -480,11 +478,10 @@ once, but suppose we wanted to see a count of how many different lists an
 author shows up on?  <code>sort</code> doesn&rsquo;t do that, but a command called <code>uniq</code> does,
 if you give it the option <code>-c</code> for <strong>c</strong>ount.</p>
 
-<p><code>uniq</code> is a program that moves through the lines in its input, and if it sees a
-line more than once in sequence, it will only print that line once.  If you
-have a bunch of files and you just want to see the unique lines across all of
-those files, you probably need to run them through <code>sort</code> first.  How do you do
-that?</p>
+<p><code>uniq</code> moves through the lines in its input, and if it sees a line more than
+once in sequence, it will only print that line once.  If you have a bunch of
+files and you just want to see the unique lines across all of those files, you
+probably need to run them through <code>sort</code> first.  How do you do that?</p>
 
 <!-- exec -->
 
@@ -624,14 +621,14 @@ program, which is a bit like a funnel going the other direction:</p>
 <!-- end -->
 
 
-<p><code>nl</code> is a way to <strong>n</strong>umber <strong>l</strong>ines.  This command accomplishes pretty much
+<p><code>nl</code> is just a way to <strong>n</strong>umber <strong>l</strong>ines.  This command accomplishes pretty much
 the same thing as <code>cat all_authors | nl</code>, or <code>nl all_authors</code>.  You won&rsquo;t see
 it used as often as <code>|</code> and <code>&gt;</code>, since most utilities can read files on their
 own, but it can save you typing <code>cat</code> quite as often.</p>
 
 <p>We&rsquo;ll use these features liberally from here on out.</p>
 
-<h2><a name=man-pages-and-code-help-code href=#man-pages-and-code-help-code>#</a> man pages and <code>--help</code></h2>
+<h2><a name=code-help-code-and-man-pages href=#code-help-code-and-man-pages>#</a> <code>--help</code> and man pages</h2>
 
 <p>You can change the behavior of most tools by giving them different options.
 This is all well and good if you already know what options are available,
@@ -639,18 +636,32 @@ but what if you don&rsquo;t?</p>
 
 <p>Often, you can ask the tool itself:</p>
 
-<pre><code>$ uniq --help
-Usage: uniq [OPTION]... [INPUT [OUTPUT]]
-Filter adjacent matching lines from INPUT (or standard input),
-writing to OUTPUT (or standard output).
+<pre><code>$ sort --help
+Usage: sort [OPTION]... [FILE]...
+  or:  sort [OPTION]... --files0-from=F
+Write sorted concatenation of all FILE(s) to standard output.
 
-With no options, matching lines are merged to the first occurrence.
+Mandatory arguments to long options are mandatory for short options too.
+Ordering options:
+
+  -b, --ignore-leading-blanks  ignore leading blanks
+  -d, --dictionary-order      consider only blanks and alphanumeric characters
+  -f, --ignore-case           fold lower case to upper case characters
+  -g, --general-numeric-sort  compare according to general numerical value
+  -i, --ignore-nonprinting    consider only printable characters
+  -M, --month-sort            compare (unknown) &lt; 'JAN' &lt; ... &lt; 'DEC'
+  -h, --human-numeric-sort    compare human readable numbers (e.g., 2K 1G)
+  -n, --numeric-sort          compare according to string numerical value
+  -R, --random-sort           sort by random hash of keys
+      --random-source=FILE    get random bytes from FILE
+  -r, --reverse               reverse the result of comparisons
 </code></pre>
 
-<p>&hellip;and so on.</p>
+<p>&hellip;and so on.  (It goes on for a while in this vein.)</p>
 
-<p>If that doesn&rsquo;t work, what you want is called a a man (short for manual) page.
-(It&rsquo;s sort of an unfortunate abbreviation.)</p>
+<p>If that doesn&rsquo;t work, or doesn&rsquo;t provide enough info, the next thing to try is
+called a man page.  (&ldquo;man&rdquo; is short for &ldquo;manual&rdquo;.  It&rsquo;s sort of an unfortunate
+abbreviation.)</p>
 
 <pre><code>$ man sort
 
@@ -669,7 +680,8 @@ DESCRIPTION
        Write sorted concatenation of all FILE(s) to standard output.
 </code></pre>
 
-<p>&hellip;and so on.</p>
+<p>&hellip;and so on.  Manual pages vary in quality, and it can take a while to get
+used to reading them, but they&rsquo;re very often the best place to look for help.</p>
 
 <p>If you&rsquo;re not sure what <em>program</em> you want to use to solve a given problem, you
 might try searching all the man pages on the system for a keyword.  <code>man</code>
@@ -754,8 +766,8 @@ output of other commands.  Want to know <em>how many</em> unique authors we have
 <!-- end -->
 
 
-<p>This kind of thing is obviously trivial, but it comes in handy more often than
-you might think.</p>
+<p>This kind of thing is trivial, but it comes in handy more often than you might
+think.</p>
 
 <h2><a name=head-tail-and-cut href=#head-tail-and-cut>#</a> head, tail, and cut</h2>
 
@@ -2415,55 +2427,6 @@ called Night.  <del>So the</del>  <ins>And there was</ins> evening and <del>the 
 
 
 <p>Burton H. Throckmorton, Jr. this ain&rsquo;t.  Still, it has its uses.</p>
-
-<hr />
-
-<h1><a name=version-control href=#version-control>#</a> 7. version control</h1>
-
-<p>Tools like <code>diff</code> and <code>wdiff</code> are useful when you have two versions of a file
-and need to reason about their differences.  Very often, however, the questions
-it&rsquo;s useful to ask about a file are along the lines of &ldquo;how have I changed this
-file today?&rdquo; or &ldquo;in what ways does this file differ from a year ago?&rdquo;</p>
-
-<p>It&rsquo;s certainly possible to manually keep snapshots of a file from different
-points in time.  It&rsquo;s even <em>theoretically</em> possible to be rigorous and
-organized about this, but no one I&rsquo;ve ever known has quite managed it.  It used
-to be common to see directories like this:</p>
-
-<!-- exec -->
-
-
-<pre><code>$ ls some_project/
-current
-current.bak
-v1
-v2
-v3
-v3_january
-</code></pre>
-
-<!-- end -->
-
-
-<p>And in fact, as of mid-2014, it&rsquo;s still pretty common.  Any number of smart
-people you know probably have desktops full of folder icons full of still
-<em>other</em> folder icons named things like <code>version_six_KEEP</code> which in turn are
-full of files called things like <code>use_this_one.jpg</code>.  Still, the last decade or
-so has seen a widespread realization in the technical world that this is a
-problem for software.</p>
-
-<p>The software in question is variously known as revision tracking, source code
-management, revision version control, and probably half a dozen other things.
-As some of the terms suggest, it&rsquo;s overwhelmingly designed with programmers in
-mind, and it works best with the kinds of text files that programmers rely on.
-Because it&rsquo;s built by and for people with an inordinately high tolerance for
-jargon and complexity, it tends towards weird interfaces (even by the standards
-of the command line) and confusing vocabulary.</p>
-
-<p>If you&rsquo;re writing programs in any serious way, you should probably be using
-version control.</p>
-
-<p>{this chapter a work in progress}</p>
 
 <hr />
 

@@ -559,8 +559,8 @@ output of other commands.  Want to know _how many_ unique authors we have?
 
 <!-- end -->
 
-This kind of thing is obviously trivial, but it comes in handy more often than
-you might think.
+This kind of thing is trivial, but it comes in handy more often than you might
+think.
 
 head, tail, and cut
 -------------------
