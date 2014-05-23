@@ -105,6 +105,11 @@ p code {
   padding: 2px;
 }
 
+img {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
 .sidenote {
   font-size: small;
   /* margin-right: -170px; */

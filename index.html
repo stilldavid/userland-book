@@ -181,7 +181,7 @@ on a very old paradigm called Unix.</p>
 
 <p>&hellip;except what classical Unix really looks like is this:</p>
 
-<p>{super old school blinking cursor dot gif}</p>
+<p style="text-align:center;"> <img src="images/blinking.gif" width=470></p>
 
 <p>The Unix-like environment we&rsquo;re going to use isn&rsquo;t very classical, really.
 It&rsquo;s an operating system kernel called Linux, combined with a bunch of things
@@ -698,7 +698,10 @@ bunzip2 (1)          - a block-sorting file compressor, v1.0.6
 bzip2 (1)            - a block-sorting file compressor, v1.0.6
 comm (1)             - compare two sorted files line by line
 sort (1)             - sort lines of text files
+sq (1)               - squeeze or unsqueeze a sorted word list
+texindex (1)         - sort Texinfo index files
 tsort (1)            - perform topological sort
+unsq (1)             - squeeze or unsqueeze a sorted word list
 </code></pre>
 
 <!-- end -->
@@ -1397,18 +1400,18 @@ filenames, but I wind up using it quite a bit.</p>
 
 
 <pre><code>$ find ~/p1k3/archives/2012/ -type f | xargs perl -ne 'print "$1\n" if m{&lt;h2&gt;(.*?)&lt;/h2&gt;}'
-pursuit
-fragment
-this poem again
-i'll do better next time
-timebinding animals
-more observations on gear nerdery &amp;amp; utility fetishism
-thrift
 A miracle, in fact, means work
 &lt;em&gt;technical notes for late october&lt;/em&gt;, or &lt;em&gt;it gets dork out earlier these days&lt;/em&gt;
-radio
+more observations on gear nerdery &amp;amp; utility fetishism
+timebinding animals
+fragment
+this poem again
+pursuit
+thrift
+i'll do better next time
 light enough to travel
 12:06am
+radio
 "figures like Heinlein and Gingrich"
 </code></pre>
 
@@ -1678,7 +1681,7 @@ important:</p>
 
 
 <pre><code>$ ls -l okpoems
--rwxrwxr-x 1 brennen brennen 163 Apr 19 00:08 okpoems
+-rwxr-xr-x 1 brennen brennen 163 Apr 17 15:16 okpoems
 </code></pre>
 
 <!-- end -->
@@ -1698,9 +1701,8 @@ accomplish this by saying something like:</p>
 
 
 <pre><code>$ ./okpoems
-/home/brennen/p1k3/archives/2013/2/9
 /home/brennen/p1k3/archives/2012/3/17
-/home/brennen/p1k3/archives/2012/3/26
+/home/brennen/p1k3/archives/2012/2/9
 </code></pre>
 
 <!-- end -->
@@ -2189,8 +2191,8 @@ one of these with <code>diff -u</code>:</p>
 
 
 <pre><code>$ diff -u ../script/okpoems ../script/findprop
---- ../script/okpoems   2014-04-19 00:08:03.321230818 -0600
-+++ ../script/findprop  2014-04-21 21:51:29.360846449 -0600
+--- ../script/okpoems   2014-04-17 15:16:59.852962836 -0600
++++ ../script/findprop  2014-05-12 15:50:27.358501804 -0600
 @@ -1,7 +1,13 @@
  #!/bin/bash
 
@@ -2325,8 +2327,8 @@ called Night.  And there was evening and there was morning, the first day.
 
 
 <pre><code>$ diff -u genesis_nkj genesis_nrsv
---- genesis_nkj 2014-05-11 16:28:29.692508461 -0600
-+++ genesis_nrsv    2014-05-11 16:28:29.744508459 -0600
+--- genesis_nkj 2014-05-12 15:50:27.346501744 -0600
++++ genesis_nrsv    2014-05-12 15:50:27.346501744 -0600
 @@ -1,6 +1,6 @@
 -In the beginning God created the heavens and the earth.  The earth was without
 -form, and void; and darkness was on the face of the deep.  And the Spirit of
@@ -2362,8 +2364,8 @@ one-line-per-verse, and try again:</p>
 
 
 <pre><code>$ diff -u genesis_nkj_by_verse genesis_nrsv_by_verse
---- genesis_nkj_by_verse    2014-05-11 16:51:14.312457198 -0600
-+++ genesis_nrsv_by_verse   2014-05-11 16:53:02.484453134 -0600
+--- genesis_nkj_by_verse    2014-05-12 15:50:27.346501744 -0600
++++ genesis_nrsv_by_verse   2014-05-12 15:50:27.346501744 -0600
 @@ -1,5 +1,5 @@
 -In the beginning God created the heavens and the earth.
 -The earth was without form, and void; and darkness was on the face of the deep.  And the Spirit of God was hovering over the face of the waters.

@@ -32,7 +32,7 @@ on a very old paradigm called Unix.
 
 ...except what classical Unix really looks like is this:
 
-{super old school blinking cursor dot gif}
+-> <img src="images/blinking.gif" width=470> <-
 
 The Unix-like environment we're going to use isn't very classical, really.
 It's an operating system kernel called Linux, combined with a bunch of things
