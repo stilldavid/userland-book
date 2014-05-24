@@ -22,7 +22,7 @@ often trigger a cascade of questions in the programmer-mind:
 A unifying theme of these questions is that they could all be answered by
 involving a little more abstraction.
 
--> * <-
+-> ★ <-
 
 Some kinds of abstraction are so common in the physical world that we can
 forget they're part of a sophisticated technology.  For example, a good deal of
@@ -45,7 +45,7 @@ text are like standardized fasteners that allow a user who can work on one kind
 of data (be it poetry, a list of authors, the source code of a program) to use
 the same tools for other problems and other data.
 
--> * <-
+-> ★ <-
 
 When I first started writing stuff on the web, I edited a page -- a single HTML
 file -- by hand.  When the entries on my nascent blog got old, I manually
@@ -170,7 +170,7 @@ _meaning_ of those names in order to be useful; in fact, it's best if it stays
 agnostic about the question, for this enables us to assign our own meaning to a
 structure and manipulate that structure with standard tools.
 
--> * <-
+-> ★ <-
 
 Back to the problem at hand:  I have this collection of files, and I know how
 to extract the ones that contain poems.  My goal is to see all the poems and
@@ -190,7 +190,7 @@ facts so that we can think about them.  A structured representation of things
 often means that we can _change_ those things, or at least derive new
 understanding of them.
 
--> * <-
+-> ★ <-
 
 At this point in the narrative, I could pretend that my next step is
 immediately obvious, but in fact it's not.  I spend a couple of days thinking

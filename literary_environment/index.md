@@ -824,7 +824,7 @@ clearly about.  They take years to master and reward the wielder with great
 power, but they are also a trap: a temptation towards the path of cleverness
 masquerading as wisdom.
 
--> * <-
+-> ✑ <-
 
 I'll be returning to this theme, but for the time being let's move on.  Now
 that we've established, however haphazardly, some of the basics, let's consider
