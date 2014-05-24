@@ -57,6 +57,13 @@
 <li><a href="#wdiff">wdiff</a></li>
 </ul>
 </li>
+<li><a href="#the-internet-for-humans-and-how-the-command-line-can-help">7. the internet for humans, and how the command line can help</a>
+
+<ul>
+<li><a href="#reading-the-web">reading the web</a></li>
+<li><a href="#writing-the-web">writing the web</a></li>
+</ul>
+</li>
 <li><a href="#further-reading">8. further reading</a></li>
 </ul>
 
@@ -140,6 +147,13 @@ not license it under more restrictive terms than that.</p>
 <ul>
 <li><a href="#diff">diff</a></li>
 <li><a href="#wdiff">wdiff</a></li>
+</ul>
+</li>
+<li><a href="#the-internet-for-humans-and-how-the-command-line-can-help">7. the internet for humans, and how the command line can help</a>
+
+<ul>
+<li><a href="#reading-the-web">reading the web</a></li>
+<li><a href="#writing-the-web">writing the web</a></li>
 </ul>
 </li>
 <li><a href="#further-reading">8. further reading</a></li>
@@ -698,10 +712,7 @@ bunzip2 (1)          - a block-sorting file compressor, v1.0.6
 bzip2 (1)            - a block-sorting file compressor, v1.0.6
 comm (1)             - compare two sorted files line by line
 sort (1)             - sort lines of text files
-sq (1)               - squeeze or unsqueeze a sorted word list
-texindex (1)         - sort Texinfo index files
 tsort (1)            - perform topological sort
-unsq (1)             - squeeze or unsqueeze a sorted word list
 </code></pre>
 
 <!-- end -->
@@ -943,7 +954,7 @@ shortened to regex.</p>
 <p>There&rsquo;s a lot of theory about what makes up a regular expression.  Fortunately,
 very little of it matters to the short version that will let you get useful
 stuff done.  The short version is that a regex is like using wildcards in the
-shell to match groups of files, but with more magic.</p>
+shell to match groups of files, but for text in general and with more magic.</p>
 
 <!-- exec -->
 
@@ -1400,18 +1411,18 @@ filenames, but I wind up using it quite a bit.</p>
 
 
 <pre><code>$ find ~/p1k3/archives/2012/ -type f | xargs perl -ne 'print "$1\n" if m{&lt;h2&gt;(.*?)&lt;/h2&gt;}'
-A miracle, in fact, means work
-&lt;em&gt;technical notes for late october&lt;/em&gt;, or &lt;em&gt;it gets dork out earlier these days&lt;/em&gt;
-more observations on gear nerdery &amp;amp; utility fetishism
-timebinding animals
+pursuit
 fragment
 this poem again
-pursuit
-thrift
 i'll do better next time
+timebinding animals
+more observations on gear nerdery &amp;amp; utility fetishism
+thrift
+A miracle, in fact, means work
+&lt;em&gt;technical notes for late october&lt;/em&gt;, or &lt;em&gt;it gets dork out earlier these days&lt;/em&gt;
+radio
 light enough to travel
 12:06am
-radio
 "figures like Heinlein and Gingrich"
 </code></pre>
 
@@ -1681,7 +1692,7 @@ important:</p>
 
 
 <pre><code>$ ls -l okpoems
--rwxr-xr-x 1 brennen brennen 163 Apr 17 15:16 okpoems
+-rwxrwxr-x 1 brennen brennen 163 Apr 19 00:08 okpoems
 </code></pre>
 
 <!-- end -->
@@ -1701,8 +1712,9 @@ accomplish this by saying something like:</p>
 
 
 <pre><code>$ ./okpoems
+/home/brennen/p1k3/archives/2013/2/9
 /home/brennen/p1k3/archives/2012/3/17
-/home/brennen/p1k3/archives/2012/2/9
+/home/brennen/p1k3/archives/2012/3/26
 </code></pre>
 
 <!-- end -->
@@ -2191,8 +2203,8 @@ one of these with <code>diff -u</code>:</p>
 
 
 <pre><code>$ diff -u ../script/okpoems ../script/findprop
---- ../script/okpoems   2014-04-17 15:16:59.852962836 -0600
-+++ ../script/findprop  2014-05-12 15:50:27.358501804 -0600
+--- ../script/okpoems   2014-04-19 00:08:03.321230818 -0600
++++ ../script/findprop  2014-04-21 21:51:29.360846449 -0600
 @@ -1,7 +1,13 @@
  #!/bin/bash
 
@@ -2327,8 +2339,8 @@ called Night.  And there was evening and there was morning, the first day.
 
 
 <pre><code>$ diff -u genesis_nkj genesis_nrsv
---- genesis_nkj 2014-05-12 15:50:27.346501744 -0600
-+++ genesis_nrsv    2014-05-12 15:50:27.346501744 -0600
+--- genesis_nkj 2014-05-11 16:28:29.692508461 -0600
++++ genesis_nrsv    2014-05-11 16:28:29.744508459 -0600
 @@ -1,6 +1,6 @@
 -In the beginning God created the heavens and the earth.  The earth was without
 -form, and void; and darkness was on the face of the deep.  And the Spirit of
@@ -2364,8 +2376,8 @@ one-line-per-verse, and try again:</p>
 
 
 <pre><code>$ diff -u genesis_nkj_by_verse genesis_nrsv_by_verse
---- genesis_nkj_by_verse    2014-05-12 15:50:27.346501744 -0600
-+++ genesis_nrsv_by_verse   2014-05-12 15:50:27.346501744 -0600
+--- genesis_nkj_by_verse    2014-05-11 16:51:14.312457198 -0600
++++ genesis_nrsv_by_verse   2014-05-11 16:53:02.484453134 -0600
 @@ -1,5 +1,5 @@
 -In the beginning God created the heavens and the earth.
 -The earth was without form, and void; and darkness was on the face of the deep.  And the Spirit of God was hovering over the face of the waters.
@@ -2429,6 +2441,37 @@ called Night.  <del>So the</del>  <ins>And there was</ins> evening and <del>the 
 
 
 <p>Burton H. Throckmorton, Jr. this ain&rsquo;t.  Still, it has its uses.</p>
+
+<hr />
+
+<h1><a name=the-internet-for-humans-and-how-the-command-line-can-help href=#the-internet-for-humans-and-how-the-command-line-can-help>#</a> 7. the internet for humans, and how the command line can help</h1>
+
+<p>Web browsers are really complicated these days.  They&rsquo;re full of rendering
+engines for layouts and graphics and fonts, audio and video players, one or
+more programming languages, sophisticated development tools, databases &ndash; you
+name it, and there&rsquo;s a fair chance it&rsquo;s in there somewhere.  The modern web
+browser is kitchen sink software, and to make matters worse, it is <em>utterly
+surrounded</em> by technobabble.  It takes smart, dedicated people <em>years</em> to
+come to terms with the ocean of words about web stuff and sort out the
+meaningful ones from snake oil and bureaucratic mysticism.</p>
+
+<p>All of which can make the web itself seem like an absurdly complicated
+landscape, and obscure the simplicity of its basic design, which is this:</p>
+
+<p>Some programs pass text files around to one another.</p>
+
+<p>It&rsquo;s more complicated than that, of course, but the gist of it is that the web
+is made out of URLs, &ldquo;Uniform Resource Locators&rdquo;, which are paths to things.
+If you squint, these look kind of like paths to files on your filesystem.  A
+protocol called HTTP lets software like your browser send a request over the
+network for the stuff that lives at a particular URL.</p>
+
+<p>Let&rsquo;s illustrate this.  I&rsquo;ve written a really simple web page that lives at
+<code>http://p1k3.com/hello_world.html</code>.</p>
+
+<h2><a name=reading-the-web href=#reading-the-web>#</a> reading the web</h2>
+
+<h2><a name=writing-the-web href=#writing-the-web>#</a> writing the web</h2>
 
 <hr />
 

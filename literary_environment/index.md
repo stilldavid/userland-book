@@ -710,7 +710,7 @@ shortened to regex.
 There's a lot of theory about what makes up a regular expression.  Fortunately,
 very little of it matters to the short version that will let you get useful
 stuff done.  The short version is that a regex is like using wildcards in the
-shell to match groups of files, but with more magic.
+shell to match groups of files, but for text in general and with more magic.
 
 <!-- exec -->
 
