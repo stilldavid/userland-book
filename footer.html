@@ -1,2 +1,20 @@
+<script>
+$(document).ready(function () {
+
+  // TODO: generalize this.
+
+  var $toc_full = $("#toc-full");
+  var $clicker  = $('<button id=toc-clicker>+/-</button>');
+  $("#toc").find('h2').append($clicker);
+  $toc_full.hide();
+  $clicker.show();
+
+  $clicker.click(function (e) {
+    $toc_full.toggle({
+      duration: 550
+    });
+  });
+});
+</script>
 </body>
 </html>

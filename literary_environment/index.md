@@ -20,8 +20,8 @@ for working with English prose and prosody, and that maybe this will illuminate
 the ways it could be useful in your own work with a computer, whatever that
 work happens to be.
 
-terms and definitions / twisty little passages
-----------------------------------------------
+terms and definitions
+---------------------
 
 What software are we actually talking about when we say "the command line"?
 
@@ -54,6 +54,12 @@ The standard shell these days is something called Bash, so we'll use Bash.
 It's what you'll most often see in the wild.  Like most shells, Bash is ugly
 and stupid in more ways than it is possible to easily summarize.  It's also an
 incredibly powerful and expressive piece of software.
+
+get you a shell
+---------------
+
+twisty little passages
+----------------------
 
 Have you ever played a text-based adventure game or MUD, of the kind that
 describes a setting and takes commands for movement and so on?  Readers of a
@@ -107,7 +113,7 @@ can be used on many different files, or chained together with other programs.
 They tend to have weird, cryptic names, but a lot of them do very simple
 things.  Tasks that might be a menu item in a big program like Word, like
 counting the number of words in a document or finding a particular phrase, are
-often programs unto themselves.
+often programs unto themselves.  We'll start with something even simpler.
 
 cat
 ---

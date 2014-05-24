@@ -18,43 +18,19 @@ ul li {
   list-style: square;
 }
 
-#toc {
-  position: fixed;
-  left: 15px;
-  top: 15px;
-}
-
-#toc p {
-  display: block;
-  padding: 1em;
-  border: 2px solid #ddc;
-  border-radius: 3px;
-  background: white;
-  margin: 0;
+#toc-clicker {
+  margin-left: 20px;
+  vertical-align: middle;
 }
 
 #toc-full {
-  display: none;
   background-color: white;
   border-left: 2px solid #ddc;
   border-bottom: 2px solid #ddc;
   border-right: 2px solid #ddc;
+  border-top: 2px solid #ddc;
   border-radius: 3px;
   padding: 1.5em;
-}
-
-#toc:hover #toc-full {
-  display: block;
-}
-
-#toc:hover p {
-  border-bottom: none;
-}
-
-@media (max-width: 1000px) {
-  #toc {
-    display: none;
-  }
 }
 
 hr {
@@ -117,4 +93,17 @@ img {
   position: absolute;
   right: 20px;
   top: auto; /* default */
+}
+
+blockquote.callout {
+  margin-top: 0;
+  margin-left: 2em;
+  margin-right: 0;
+  float: right;
+  font-size: 1.1em;
+  width: 30%;
+}
+
+blockquote.callout p {
+  margin-top: 0;
 }

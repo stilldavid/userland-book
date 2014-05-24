@@ -1,9 +1,3 @@
-<div id=toc>
-<p><a href="#contents">contents</a></p>
-<div id=toc-full>
-{{contents}}
-</div></div>
-
 a book about the command line for humans
 ========================================
 
@@ -38,7 +32,9 @@ being please feel free to use it under the terms of Creative Commons BY-SA
 (Attribution / Share-Alike), whatever the latest version is.  I promise I will
 not license it under more restrictive terms than that.
 
-contents
---------
+<div id=toc>
+<h2>contents</h2>
 
+<div id=toc-full>
 {{contents}}
+</div></div>

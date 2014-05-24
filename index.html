@@ -3,6 +3,7 @@
   <meta charset="utf-8">
   <title>userland: a book about the command line for humans</title>
   <link rel=stylesheet href="userland.css" />
+  <script src="js/jquery.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -10,8 +11,41 @@
 <h1 class=bigtitle>userland</h1>
 <hr />
 
+<h1><a name=a-book-about-the-command-line-for-humans href=#a-book-about-the-command-line-for-humans>#</a> a book about the command line for humans</h1>
+
+<p>Late last year, <a href="//p1k3.com/2013/8/4">a side trip</a> into text utilities got me
+thinking about how much my writing habits depend on the Linux command line.
+This struck me as a good hook for talking about the tools I use every day
+with an audience of mixed technical background.</p>
+
+<p>So now I&rsquo;m writing a (short, haphazard) book.  This isn&rsquo;t a book about system
+administration, or writing big software systems, or becoming a wizard.  I am
+not a wizard, and I don&rsquo;t subscribe to the idea that wizardry is a requirement
+for using these tools.  In fact I barely know what I&rsquo;m doing most of the time,
+but I still get some stuff done.</p>
+
+<p>My hope herein is to convey something useful to people who use computers every
+day, but for whom the command line environment seems mystifying, obscure, or
+generally uninviting.  I intend to gloss over many complexities in favor of
+demonstrating a rough-and-ready toolset.</p>
+
+<p>This is a work in progress, and some sections may be unfinished or riddled with
+error.  <a href="//p1k3.com/userland-book.git">p1k3.com/userland-book.git</a> should be
+considered the canonical git repo, but I&rsquo;m pushing everything to a <a href="https://github.com/brennen/userland-book">GitHub
+mirror</a>, and welcome feedback there.</p>
+
+<p>&ndash; bpb / <a href="//p1k3.com">p1k3</a> / <a href="https://twitter.com/brennen">@brennen</a></p>
+
+<h2><a name=copying href=#copying>#</a> copying</h2>
+
+<p>I may eventually dedicate this thing to the public domain, but for the time
+being please feel free to use it under the terms of Creative Commons BY-SA
+(Attribution / Share-Alike), whatever the latest version is.  I promise I will
+not license it under more restrictive terms than that.</p>
+
 <div id=toc>
-<p><a href="#contents">contents</a></p>
+<h2><a name=contents href=#contents>#</a> contents</h2>
+
 <div id=toc-full>
 <div class=contents><ul>
 <li><a href="#a-book-about-the-command-line-for-humans">a book about the command line for humans</a>
@@ -24,7 +58,9 @@
 <li><a href="#the-command-line-as-literary-environment">1. the command line as literary environment</a>
 
 <ul>
-<li><a href="#terms-and-definitions-twisty-little-passages">terms and definitions / twisty little passages</a></li>
+<li><a href="#terms-and-definitions">terms and definitions</a></li>
+<li><a href="#get-you-a-shell">get you a shell</a></li>
+<li><a href="#twisty-little-passages">twisty little passages</a></li>
 <li><a href="#cat">cat</a></li>
 <li><a href="#wildcards">wildcards</a></li>
 <li><a href="#sort">sort</a></li>
@@ -71,96 +107,6 @@
 </div></div>
 
 
-<h1><a name=a-book-about-the-command-line-for-humans href=#a-book-about-the-command-line-for-humans>#</a> a book about the command line for humans</h1>
-
-<p>Late last year, <a href="//p1k3.com/2013/8/4">a side trip</a> into text utilities got me
-thinking about how much my writing habits depend on the Linux command line.
-This struck me as a good hook for talking about the tools I use every day
-with an audience of mixed technical background.</p>
-
-<p>So now I&rsquo;m writing a (short, haphazard) book.  This isn&rsquo;t a book about system
-administration, or writing big software systems, or becoming a wizard.  I am
-not a wizard, and I don&rsquo;t subscribe to the idea that wizardry is a requirement
-for using these tools.  In fact I barely know what I&rsquo;m doing most of the time,
-but I still get some stuff done.</p>
-
-<p>My hope herein is to convey something useful to people who use computers every
-day, but for whom the command line environment seems mystifying, obscure, or
-generally uninviting.  I intend to gloss over many complexities in favor of
-demonstrating a rough-and-ready toolset.</p>
-
-<p>This is a work in progress, and some sections may be unfinished or riddled with
-error.  <a href="//p1k3.com/userland-book.git">p1k3.com/userland-book.git</a> should be
-considered the canonical git repo, but I&rsquo;m pushing everything to a <a href="https://github.com/brennen/userland-book">GitHub
-mirror</a>, and welcome feedback there.</p>
-
-<p>&ndash; bpb / <a href="//p1k3.com">p1k3</a> / <a href="https://twitter.com/brennen">@brennen</a></p>
-
-<h2><a name=copying href=#copying>#</a> copying</h2>
-
-<p>I may eventually dedicate this thing to the public domain, but for the time
-being please feel free to use it under the terms of Creative Commons BY-SA
-(Attribution / Share-Alike), whatever the latest version is.  I promise I will
-not license it under more restrictive terms than that.</p>
-
-<h2><a name=contents href=#contents>#</a> contents</h2>
-
-<p><div class=contents><ul>
-<li><a href="#a-book-about-the-command-line-for-humans">a book about the command line for humans</a>
-
-<ul>
-<li><a href="#copying">copying</a></li>
-<li><a href="#contents">contents</a></li>
-</ul>
-</li>
-<li><a href="#the-command-line-as-literary-environment">1. the command line as literary environment</a>
-
-<ul>
-<li><a href="#terms-and-definitions-twisty-little-passages">terms and definitions / twisty little passages</a></li>
-<li><a href="#cat">cat</a></li>
-<li><a href="#wildcards">wildcards</a></li>
-<li><a href="#sort">sort</a></li>
-<li><a href="#options">options</a></li>
-<li><a href="#uniq">uniq</a></li>
-<li><a href="#standard-IO">standard IO</a></li>
-<li><a href="#code-help-code-and-man-pages"><code>&ndash;help</code> and man pages</a></li>
-<li><a href="#wc">wc</a></li>
-<li><a href="#head-tail-and-cut">head, tail, and cut</a></li>
-<li><a href="#finding-text-grep">finding text: grep</a></li>
-<li><a href="#now-you-have-n-problems-regex-rabbit-holes">now you have n problems: regex + rabbit holes</a></li>
-</ul>
-</li>
-<li><a href="#a-literary-problem">2. a literary problem</a></li>
-<li><a href="#programmerthink">3. programmerthink</a></li>
-<li><a href="#script">4. script</a>
-
-<ul>
-<li><a href="#learn-you-an-editor">learn you an editor</a></li>
-<li><a href="#d-i-y-utilities">d.i.y. utilities</a></li>
-<li><a href="#heavy-lifting">heavy lifting</a></li>
-<li><a href="#generality">generality</a></li>
-</ul>
-</li>
-<li><a href="#general-purpose-programmering">5. general purpose programmering</a></li>
-<li><a href="#one-of-these-things-is-not-like-the-others">6. one of these things is not like the others</a>
-
-<ul>
-<li><a href="#diff">diff</a></li>
-<li><a href="#wdiff">wdiff</a></li>
-</ul>
-</li>
-<li><a href="#the-internet-for-humans-and-how-the-command-line-can-help">7. the internet for humans, and how the command line can help</a>
-
-<ul>
-<li><a href="#reading-the-web">reading the web</a></li>
-<li><a href="#writing-the-web">writing the web</a></li>
-</ul>
-</li>
-<li><a href="#further-reading">8. further reading</a></li>
-</ul>
-
-</div></p>
-
 <hr />
 
 <h1><a name=the-command-line-as-literary-environment href=#the-command-line-as-literary-environment>#</a> 1. the command line as literary environment</h1>
@@ -184,7 +130,7 @@ for working with English prose and prosody, and that maybe this will illuminate
 the ways it could be useful in your own work with a computer, whatever that
 work happens to be.</p>
 
-<h2><a name=terms-and-definitions-twisty-little-passages href=#terms-and-definitions-twisty-little-passages>#</a> terms and definitions / twisty little passages</h2>
+<h2><a name=terms-and-definitions href=#terms-and-definitions>#</a> terms and definitions</h2>
 
 <p>What software are we actually talking about when we say &ldquo;the command line&rdquo;?</p>
 
@@ -217,6 +163,10 @@ style.</p>
 It&rsquo;s what you&rsquo;ll most often see in the wild.  Like most shells, Bash is ugly
 and stupid in more ways than it is possible to easily summarize.  It&rsquo;s also an
 incredibly powerful and expressive piece of software.</p>
+
+<h2><a name=get-you-a-shell href=#get-you-a-shell>#</a> get you a shell</h2>
+
+<h2><a name=twisty-little-passages href=#twisty-little-passages>#</a> twisty little passages</h2>
 
 <p>Have you ever played a text-based adventure game or MUD, of the kind that
 describes a setting and takes commands for movement and so on?  Readers of a
@@ -272,7 +222,7 @@ can be used on many different files, or chained together with other programs.
 They tend to have weird, cryptic names, but a lot of them do very simple
 things.  Tasks that might be a menu item in a big program like Word, like
 counting the number of words in a document or finding a particular phrase, are
-often programs unto themselves.</p>
+often programs unto themselves.  We&rsquo;ll start with something even simpler.</p>
 
 <h2><a name=cat href=#cat>#</a> cat</h2>
 
@@ -2447,31 +2397,32 @@ called Night.  <del>So the</del>  <ins>And there was</ins> evening and <del>the 
 <h1><a name=the-internet-for-humans-and-how-the-command-line-can-help href=#the-internet-for-humans-and-how-the-command-line-can-help>#</a> 7. the internet for humans, and how the command line can help</h1>
 
 <p>Web browsers are really complicated these days.  They&rsquo;re full of rendering
-engines for layouts and graphics and fonts, audio and video players, one or
-more programming languages, sophisticated development tools, databases &ndash; you
-name it, and there&rsquo;s a fair chance it&rsquo;s in there somewhere.  The modern web
-browser is kitchen sink software, and to make matters worse, it is <em>utterly
-surrounded</em> by technobabble.  It takes smart, dedicated people <em>years</em> to
-come to terms with the ocean of words about web stuff and sort out the
-meaningful ones from snake oil and bureaucratic mysticism.</p>
+engines, audio and video players, programming languages, development tools,
+databases &ndash; you name it, and there&rsquo;s a fair chance it&rsquo;s in there somewhere.
+The modern web browser is kitchen sink software, and to make matters worse, it
+is <em>totally surrounded</em> by technobabble.  It can take <em>years</em> to come to terms
+with the ocean of words about web stuff and sort out the meaningful ones from
+the snake oil and bureaucratic mysticism.</p>
 
-<p>All of which can make the web itself seem like an absurdly complicated
-landscape, and obscure the simplicity of its basic design, which is this:</p>
+<p>All of which can make the web itself seem like a really complicated landscape,
+and obscure the simplicity of its basic design, which is this:</p>
 
 <p>Some programs pass text files around to one another.</p>
 
 <p>It&rsquo;s more complicated than that, of course, but the gist of it is that the web
 is made out of URLs, &ldquo;Uniform Resource Locators&rdquo;, which are paths to things.
-If you squint, these look kind of like paths to files on your filesystem.  A
-protocol called HTTP lets software like your browser send a request over the
-network for the stuff that lives at a particular URL.</p>
+If you squint, these look kind of like paths to files on your filesystem.</p>
 
 <p>Let&rsquo;s illustrate this.  I&rsquo;ve written a really simple web page that lives at
 <code>http://p1k3.com/hello_world.html</code>.</p>
 
 <h2><a name=reading-the-web href=#reading-the-web>#</a> reading the web</h2>
 
+<p>{to come}</p>
+
 <h2><a name=writing-the-web href=#writing-the-web>#</a> writing the web</h2>
+
+<p>{to come}</p>
 
 <hr />
 
@@ -2484,5 +2435,23 @@ network for the stuff that lives at a particular URL.</p>
 
 
 <hr />
+<script>
+$(document).ready(function () {
+
+  // TODO: generalize this.
+
+  var $toc_full = $("#toc-full");
+  var $clicker  = $('<button id=toc-clicker>+/-</button>');
+  $("#toc").find('h2').append($clicker);
+  $toc_full.hide();
+  $clicker.show();
+
+  $clicker.click(function (e) {
+    $toc_full.toggle({
+      duration: 550
+    });
+  });
+});
+</script>
 </body>
 </html>
