@@ -41,7 +41,7 @@ others).  Purists will tell you that this isn't properly Unix at all.  In
 strict historical terms they're right, or at least a certain kind of right, but
 for the purposes of my cultural agenda I'm going to ignore them right now.
 
-{cut to actual terminal blinkety blinking}
+-> <img src="images/debian.png"> <-
 
 This is what's called a shell.  There are many different shells, but they
 pretty much all operate on the same idea:  You navigate a filesystem and run
