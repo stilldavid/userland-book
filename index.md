@@ -18,8 +18,9 @@ generally uninviting.  I intend to gloss over many complexities in favor of
 demonstrating a rough-and-ready toolset.
 
 This is a work in progress, and some sections may be unfinished or riddled with
-error.  [p1k3.com/userland-book.git](//p1k3.com/userland-book.git) should be
-considered the canonical git repo, but I'm pushing everything to a [GitHub
+error.  Incomplete sections will be marked with {notes in curly braces}.
+[p1k3.com/userland-book.git](//p1k3.com/userland-book.git) should be considered
+the canonical git repo, but I'm pushing everything to a [GitHub
 mirror](https://github.com/brennen/userland-book), and welcome feedback there.
 
 -- bpb / [p1k3](//p1k3.com) / [@brennen](https://twitter.com/brennen)
