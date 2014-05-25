@@ -18,12 +18,12 @@ ul li {
   list-style: square;
 }
 
-#toc-clicker {
+.details .clicker-button {
   margin-left: 20px;
   vertical-align: middle;
 }
 
-#toc-full {
+.details .full {
   background-color: white;
   border-left: 2px solid #ddc;
   border-bottom: 2px solid #ddc;

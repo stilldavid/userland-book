@@ -65,13 +65,13 @@ sub replace_some_stuff {
   my @contents;
 
   # insert anchors in headers, accumulate a table of contents
-  $markup =~ s{<(h[12])>(.*?)</h[12]>}{
-    my ($tag, $text) = ($1, $2);
+  $markup =~ s{<(h[12])(.*?)>(.*?)</h[12]>}{
+    my ($tag, $attributes, $text) = ($1, $2, $3);
     my $a_name = $text;
     $a_name =~ s/[^a-z]+/-/ig;
     $a_name =~ s/^-|-$//g;
     push @contents, make_contents_link($tag, $a_name, $text);
-    "<$tag><a name=$a_name href=#$a_name>#</a> $text</$tag>";
+    "<$tag$attributes><a name=$a_name href=#$a_name>#</a> $text</$tag>";
   }iesg;
 
   my $contents_text = '<div class=contents>'

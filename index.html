@@ -37,18 +37,23 @@ mirror</a>, and welcome feedback there.</p>
 
 <p>&ndash; bpb / <a href="//p1k3.com">p1k3</a> / <a href="https://twitter.com/brennen">@brennen</a></p>
 
-<h2><a name=copying href=#copying>#</a> copying</h2>
+<div class=details>
+  <h2 class=clicker><a name=copying href=#copying>#</a> copying</h2>
+  <div class=full>
+    <p>I may eventually dedicate this thing to the public domain, but for the time
+    being please feel free to use it under the terms of Creative Commons BY-SA
+    (Attribution / Share-Alike), whatever the latest version is.  I promise I will
+    not license it under more restrictive terms than that.</p>
+  </div>
+</div>
 
-<p>I may eventually dedicate this thing to the public domain, but for the time
-being please feel free to use it under the terms of Creative Commons BY-SA
-(Attribution / Share-Alike), whatever the latest version is.  I promise I will
-not license it under more restrictive terms than that.</p>
 
-<div id=toc>
-<h2><a name=contents href=#contents>#</a> contents</h2>
 
-<div id=toc-full>
-<div class=contents><ul>
+
+<div class=details>
+  <h2 class=clicker><a name=contents href=#contents>#</a> contents</h2>
+  <div class=full>
+    <div class=contents><ul>
 <li><a href="#a-book-about-the-command-line-for-humans">a book about the command line for humans</a>
 
 <ul>
@@ -105,7 +110,8 @@ not license it under more restrictive terms than that.</p>
 </ul>
 
 </div>
-</div></div>
+  </div>
+</div>
 
 
 <hr />
@@ -220,14 +226,15 @@ a container of some sort, but it&rsquo;s an infinitely expandable one which may
 contain nested sub-spaces much larger than itself.  Directories are frequently
 like the TARDIS: Bigger on the inside.</p>
 
+<h2><a name=cat href=#cat>#</a> cat</h2>
+
 <p>When you&rsquo;re in the shell, you have many tools at your disposal - programs that
 can be used on many different files, or chained together with other programs.
 They tend to have weird, cryptic names, but a lot of them do very simple
 things.  Tasks that might be a menu item in a big program like Word, like
 counting the number of words in a document or finding a particular phrase, are
-often programs unto themselves.  We&rsquo;ll start with something even simpler.</p>
-
-<h2><a name=cat href=#cat>#</a> cat</h2>
+often programs unto themselves.  We&rsquo;ll start with something even more basic
+than that.</p>
 
 <p>Suppose you have some files, and you&rsquo;re curious what&rsquo;s in them.  For example,
 suppose you&rsquo;ve got a list of authors you&rsquo;re planning to reference, and you just
@@ -2441,19 +2448,40 @@ If you squint, these look kind of like paths to files on your filesystem.</p>
 <script>
 $(document).ready(function () {
 
-  // TODO: generalize this.
+  // ☜ ☝ ☞ ☟
+  // ☆ ✠ ✡ ✢ ✣ ✤ ✥ ✦ ✧ ✩ ✪ 
+  var closed_sigil = '⇩';
+  var open_sigil = '⇧';
 
-  var $toc_full = $("#toc-full");
-  var $clicker  = $('<button id=toc-clicker>+/-</button>');
-  $("#toc").find('h2').append($clicker);
-  $toc_full.hide();
-  $clicker.show();
+  var togglesigil = function (elem) {
+    var sigil = $(elem).html();
+    if (sigil === closed_sigil) {
+      $(elem).html(open_sigil);
+    } else {
+      $(elem).html(closed_sigil);
+    }
+  };
 
-  $clicker.click(function (e) {
-    $toc_full.toggle({
+  var togglebutton = function (e) {
+    e.preventDefault();
+    $details_full.toggle({
       duration: 550
     });
+    togglesigil(this);
+  };
+
+  $(".details").each(function () {
+    var $this = $(this);
+    var $button = $('<button class=clicker-button>' + closed_sigil + '</button>');
+    var $details_full = $(this).find('.full');
+
+    $button.click(togglebutton);
+
+    $(this).find('.clicker').append($button);
+    $button.show();
   });
+
+  $('.details .full').hide();
 });
 </script>
 </body>

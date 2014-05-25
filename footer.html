@@ -1,19 +1,38 @@
 <script>
 $(document).ready(function () {
 
-  // TODO: generalize this.
+  // ☜ ☝ ☞ ☟
+  // ☆ ✠ ✡ ✢ ✣ ✤ ✥ ✦ ✧ ✩ ✪ 
+  var closed_sigil = '⇩';
+  var open_sigil = '⇧';
 
-  var $toc_full = $("#toc-full");
-  var $clicker  = $('<button id=toc-clicker>+/-</button>');
-  $("#toc").find('h2').append($clicker);
-  $toc_full.hide();
-  $clicker.show();
+  var togglesigil = function (elem) {
+    var sigil = $(elem).html();
+    if (sigil === closed_sigil) {
+      $(elem).html(open_sigil);
+    } else {
+      $(elem).html(closed_sigil);
+    }
+  };
 
-  $clicker.click(function (e) {
-    $toc_full.toggle({
-      duration: 550
+  $(".details").each(function () {
+    var $this = $(this);
+    var $button = $('<button class=clicker-button>' + closed_sigil + '</button>');
+    var $details_full = $(this).find('.full');
+
+    $button.click(function (e) {
+      e.preventDefault();
+      $details_full.toggle({
+        duration: 550
+      });
+      togglesigil(this);
     });
+
+    $(this).find('.clicker').append($button);
+    $button.show();
   });
+
+  $('.details .full').hide();
 });
 </script>
 </body>

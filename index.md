@@ -25,17 +25,19 @@ mirror](https://github.com/brennen/userland-book), and welcome feedback there.
 
 -- bpb / [p1k3](//p1k3.com) / [@brennen](https://twitter.com/brennen)
 
-copying
--------
+<div class=details>
+  <h2 class=clicker>copying</h2>
+  <div class=full>
+    <p>I may eventually dedicate this thing to the public domain, but for the time
+    being please feel free to use it under the terms of Creative Commons BY-SA
+    (Attribution / Share-Alike), whatever the latest version is.  I promise I will
+    not license it under more restrictive terms than that.</p>
+  </div>
+</div>
 
-I may eventually dedicate this thing to the public domain, but for the time
-being please feel free to use it under the terms of Creative Commons BY-SA
-(Attribution / Share-Alike), whatever the latest version is.  I promise I will
-not license it under more restrictive terms than that.
-
-<div id=toc>
-<h2>contents</h2>
-
-<div id=toc-full>
-{{contents}}
-</div></div>
+<div class=details>
+  <h2 class=clicker>contents</h2>
+  <div class=full>
+    {{contents}}
+  </div>
+</div>

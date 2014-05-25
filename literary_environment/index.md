@@ -110,15 +110,16 @@ a container of some sort, but it's an infinitely expandable one which may
 contain nested sub-spaces much larger than itself.  Directories are frequently
 like the TARDIS: Bigger on the inside.
 
+cat
+---
+
 When you're in the shell, you have many tools at your disposal - programs that
 can be used on many different files, or chained together with other programs.
 They tend to have weird, cryptic names, but a lot of them do very simple
 things.  Tasks that might be a menu item in a big program like Word, like
 counting the number of words in a document or finding a particular phrase, are
-often programs unto themselves.  We'll start with something even simpler.
-
-cat
----
+often programs unto themselves.  We'll start with something even more basic
+than that.
 
 Suppose you have some files, and you're curious what's in them.  For example,
 suppose you've got a list of authors you're planning to reference, and you just
