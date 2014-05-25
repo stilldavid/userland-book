@@ -8,17 +8,16 @@ up some good examples:
 
 <!-- exec -->
 
-    $ grep -E '[a-z]+.*\| ' ../literary_environment/index.md
-        $ sort -k2 authors_* | uniq
-        $ sort colors | uniq -i -c
-        $ sort authors_* | uniq > all_authors
-    thing as `cat all_authors | nl`, or `nl all_authors`.  You won't see this as
+    $ grep -E '\$ [a-z]+.*\| ' ../literary_environment/index.md
+        $ sort authors_* | uniq -c
+        $ sort authors_* | uniq > ./all_authors
         $ find ~/p1k3/archives/2010/11 -regextype egrep -regex '.*([0-9]+|index)' -type f | xargs wc -w | grep total
         $ sort authors_* | uniq | wc -l
-        $ dict concatenate | head -10
         $ sort colors | uniq -i | tail -1
         $ cut -d' ' -f1 ./authors_* | sort | uniq -ci | sort -n | tail -3
         $ sort -u ./authors_* | cut -d' ' -f1 | uniq -ci | sort -n | tail -3
+        $ sort -k1 all_authors.tsv | expand -t14
+        $ paste firstnames lastnames | sort -k2 | expand -t12
         $ cat ./authors_* | grep 'Vanessa'
 
 <!-- end -->

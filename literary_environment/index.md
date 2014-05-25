@@ -541,7 +541,7 @@ obviously, it's a good way to get an idea of how much you've written.  `wc` is
 the tool I used to track my progress the last time I tried National Novel
 Writing Month:
 
-    $ find ~/p1k3/archives/2010/11 -regextype egrep -regex '.*([0-9]+|index)' -type f | xargs wc -w | grep total
+    $ find ~/p1k3/archives/2010/11 -regextype egrep -regex '.*([0-9]+|index)' -type f | xargs wc -w | tail -1
      6585 total
 
 <!-- exec -->
@@ -771,10 +771,17 @@ Or just extract middle names and initials:
 
 <!-- exec -->
 
-    $ cut -f3 all_authors.tsv | grep .
+    $ cut -f3 all_authors.tsv
+    
     L.
+    
+    
     Ronald Reuel
+    
+    
+    
     K.
+    
 
 <!-- end -->
 

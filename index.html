@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang=en>
 <head>
   <meta charset="utf-8">
@@ -707,7 +708,7 @@ obviously, it&rsquo;s a good way to get an idea of how much you&rsquo;ve written
 the tool I used to track my progress the last time I tried National Novel
 Writing Month:</p>
 
-<pre><code>$ find ~/p1k3/archives/2010/11 -regextype egrep -regex '.*([0-9]+|index)' -type f | xargs wc -w | grep total
+<pre><code>$ find ~/p1k3/archives/2010/11 -regextype egrep -regex '.*([0-9]+|index)' -type f | xargs wc -w | tail -1
  6585 total
 </code></pre>
 
@@ -975,9 +976,15 @@ Waring        Gwendolyn     L.
 <!-- exec -->
 
 
-<pre><code>$ cut -f3 all_authors.tsv | grep .
+<pre><code>$ cut -f3 all_authors.tsv
+
 L.
+
+
 Ronald Reuel
+
+
+
 K.
 </code></pre>
 
@@ -1725,17 +1732,15 @@ up some good examples:</p>
 <!-- exec -->
 
 
-<pre><code>$ grep -E '[a-z]+.*\| ' ../literary_environment/index.md
+<pre><code>$ grep -E '\$ [a-z]+.*\| ' ../literary_environment/index.md
     $ sort authors_* | uniq -c
     $ sort authors_* | uniq &gt; ./all_authors
-the same thing as `cat all_authors | nl`, or `nl all_authors`.  You won't see
-    $ find ~/p1k3/archives/2010/11 -regextype egrep -regex '.*([0-9]+|index)' -type f | xargs wc -w | grep total
+    $ find ~/p1k3/archives/2010/11 -regextype egrep -regex '.*([0-9]+|index)' -type f | xargs wc -w | tail -1
     $ sort authors_* | uniq | wc -l
     $ sort colors | uniq -i | tail -1
     $ cut -d' ' -f1 ./authors_* | sort | uniq -ci | sort -n | tail -3
     $ sort -u ./authors_* | cut -d' ' -f1 | uniq -ci | sort -n | tail -3
     $ sort -k1 all_authors.tsv | expand -t14
-    $ cut -f3 all_authors.tsv | grep .
     $ paste firstnames lastnames | sort -k2 | expand -t12
     $ cat ./authors_* | grep 'Vanessa'
 </code></pre>
@@ -2605,18 +2610,106 @@ the snake oil and bureaucratic mysticism.</p>
 <p>All of which can make the web itself seem like a really complicated landscape,
 and obscure the simplicity of its basic design, which is this:</p>
 
-<p>Some programs pass text files around to one another.</p>
+<p>Some programs pass text around to one another.</p>
 
 <p>It&rsquo;s more complicated than that, of course, but the gist of it is that the web
 is made out of URLs, &ldquo;Uniform Resource Locators&rdquo;, which are paths to things.
-If you squint, these look kind of like paths to files on your filesystem.</p>
-
-<p>Let&rsquo;s illustrate this.  I&rsquo;ve written a really simple web page that lives at
-<code>http://p1k3.com/hello_world.html</code>.</p>
+If you squint, these look kind of like paths to files on your filesystem.  When
+you visit a URL in your browser, it asks a server for a certain path, and the
+server gives it back some text.  When you click a button to submit a form,
+your browser sends some text to the server and waits to see what it says back.</p>
 
 <h2><a name=reading-the-web href=#reading-the-web>#</a> reading the web</h2>
 
-<p>{to come}</p>
+<p>Let&rsquo;s illustrate this.  I&rsquo;ve written a really simple web page that lives at
+<a href="http://p1k3.com/hello_world.html"><code>http://p1k3.com/hello_world.html</code></a>.</p>
+
+<pre><code>$ curl 'http://p1k3.com/hello_world.html'
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;hello, world&lt;/title&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;h1&gt;hi everybody&lt;/h1&gt;
+
+    &lt;p&gt;How are things?&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><code>curl</code> is a program with lots and lots of features &ndash; it too is a little bit of
+a kitchen sink &ndash; but it has one core purpose, which is to grab things from
+URLs and spit them back out.  It&rsquo;s a little bit like <code>cat</code> for things on the
+web.  Try the above command with just about any URL you can think of, and
+you&rsquo;ll probably get <em>something</em> back.  Let&rsquo;s try this book:</p>
+
+<pre><code>$ curl 'http://p1k3.com/userland-book/' | head
+&lt;!DOCTYPE html&gt;
+&lt;html lang=en&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;userland: a book about the command line for humans&lt;/title&gt;
+  &lt;link rel=stylesheet href="userland.css" /&gt;
+  &lt;script src="js/jquery.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+</code></pre>
+
+<p><code>hello_world.html</code> and <code>p1k3.com/userland-book</code> are both <strong>H</strong>yper<strong>T</strong>ext
+<strong>M</strong>arkup <strong>L</strong>anguage.  HTML has been around for quite a while now, and it&rsquo;s
+undergone a huge amount of politicking and overengineering, but at heart it
+still looks a lot <a href="http://info.cern.ch/hypertext/WWW/TheProject.html">like it did in
+1991</a>.</p>
+
+<p>The basic idea is that the contents of a web page are marked up with tags.
+A tag looks like this:</p>
+
+<pre><code>&lt;title&gt;hi!&lt;/title&gt; -,
+ |     |            |
+ |     `- content   |
+ |                  `- closing tag
+ `-opening tag
+</code></pre>
+
+<p>Most HTML these days is generated by software that pulls stuff out of databases
+and stitches it together into something your browser will recognize, but it&rsquo;s
+still entirely possible to write simple HTML documents in your text editor of
+choice, and tools that work with text can operate on HTML documents.</p>
+
+<p>While the browser you use day-to-day is (probably) a graphical interface which
+does all sorts of things impossible to render in a terminal, some of the
+earliest web browsers were entirely text-based, and options still exist.  Lynx,
+which originated at the University of Kansas in the early 1990s, still works:</p>
+
+<pre><code>$ lynx -dump 'http://p1k3.com/userland-book/' | head
+                                    userland
+     __________________________________________________________________
+
+                 [1]# a book about the command line for humans
+
+   Late last year, [2]a side trip into text utilities got me thinking
+   about how much my writing habits depend on the Linux command line. This
+   struck me as a good hook for talking about the tools I use every day
+   with an audience of mixed technical background.
+</code></pre>
+
+<p>Another option is w3m, which copes a little more gracefully with some of
+the complexities of modern web layout.</p>
+
+<pre><code>$ w3m -dump 'http://p1k3.com/userland-book/' | head
+userland
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# a book about the command line for humans
+
+Late last year, a side trip into text utilities got me thinking about how much
+my writing habits depend on the Linux command line. This struck me as a good
+hook for talking about the tools I use every day with an audience of mixed
+technical background.
+</code></pre>
 
 <h2><a name=writing-the-web href=#writing-the-web>#</a> writing the web</h2>
 
