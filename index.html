@@ -76,8 +76,9 @@ mirror</a>, and welcome feedback there.</p>
 <li><a href="#code-help-code-and-man-pages"><code>&ndash;help</code> and man pages</a></li>
 <li><a href="#wc">wc</a></li>
 <li><a href="#head-tail-and-cut">head, tail, and cut</a></li>
+<li><a href="#tab-separated-values">tab separated values</a></li>
 <li><a href="#finding-text-grep">finding text: grep</a></li>
-<li><a href="#now-you-have-n-problems-regex-rabbit-holes">now you have n problems: regex + rabbit holes</a></li>
+<li><a href="#now-you-have-n-problems-regex-and-rabbit-holes">now you have n problems: regex and rabbit holes</a></li>
 </ul>
 </li>
 <li><a href="#a-literary-problem">2. a literary problem</a></li>
@@ -861,6 +862,190 @@ you could instead do:</p>
 <!-- end -->
 
 
+<h2><a name=tab-separated-values href=#tab-separated-values>#</a> tab separated values</h2>
+
+<p>Notice above how we had to tell <code>cut</code> that &ldquo;fields&rdquo; in <code>authors_*</code> are
+delimited by spaces?  It turns out that if you don&rsquo;t use <code>-d</code>, <code>cut</code> defaults
+to using tab characters for a delimiter.</p>
+
+<p>Tab characters are sort of weird little animals.  You can&rsquo;t usually <em>see</em> them
+directly &ndash; they&rsquo;re like a space character that takes up more than one space
+when displayed.  By convention, one tab is usually rendered as 8 spaces, but
+it&rsquo;s up to the software that&rsquo;s displaying the character what it wants to do.</p>
+
+<p>(In fact, it&rsquo;s more complicated than that:  Tabs are often rendered as marking
+<em>tab stops</em>, which is a concept I remember from 7th grade typing classes, but
+haven&rsquo;t actually thought about in my day-to-day life for nearly 20 years.)</p>
+
+<p>Here&rsquo;s a version of our <code>all_authors</code> that&rsquo;s been rearranged so that the first
+field is the author&rsquo;s last name, the second is their first name, the third is
+their middle name or initial (if we know it) and the fourth is any suffix.
+Fields are separated by a single tab character:</p>
+
+<!-- exec -->
+
+
+<pre><code>$ cat all_authors.tsv
+Robinson    Eden
+Waring  Gwendolyn   L.
+Tiptree James       Jr.
+Brunner John
+Tolkien John    Ronald Reuel
+Walton  Jo
+Toews   Miriam
+Cadigan Pat
+Le Guin Ursula  K.
+Veselka Vanessa
+</code></pre>
+
+<!-- end -->
+
+
+<p>That looks kind of garbled, right?  In order to make it a little more obvious
+what&rsquo;s happening, let&rsquo;s use <code>cat -T</code>, which displays tab characters as <code>^I</code>:</p>
+
+<!-- exec -->
+
+
+<pre><code>$ cat -T all_authors.tsv
+Robinson^IEden
+Waring^IGwendolyn^IL.
+Tiptree^IJames^I^IJr.
+Brunner^IJohn
+Tolkien^IJohn^IRonald Reuel
+Walton^IJo
+Toews^IMiriam
+Cadigan^IPat
+Le Guin^IUrsula^IK.
+Veselka^IVanessa
+</code></pre>
+
+<!-- end -->
+
+
+<p>It looks odd when displayed because some names are at or nearly at 8 characters long.
+&ldquo;Robinson&rdquo;, at 8 characters, overshoots the first tab stop, so &ldquo;Eden&rdquo; gets indented
+further than other first names, and so on.</p>
+
+<p>Fortunately, in order to make this more human-readable, we can pass it through
+<code>expand</code>, which turns tabs into a given number of spaces (8 by default):</p>
+
+<!-- exec -->
+
+
+<pre><code>$ expand -t14 all_authors.tsv
+Robinson      Eden
+Waring        Gwendolyn     L.
+Tiptree       James                       Jr.
+Brunner       John
+Tolkien       John          Ronald Reuel
+Walton        Jo
+Toews         Miriam
+Cadigan       Pat
+Le Guin       Ursula        K.
+Veselka       Vanessa
+</code></pre>
+
+<!-- end -->
+
+
+<p>Now it&rsquo;s easy to sort by last name:</p>
+
+<!-- exec -->
+
+
+<pre><code>$ sort -k1 all_authors.tsv | expand -t14
+Brunner       John
+Cadigan       Pat
+Le Guin       Ursula        K.
+Robinson      Eden
+Tiptree       James                       Jr.
+Toews         Miriam
+Tolkien       John          Ronald Reuel
+Veselka       Vanessa
+Walton        Jo
+Waring        Gwendolyn     L.
+</code></pre>
+
+<!-- end -->
+
+
+<p>Or just extract middle names and initials:</p>
+
+<!-- exec -->
+
+
+<pre><code>$ cut -f3 all_authors.tsv | grep .
+L.
+Ronald Reuel
+K.
+</code></pre>
+
+<!-- end -->
+
+
+<p>It probably won&rsquo;t surprise you to learn that there&rsquo;s a corresponding <code>paste</code>
+command, which takes two or more files and stitches them together with tab
+characters.  Let&rsquo;s extract a couple of things from our author list and put them
+back together in a different order:</p>
+
+<!-- exec -->
+
+
+<pre><code>$ cut -f1 all_authors.tsv &gt; lastnames
+</code></pre>
+
+<!-- end -->
+
+
+
+
+<!-- exec -->
+
+
+<pre><code>$ cut -f2 all_authors.tsv &gt; firstnames
+</code></pre>
+
+<!-- end -->
+
+
+
+
+<!-- exec -->
+
+
+<pre><code>$ paste firstnames lastnames | sort -k2 | expand -t12
+John        Brunner
+Pat         Cadigan
+Ursula      Le Guin
+Eden        Robinson
+James       Tiptree
+Miriam      Toews
+John        Tolkien
+Vanessa     Veselka
+Jo          Walton
+Gwendolyn   Waring
+</code></pre>
+
+<!-- end -->
+
+
+<p>As these examples show, TSV is something very like a primitive spreadsheet:  A
+way to represent information in columns and rows.  In fact, it&rsquo;s a close cousin
+of CSV, which is often used as a lowest-common-denominator format for
+transferring spreadsheets, and which represents data something like this:</p>
+
+<pre><code>last,first,middle,suffix
+Tolkien,John,Ronald Reuel,
+Tiptree,James,,Jr.
+</code></pre>
+
+<p>The advantage of tabs is that they&rsquo;re supported by a bunch of the standard
+tools.  A disadvantage is that they&rsquo;re kind of ugly and can be weird to deal
+with, but they&rsquo;re useful anyway, and character-delimited rows are often a
+good-enough way to hack your way through problems that call for basic
+structure.</p>
+
 <h2><a name=finding-text-grep href=#finding-text-grep>#</a> finding text: grep</h2>
 
 <p>After all those contortions, what if you actually just want to see <em>which lists</em>
@@ -899,7 +1084,7 @@ words have been written on this topic by leading lights of the nerd community.</
 isn&rsquo;t very useful to us).  That&rsquo;s because all <code>grep</code> saw was the lines in the
 files, not the names of the files themselves.</p>
 
-<h2><a name=now-you-have-n-problems-regex-rabbit-holes href=#now-you-have-n-problems-regex-rabbit-holes>#</a> now you have n problems: regex + rabbit holes</h2>
+<h2><a name=now-you-have-n-problems-regex-and-rabbit-holes href=#now-you-have-n-problems-regex-and-rabbit-holes>#</a> now you have n problems: regex and rabbit holes</h2>
 
 <p>To close out this introductory chapter, let&rsquo;s spend a little time on a topic
 that will likely vex, confound, and (occasionally) delight you for as long as
@@ -936,18 +1121,18 @@ shell to match groups of files, but for text in general and with more magic.</p>
 by <code>grep</code>, other magical things include:</p>
 
 <table>
-  <tr><td><code>^</code>    </td>  <td>start of a line                        </td></tr>
-  <tr><td><code>$</code>    </td>  <td>end of a line                          </td></tr>
-  <tr><td><code>[abc]</code></td>  <td>one of a, b, or c                      </td></tr>
-  <tr><td><code>[a-z]</code></td>  <td>a character in the range a through z   </td></tr>
-  <tr><td><code>[0-9]</code></td>  <td>a character in the range 0 through 9   </td></tr>
+    <tr><td><code>^</code>    </td>  <td>start of a line                     </td></tr>
+    <tr><td><code>$</code>    </td>  <td>end of a line                       </td></tr>
+    <tr><td><code>[abc]</code></td>  <td>one of a, b, or c                   </td></tr>
+    <tr><td><code>[a-z]</code></td>  <td>a character in the range a through z</td></tr>
+    <tr><td><code>[0-9]</code></td>  <td>a character in the range 0 through 9</td></tr>
 
-  <tr><td><code>+</code>    </td>  <td>one or more of the preceding thing     </td></tr>
-  <tr><td><code>?</code>    </td>  <td>0 or 1 of the preceding thing          </td></tr>
-  <tr><td><code>*</code>    </td>  <td>any number of the preceding thing      </td></tr>
+    <tr><td><code>+</code>    </td>  <td>one or more of the preceding thing  </td></tr>
+    <tr><td><code>?</code>    </td>  <td>0 or 1 of the preceding thing       </td></tr>
+    <tr><td><code>*</code>    </td>  <td>any number of the preceding thing   </td></tr>
 
-  <tr><td><code>(foo|bar)</code></td>  <td>"foo" or "bar"</td></tr>
-  <tr><td><code>(foo)?</code></td>     <td>optional "foo"</td></tr>
+    <tr><td><code>(foo|bar)</code></td>  <td>"foo" or "bar"</td></tr>
+    <tr><td><code>(foo)?</code></td>     <td>optional "foo"</td></tr>
 </table>
 
 
@@ -1549,6 +1734,9 @@ the same thing as `cat all_authors | nl`, or `nl all_authors`.  You won't see
     $ sort colors | uniq -i | tail -1
     $ cut -d' ' -f1 ./authors_* | sort | uniq -ci | sort -n | tail -3
     $ sort -u ./authors_* | cut -d' ' -f1 | uniq -ci | sort -n | tail -3
+    $ sort -k1 all_authors.tsv | expand -t14
+    $ cut -f3 all_authors.tsv | grep .
+    $ paste firstnames lastnames | sort -k2 | expand -t12
     $ cat ./authors_* | grep 'Vanessa'
 </code></pre>
 
@@ -2447,11 +2635,9 @@ If you squint, these look kind of like paths to files on your filesystem.</p>
 <hr />
 <script>
 $(document).ready(function () {
-
-  // ☜ ☝ ☞ ☟
-  // ☆ ✠ ✡ ✢ ✣ ✤ ✥ ✦ ✧ ✩ ✪ 
-  var closed_sigil = '⇩';
-  var open_sigil = '⇧';
+  // ☜ ☝ ☞ ☟ ☆ ✠ ✡ ✢ ✣ ✤ ✥ ✦ ✧ ✩ ✪ 
+  var closed_sigil = 'show';
+  var open_sigil = 'hide';
 
   var togglesigil = function (elem) {
     var sigil = $(elem).html();
@@ -2462,20 +2648,18 @@ $(document).ready(function () {
     }
   };
 
-  var togglebutton = function (e) {
-    e.preventDefault();
-    $details_full.toggle({
-      duration: 550
-    });
-    togglesigil(this);
-  };
-
   $(".details").each(function () {
     var $this = $(this);
     var $button = $('<button class=clicker-button>' + closed_sigil + '</button>');
     var $details_full = $(this).find('.full');
 
-    $button.click(togglebutton);
+    $button.click(function (e) {
+      e.preventDefault();
+      $details_full.toggle({
+        duration: 550
+      });
+      togglesigil(this);
+    });
 
     $(this).find('.clicker').append($button);
     $button.show();

@@ -670,6 +670,162 @@ you could instead do:
 
 <!-- end -->
 
+tab separated values
+--------------------
+
+Notice above how we had to tell `cut` that "fields" in `authors_*` are
+delimited by spaces?  It turns out that if you don't use `-d`, `cut` defaults
+to using tab characters for a delimiter.
+
+Tab characters are sort of weird little animals.  You can't usually _see_ them
+directly -- they're like a space character that takes up more than one space
+when displayed.  By convention, one tab is usually rendered as 8 spaces, but
+it's up to the software that's displaying the character what it wants to do.
+
+(In fact, it's more complicated than that:  Tabs are often rendered as marking
+_tab stops_, which is a concept I remember from 7th grade typing classes, but
+haven't actually thought about in my day-to-day life for nearly 20 years.)
+
+Here's a version of our `all_authors` that's been rearranged so that the first
+field is the author's last name, the second is their first name, the third is
+their middle name or initial (if we know it) and the fourth is any suffix.
+Fields are separated by a single tab character:
+
+<!-- exec -->
+
+    $ cat all_authors.tsv
+    Robinson	Eden
+    Waring	Gwendolyn	L.
+    Tiptree	James		Jr.
+    Brunner	John
+    Tolkien	John	Ronald Reuel
+    Walton	Jo
+    Toews	Miriam
+    Cadigan	Pat
+    Le Guin	Ursula	K.
+    Veselka	Vanessa
+
+<!-- end -->
+
+That looks kind of garbled, right?  In order to make it a little more obvious
+what's happening, let's use `cat -T`, which displays tab characters as `^I`:
+
+<!-- exec -->
+
+    $ cat -T all_authors.tsv
+    Robinson^IEden
+    Waring^IGwendolyn^IL.
+    Tiptree^IJames^I^IJr.
+    Brunner^IJohn
+    Tolkien^IJohn^IRonald Reuel
+    Walton^IJo
+    Toews^IMiriam
+    Cadigan^IPat
+    Le Guin^IUrsula^IK.
+    Veselka^IVanessa
+
+<!-- end -->
+
+It looks odd when displayed because some names are at or nearly at 8 characters long.
+"Robinson", at 8 characters, overshoots the first tab stop, so "Eden" gets indented
+further than other first names, and so on.
+
+Fortunately, in order to make this more human-readable, we can pass it through
+`expand`, which turns tabs into a given number of spaces (8 by default):
+
+<!-- exec -->
+
+    $ expand -t14 all_authors.tsv
+    Robinson      Eden
+    Waring        Gwendolyn     L.
+    Tiptree       James                       Jr.
+    Brunner       John
+    Tolkien       John          Ronald Reuel
+    Walton        Jo
+    Toews         Miriam
+    Cadigan       Pat
+    Le Guin       Ursula        K.
+    Veselka       Vanessa
+
+<!-- end -->
+
+Now it's easy to sort by last name:
+
+<!-- exec -->
+
+    $ sort -k1 all_authors.tsv | expand -t14
+    Brunner       John
+    Cadigan       Pat
+    Le Guin       Ursula        K.
+    Robinson      Eden
+    Tiptree       James                       Jr.
+    Toews         Miriam
+    Tolkien       John          Ronald Reuel
+    Veselka       Vanessa
+    Walton        Jo
+    Waring        Gwendolyn     L.
+
+<!-- end -->
+
+Or just extract middle names and initials:
+
+<!-- exec -->
+
+    $ cut -f3 all_authors.tsv | grep .
+    L.
+    Ronald Reuel
+    K.
+
+<!-- end -->
+
+It probably won't surprise you to learn that there's a corresponding `paste`
+command, which takes two or more files and stitches them together with tab
+characters.  Let's extract a couple of things from our author list and put them
+back together in a different order:
+
+<!-- exec -->
+
+    $ cut -f1 all_authors.tsv > lastnames
+    
+<!-- end -->
+
+<!-- exec -->
+
+    $ cut -f2 all_authors.tsv > firstnames
+    
+<!-- end -->
+
+<!-- exec -->
+
+    $ paste firstnames lastnames | sort -k2 | expand -t12
+    John        Brunner
+    Pat         Cadigan
+    Ursula      Le Guin
+    Eden        Robinson
+    James       Tiptree
+    Miriam      Toews
+    John        Tolkien
+    Vanessa     Veselka
+    Jo          Walton
+    Gwendolyn   Waring
+
+<!-- end -->
+
+As these examples show, TSV is something very like a primitive spreadsheet:  A
+way to represent information in columns and rows.  In fact, it's a close cousin
+of CSV, which is often used as a lowest-common-denominator format for
+transferring spreadsheets, and which represents data something like this:
+
+    last,first,middle,suffix
+    Tolkien,John,Ronald Reuel,
+    Tiptree,James,,Jr.
+
+The advantage of tabs is that they're supported by a bunch of the standard
+tools.  A disadvantage is that they're kind of ugly and can be weird to deal
+with, but they're useful anyway, and character-delimited rows are often a
+good-enough way to hack your way through problems that call for basic
+structure.
+
 finding text: grep
 ------------------
 
@@ -703,8 +859,8 @@ You've probably noticed that this result doesn't contain filenames (and thus
 isn't very useful to us).  That's because all `grep` saw was the lines in the
 files, not the names of the files themselves.
 
-now you have n problems: regex + rabbit holes
----------------------------------------------
+now you have n problems: regex and rabbit holes
+-----------------------------------------------
 
 To close out this introductory chapter, let's spend a little time on a topic
 that will likely vex, confound, and (occasionally) delight you for as long as
@@ -738,18 +894,18 @@ The pattern `Jo.*` says that we're looking for lines which contain a literal
 by `grep`, other magical things include:
 
 <table>
-  <tr><td><code>^</code>    </td>  <td>start of a line                        </td></tr>
-  <tr><td><code>$</code>    </td>  <td>end of a line                          </td></tr>
-  <tr><td><code>[abc]</code></td>  <td>one of a, b, or c                      </td></tr>
-  <tr><td><code>[a-z]</code></td>  <td>a character in the range a through z   </td></tr>
-  <tr><td><code>[0-9]</code></td>  <td>a character in the range 0 through 9   </td></tr>
+    <tr><td><code>^</code>    </td>  <td>start of a line                     </td></tr>
+    <tr><td><code>$</code>    </td>  <td>end of a line                       </td></tr>
+    <tr><td><code>[abc]</code></td>  <td>one of a, b, or c                   </td></tr>
+    <tr><td><code>[a-z]</code></td>  <td>a character in the range a through z</td></tr>
+    <tr><td><code>[0-9]</code></td>  <td>a character in the range 0 through 9</td></tr>
 
-  <tr><td><code>+</code>    </td>  <td>one or more of the preceding thing     </td></tr>
-  <tr><td><code>?</code>    </td>  <td>0 or 1 of the preceding thing          </td></tr>
-  <tr><td><code>*</code>    </td>  <td>any number of the preceding thing      </td></tr>
+    <tr><td><code>+</code>    </td>  <td>one or more of the preceding thing  </td></tr>
+    <tr><td><code>?</code>    </td>  <td>0 or 1 of the preceding thing       </td></tr>
+    <tr><td><code>*</code>    </td>  <td>any number of the preceding thing   </td></tr>
 
-  <tr><td><code>(foo|bar)</code></td>  <td>"foo" or "bar"</td></tr>
-  <tr><td><code>(foo)?</code></td>     <td>optional "foo"</td></tr>
+    <tr><td><code>(foo|bar)</code></td>  <td>"foo" or "bar"</td></tr>
+    <tr><td><code>(foo)?</code></td>     <td>optional "foo"</td></tr>
 </table>
 
 It's actually a little more complicated than that:  By default, if you want to
