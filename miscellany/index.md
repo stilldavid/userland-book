@@ -1,5 +1,5 @@
-8. a miscellany of useful tools
-===============================
+8. a miscellany of tools and techniques
+=======================================
 
 dict
 ----
@@ -76,6 +76,11 @@ This turns out to be pretty simple:
     sort < /dev/stdin | uniq -c | sort -k1 -nr | head -$TOSHOW
 
 <!-- end -->
+
+Notice, though, that it doesn't handle opening files directly.  If you wanted
+to find the most common lines in a file with it, you'd have to say something
+like `mostcommon < filename` in order to redirect the file to `mostcommon`'s
+standard input.
 
 cal and ncal
 ------------
@@ -179,5 +184,3 @@ How about ASCII art of a <del>cow</del> dragon saying something?
                                                                       /.-~
 
 <!-- end -->
-
-

@@ -109,7 +109,7 @@ mirror</a>, and welcome feedback there.</p>
 <li><a href="#writing-the-web-easier">writing the web, easier</a></li>
 </ul>
 </li>
-<li><a href="#a-miscellany-of-useful-tools">8. a miscellany of useful tools</a>
+<li><a href="#a-miscellany-of-tools-and-techniques">8. a miscellany of tools and techniques</a>
 
 <ul>
 <li><a href="#dict">dict</a></li>
@@ -2773,7 +2773,7 @@ been doing it for quite a while now.</p>
 
 <hr />
 
-<h1><a name=a-miscellany-of-useful-tools href=#a-miscellany-of-useful-tools>#</a> 8. a miscellany of useful tools</h1>
+<h1><a name=a-miscellany-of-tools-and-techniques href=#a-miscellany-of-tools-and-techniques>#</a> 8. a miscellany of tools and techniques</h1>
 
 <h2><a name=dict href=#dict>#</a> dict</h2>
 
@@ -2804,12 +2804,12 @@ From The Collaborative International Dictionary of English v.0.48 [gcide]:
 <!-- exec -->
 
 
-<pre><code>$ aspell list &lt; index.md | sort | uniq -ci | sort -nr | head -5
+<pre><code>$ aspell list &lt; index.md | sort | uniq -c | sort -nr | head -5
       7 TOSHOW
       6 aspell
       5 ncal
-      4 figlet
-      4 del
+      5 american
+      4 mostcommon
 </code></pre>
 
 <!-- end -->
@@ -2818,8 +2818,8 @@ From The Collaborative International Dictionary of English v.0.48 [gcide]:
 <h2><a name=mostcommon href=#mostcommon>#</a> mostcommon</h2>
 
 <p>Something like that last sequence sure does seem to show up a lot in my work:
-Spit out the <em>n</em> most common lines in the input, one way or another.   Let&rsquo;s
-write a little script to be less repetitive about it.</p>
+Spit out the <em>n</em> most common lines in the input, one way or another.   Here&rsquo;s
+a little script to be less repetitive about it.</p>
 
 <!-- exec -->
 
@@ -2828,14 +2828,14 @@ write a little script to be less repetitive about it.</p>
       7 TOSHOW
       6 aspell
       5 ncal
-      4 figlet
-      4 del
+      5 american
+      4 mostcommon
 </code></pre>
 
 <!-- end -->
 
 
-
+<p>This turns out to be pretty simple:</p>
 
 <!-- exec -->
 
@@ -2843,8 +2843,7 @@ write a little script to be less repetitive about it.</p>
 <pre><code>$ cat ./mostcommon
 #!/usr/bin/env bash
 
-# Optionally, specify the number of lines to show,
-# defaulting to 10:
+# Optionally specify number of lines to show, defaulting to 10:
 TOSHOW=$1
 if [[ ! $TOSHOW ]]; then
   TOSHOW=10
@@ -2854,11 +2853,16 @@ fi
 # sort numerically on the first field,
 # chop off everything but $TOSHOW lines of input
 
-sort &lt; /dev/stdin | uniq -ci | sort -k1 -nr | head -$TOSHOW
+sort &lt; /dev/stdin | uniq -c | sort -k1 -nr | head -$TOSHOW
 </code></pre>
 
 <!-- end -->
 
+
+<p>Notice, though, that it doesn&rsquo;t handle opening files directly.  If you wanted
+to find the most common lines in a file with it, you&rsquo;d have to say something
+like <code>mostcommon &lt; filename</code> in order to redirect the file to <code>mostcommon</code>&rsquo;s
+standard input.</p>
 
 <h2><a name=cal-and-ncal href=#cal-and-ncal>#</a> cal and ncal</h2>
 
@@ -2912,11 +2916,11 @@ April 20 2014
 <!-- exec -->
 
 
-<pre><code>$ echo 'the essence of revolution' | ptx
-                                 the   essence of revolution
-                         the essence   of revolution
-                      the essence of   revolution
-                                       the essence of revolution
+<pre><code>$ echo 'i like american music' | ptx
+                              i like   american music
+                                       i like american music
+                                   i   like american music
+                     i like american   music
 </code></pre>
 
 <!-- end -->
