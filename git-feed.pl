@@ -9,7 +9,7 @@ use HTML::Entities;
 my $book_url = "http://www.p1k3.com/userland-book/";
 my $feed_url = "http://www.p1k3.com/userland-book/feed.xml";
 
-my $log = `git log --pretty=format:"%H _ %ai _ %s"`;
+my $log = `git log -10 --pretty=format:"%H _ %ai _ %s"`;
 
 my $feed = XML::Atom::SimpleFeed->new(
   title     => "userland: a book about the command line for humans",
@@ -22,7 +22,6 @@ my $feed = XML::Atom::SimpleFeed->new(
   # updated   => iso_date(Wala::get_mtime($month_file)),
 );
 
-# content   => `git show $hash`,
 while ($log =~ m/^([a-z0-9]+) _ (.*) _ (.*)$/gm) {
   my $hash = $1;
   my $full_commit = `git show $hash`;
@@ -35,7 +34,7 @@ while ($log =~ m/^([a-z0-9]+) _ (.*) _ (.*)$/gm) {
     link      => $book_url,
     id        => $hash,
     # content   => { content => `git show $hash`, type => 'text' },
-    content   => $formatted_commit,
+    # content   => $formatted_commit,
     updated   => $date,
   );
 }
