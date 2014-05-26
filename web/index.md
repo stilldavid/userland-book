@@ -14,12 +14,12 @@ and obscure the simplicity of its basic design, which is this:
 
 Some programs pass text around to one another.
 
-It's more complicated than that, of course, but the gist of it is that the web
-is made out of URLs, "Uniform Resource Locators", which are paths to things.
-If you squint, these look kind of like paths to files on your filesystem.  When
-you visit a URL in your browser, it asks a server for a certain path, and the
-server gives it back some text.  When you click a button to submit a form,
-your browser sends some text to the server and waits to see what it says back.
+The gist of it is that the web is made out of URLs, "Uniform Resource
+Locators", which are paths to things.  If you squint, these look kind of like
+paths to files on your filesystem.  When you visit a URL in your browser, it
+asks a server for a certain path, and the server gives it back some text.  When
+you click a button to submit a form, your browser sends some text to the server
+and waits to see what it says back.
 
 reading the web
 ---------------
@@ -101,11 +101,10 @@ is still actively maintained:
        with an audience of mixed technical background.
     
 If you invoke Lynx without any options, it'll start up in interactive mode, and
-you can navigate between links with the arrow keys.  `-dump` spits a rendered
-version of a page to standard output, with links annotated as `[1]`-style
-footnotes and printed at the bottom of the output.  Another useful option here
-is `-listonly`, which will print just the list of links contained within a
-page:
+you can navigate between links with the arrow keys.  `lynx -dump` spits a
+rendered version of a page to standard output, with links annotated in square
+brackets and printed as footnotes.  Another useful option here is `-listonly`,
+which will print just the list of links contained within a page:
 
     $ lynx -dump -listonly 'http://p1k3.com/userland-book/' | head
     
@@ -119,7 +118,7 @@ page:
        9. http://p1k3.com/userland-book/#a-book-about-the-command-line-for-humans
       10. http://p1k3.com/userland-book/#copying
 
-An alternative to Lynx is w3m, which copes a little more gracefully with of the
+An alternative to Lynx is w3m, which copes a little more gracefully with the
 complexities of modern web layout.
 
     $ w3m -dump 'http://p1k3.com/userland-book/' | head
@@ -134,10 +133,10 @@ complexities of modern web layout.
     hook for talking about the tools I use every day with an audience of mixed
     technical background.
 
-Neither of these options are going to replace enormously capable applications
-like Chrome or Firefox for most users, but they have their place in the toolbox,
-and help to demonstrate how the web is built (in part) on principles we've already
-seen at work.
+Neither of these tools are going to replace enormously capable applications
+like Chrome or Firefox, but they have their place in the toolbox, and help to
+demonstrate how the web is built (in part) on principles we've already seen at
+work.
 
 writing the web
 ---------------

@@ -109,7 +109,15 @@ mirror</a>, and welcome feedback there.</p>
 <li><a href="#writing-the-web-easier">writing the web, easier</a></li>
 </ul>
 </li>
-<li><a href="#further-reading">8. further reading</a></li>
+<li><a href="#a-miscellany-of-useful-tools">8. a miscellany of useful tools</a>
+
+<ul>
+<li><a href="#dict">dict</a></li>
+<li><a href="#aspell">aspell</a></li>
+<li><a href="#cal">cal</a></li>
+</ul>
+</li>
+<li><a href="#further-reading">9. further reading</a></li>
 </ul>
 
 </div>
@@ -2615,12 +2623,12 @@ and obscure the simplicity of its basic design, which is this:</p>
 
 <p>Some programs pass text around to one another.</p>
 
-<p>It&rsquo;s more complicated than that, of course, but the gist of it is that the web
-is made out of URLs, &ldquo;Uniform Resource Locators&rdquo;, which are paths to things.
-If you squint, these look kind of like paths to files on your filesystem.  When
-you visit a URL in your browser, it asks a server for a certain path, and the
-server gives it back some text.  When you click a button to submit a form,
-your browser sends some text to the server and waits to see what it says back.</p>
+<p>The gist of it is that the web is made out of URLs, &ldquo;Uniform Resource
+Locators&rdquo;, which are paths to things.  If you squint, these look kind of like
+paths to files on your filesystem.  When you visit a URL in your browser, it
+asks a server for a certain path, and the server gives it back some text.  When
+you click a button to submit a form, your browser sends some text to the server
+and waits to see what it says back.</p>
 
 <h2><a name=reading-the-web href=#reading-the-web>#</a> reading the web</h2>
 
@@ -2706,11 +2714,10 @@ is still actively maintained:</p>
 </code></pre>
 
 <p>If you invoke Lynx without any options, it&rsquo;ll start up in interactive mode, and
-you can navigate between links with the arrow keys.  <code>-dump</code> spits a rendered
-version of a page to standard output, with links annotated as <code>[1]</code>-style
-footnotes and printed at the bottom of the output.  Another useful option here
-is <code>-listonly</code>, which will print just the list of links contained within a
-page:</p>
+you can navigate between links with the arrow keys.  <code>lynx -dump</code> spits a
+rendered version of a page to standard output, with links annotated in square
+brackets and printed as footnotes.  Another useful option here is <code>-listonly</code>,
+which will print just the list of links contained within a page:</p>
 
 <pre><code>$ lynx -dump -listonly 'http://p1k3.com/userland-book/' | head
 
@@ -2725,7 +2732,7 @@ References
   10. http://p1k3.com/userland-book/#copying
 </code></pre>
 
-<p>An alternative to Lynx is w3m, which copes a little more gracefully with of the
+<p>An alternative to Lynx is w3m, which copes a little more gracefully with the
 complexities of modern web layout.</p>
 
 <pre><code>$ w3m -dump 'http://p1k3.com/userland-book/' | head
@@ -2741,10 +2748,10 @@ hook for talking about the tools I use every day with an audience of mixed
 technical background.
 </code></pre>
 
-<p>Neither of these options are going to replace enormously capable applications
-like Chrome or Firefox for most users, but they have their place in the toolbox,
-and help to demonstrate how the web is built (in part) on principles we&rsquo;ve already
-seen at work.</p>
+<p>Neither of these tools are going to replace enormously capable applications
+like Chrome or Firefox, but they have their place in the toolbox, and help to
+demonstrate how the web is built (in part) on principles we&rsquo;ve already seen at
+work.</p>
 
 <h2><a name=writing-the-web href=#writing-the-web>#</a> writing the web</h2>
 
@@ -2764,7 +2771,67 @@ been doing it for quite a while now.</p>
 
 <hr />
 
-<h1><a name=further-reading href=#further-reading>#</a> 8. further reading</h1>
+<h1><a name=a-miscellany-of-useful-tools href=#a-miscellany-of-useful-tools>#</a> 8. a miscellany of useful tools</h1>
+
+<h2><a name=dict href=#dict>#</a> dict</h2>
+
+<p>Want to know the definition of a word, or find useful synonyms?</p>
+
+<pre><code>$ dict concatenate | head -10
+4 definitions found
+
+From The Collaborative International Dictionary of English v.0.48 [gcide]:
+
+  Concatenate \Con*cat"e*nate\ (k[o^]n*k[a^]t"[-e]*n[=a]t), v. t.
+     [imp. &amp; p. p. {Concatenated}; p. pr. &amp; vb. n.
+     {Concatenating}.] [L. concatenatus, p. p. of concatenare to
+     concatenate. See {Catenate}.]
+     To link together; to unite in a series or chain, as things
+     depending on one another.
+</code></pre>
+
+<h2><a name=aspell href=#aspell>#</a> aspell</h2>
+
+<p>Need to interactively spell-check your presentation notes?</p>
+
+<pre><code>$ aspell check presentation
+</code></pre>
+
+<h2><a name=cal href=#cal>#</a> cal</h2>
+
+<p>Want to know what the calendar looks like for this month?</p>
+
+<pre><code>$ cal
+     April 2014       
+Su Mo Tu We Th Fr Sa  
+       1  2  3  4  5  
+ 6  7  8  9 10 11 12  
+13 14 15 16 17 18 19  
+20 21 22 23 24 25 26  
+27 28 29 30           
+</code></pre>
+
+<p>How about for September, 1950?</p>
+
+<!-- exec -->
+
+
+<pre><code>$ cal -m9 1950
+   September 1950     
+Su Mo Tu We Th Fr Sa  
+                1  2  
+ 3  4  5  6  7  8  9  
+10 11 12 13 14 15 16  
+17 18 19 20 21 22 23  
+24 25 26 27 28 29 30  
+</code></pre>
+
+<!-- end -->
+
+
+<hr />
+
+<h1><a name=further-reading href=#further-reading>#</a> 9. further reading</h1>
 
 <ul>
 <li><em>The Unix Programming Environment</em> - Brian W. Kernighan, Rob Pike</li>
