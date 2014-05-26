@@ -2597,6 +2597,8 @@ called Night.  <del>So the</del>  <ins>And there was</ins> evening and <del>the 
 
 <hr />
 
+<p>lynx: Invalid Option: -linksonly</p>
+
 <h1><a name=the-internet-for-humans-and-how-the-command-line-can-help href=#the-internet-for-humans-and-how-the-command-line-can-help>#</a> 7. the internet for humans, and how the command line can help</h1>
 
 <p>Web browsers are really complicated these days.  They&rsquo;re full of rendering
@@ -2693,6 +2695,26 @@ which originated at the University of Kansas in the early 1990s, still works:</p
    about how much my writing habits depend on the Linux command line. This
    struck me as a good hook for talking about the tools I use every day
    with an audience of mixed technical background.
+</code></pre>
+
+<p>If you invoke Lynx <em>without</em> the <code>-dump</code> option, it&rsquo;ll start up in interactive
+mode, and you can navigate between links with the arrow keys.  <code>-dump</code> spits a
+rendered version of the page to standard output, with links annotated as
+<code>[1]</code>-style footnotes and printed at the bottom of the output.  Another useful
+option here is <code>-listonly</code>, which will output just the list of links contained
+within a page:</p>
+
+<pre><code>$ lynx -dump -listonly 'http://p1k3.com/userland-book/' | head
+
+References
+
+   2. http://p1k3.com/2013/8/4
+   3. http://p1k3.com/userland-book.git
+   4. https://github.com/brennen/userland-book
+   5. http://p1k3.com/userland-book/
+   6. https://twitter.com/brennen
+   9. http://p1k3.com/userland-book/#a-book-about-the-command-line-for-humans
+  10. http://p1k3.com/userland-book/#copying
 </code></pre>
 
 <p>Another option is w3m, which copes a little more gracefully with some of

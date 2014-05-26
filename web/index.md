@@ -1,3 +1,4 @@
+lynx: Invalid Option: -linksonly
 7. the internet for humans, and how the command line can help
 =============================================================
 
@@ -94,6 +95,24 @@ which originated at the University of Kansas in the early 1990s, still works:
        struck me as a good hook for talking about the tools I use every day
        with an audience of mixed technical background.
     
+If you invoke Lynx _without_ the `-dump` option, it'll start up in interactive
+mode, and you can navigate between links with the arrow keys.  `-dump` spits a
+rendered version of the page to standard output, with links annotated as
+`[1]`-style footnotes and printed at the bottom of the output.  Another useful
+option here is `-listonly`, which will output just the list of links contained
+within a page:
+
+    $ lynx -dump -listonly 'http://p1k3.com/userland-book/' | head
+    
+    References
+    
+       2. http://p1k3.com/2013/8/4
+       3. http://p1k3.com/userland-book.git
+       4. https://github.com/brennen/userland-book
+       5. http://p1k3.com/userland-book/
+       6. https://twitter.com/brennen
+       9. http://p1k3.com/userland-book/#a-book-about-the-command-line-for-humans
+      10. http://p1k3.com/userland-book/#copying
 
 Another option is w3m, which copes a little more gracefully with some of
 the complexities of modern web layout.
@@ -112,5 +131,11 @@ the complexities of modern web layout.
 
 writing the web
 ---------------
+
+I'm pretty comfortable writing HTML by hand.  I've been doing it for a long
+time, and having a decent grasp of how it works and how to express myself in it
+is a pretty fundamental requirement of my day job.  That doesn't mean I like
+
+I also spend a lot of time writing prose in text files, and 
 
 {to come}
