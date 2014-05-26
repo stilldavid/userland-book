@@ -10,15 +10,15 @@ enough be skipped.  It's more in the way of philosophical rambling than
 concrete instruction, and will be of most use to those with an existing
 background in writing code.
 
--> * <-
+-> ✢ <-
 
 If you've used computers for more than a few years, you're probably viscerally
 aware that most software is fragile and most systems decay.  In the time since
 I took my first tentative steps into the little world of a computer (a friend's
 dad's unidentifiable gaming machine, my own father's blue monochrome Zenith
 laptop, the Apple II) the churn has been overwhelming.  By now I've learned my
-way around vastly more software -- operating systems, programming languages and
-development environments, games, editors, chat clients, mail systems -- than I
+way around vastly more software --- operating systems, programming languages and
+development environments, games, editors, chat clients, mail systems --- than I
 presently could use if I wanted to.  Most of it has gone the way of some
 ancient civilization, surviving (if at all) only in faint, half-understood
 cultural echoes and occasional museum-piece displays.  Every user of technology
@@ -34,7 +34,7 @@ technological dominance ca. 2014 of companies like Apple, Google, and Facebook.
 
 Why is this, exactly?
 
--> * <-
+-> ✣ <-
 
 As I've said (and hopefully shown), the commands you write in your shell
 are essentially little programs.  Like other programs, they can be stored
@@ -71,7 +71,7 @@ about, in fact, is putting a file (or three) in a particular place.  And this
 is in keeping with a basic insight of Unix:  Pieces of software that do one
 very simple thing generalize well.  Good command line tools are like a hex
 wrench, a hammer, a utility knife:  They embody knowledge of turning, of
-striking, of cutting -- and with this kind of knowledge at hand, the user can
+striking, of cutting --- and with this kind of knowledge at hand, the user can
 change the world even though no individual tool is made with complete knowledge
 of the world as a whole.  There's a lot of power in the accumulation of small
 competencies.
@@ -86,7 +86,7 @@ you think about most of these things, they have some very rough edges, but they
 give otherwise simple tools ways to communicate without becoming
 super-complicated along the way.
 
--> * <-
+-> ✤ <-
 
 What is the command line?
 
@@ -94,7 +94,7 @@ The command line is an environment of tool use.
 
 So are kitchens, workshops, libraries, and programming languages.
 
--> * <-
+-> ✥ <-
 
 Here's a confession:  I don't like writing shell scripts very much, and I
 can't blame anyone else for feeling the same way.

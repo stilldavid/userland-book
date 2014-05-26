@@ -312,7 +312,7 @@ authors.  We can make sure our list doesn't contain repeating lines by using
 
 <!-- end -->
 
-But there's another approach to this -- `sort` is good at only displaying a line
+But there's another approach to this --- `sort` is good at only displaying a line
 once, but suppose we wanted to see a count of how many different lists an
 author shows up on?  `sort` doesn't do that, but a command called `uniq` does,
 if you give it the option `-c` for **c**ount.
@@ -388,7 +388,7 @@ Check it out:
 <!-- end -->
 
 I like to think of the `>` as looking like a little funnel.  It can be
-dangerous -- you should always make sure that you're not going to clobber
+dangerous --- you should always make sure that you're not going to clobber
 an existing file you actually want to keep.
 
 If you want to tack more stuff on to the end of an existing file, you can use
@@ -678,7 +678,7 @@ delimited by spaces?  It turns out that if you don't use `-d`, `cut` defaults
 to using tab characters for a delimiter.
 
 Tab characters are sort of weird little animals.  You can't usually _see_ them
-directly -- they're like a space character that takes up more than one space
+directly --- they're like a space character that takes up more than one space
 when displayed.  By convention, one tab is usually rendered as 8 spaces, but
 it's up to the software that's displaying the character what it wants to do.
 

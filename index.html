@@ -101,11 +101,12 @@ mirror</a>, and welcome feedback there.</p>
 <li><a href="#wdiff">wdiff</a></li>
 </ul>
 </li>
-<li><a href="#the-internet-for-humans-and-how-the-command-line-can-help">7. the internet for humans, and how the command line can help</a>
+<li><a href="#the-command-line-and-the-web">7. the command line and the web</a>
 
 <ul>
 <li><a href="#reading-the-web">reading the web</a></li>
 <li><a href="#writing-the-web">writing the web</a></li>
+<li><a href="#writing-the-web-easier">writing the web, easier</a></li>
 </ul>
 </li>
 <li><a href="#further-reading">8. further reading</a></li>
@@ -449,7 +450,7 @@ Jo Walton
 <!-- end -->
 
 
-<p>But there&rsquo;s another approach to this &ndash; <code>sort</code> is good at only displaying a line
+<p>But there&rsquo;s another approach to this &mdash; <code>sort</code> is good at only displaying a line
 once, but suppose we wanted to see a count of how many different lists an
 author shows up on?  <code>sort</code> doesn&rsquo;t do that, but a command called <code>uniq</code> does,
 if you give it the option <code>-c</code> for <strong>c</strong>ount.</p>
@@ -535,7 +536,7 @@ Vanessa Veselka
 
 
 <p>I like to think of the <code>&gt;</code> as looking like a little funnel.  It can be
-dangerous &ndash; you should always make sure that you&rsquo;re not going to clobber
+dangerous &mdash; you should always make sure that you&rsquo;re not going to clobber
 an existing file you actually want to keep.</p>
 
 <p>If you want to tack more stuff on to the end of an existing file, you can use
@@ -674,7 +675,10 @@ bunzip2 (1)          - a block-sorting file compressor, v1.0.6
 bzip2 (1)            - a block-sorting file compressor, v1.0.6
 comm (1)             - compare two sorted files line by line
 sort (1)             - sort lines of text files
+sq (1)               - squeeze or unsqueeze a sorted word list
+texindex (1)         - sort Texinfo index files
 tsort (1)            - perform topological sort
+unsq (1)             - squeeze or unsqueeze a sorted word list
 </code></pre>
 
 <!-- end -->
@@ -870,7 +874,7 @@ delimited by spaces?  It turns out that if you don&rsquo;t use <code>-d</code>, 
 to using tab characters for a delimiter.</p>
 
 <p>Tab characters are sort of weird little animals.  You can&rsquo;t usually <em>see</em> them
-directly &ndash; they&rsquo;re like a space character that takes up more than one space
+directly &mdash; they&rsquo;re like a space character that takes up more than one space
 when displayed.  By convention, one tab is usually rendered as 8 spaces, but
 it&rsquo;s up to the software that&rsquo;s displaying the character what it wants to do.</p>
 
@@ -1455,8 +1459,8 @@ the same tools for other problems and other data.</p>
 
 <p style="text-align:center;"> ★</p>
 
-<p>When I first started writing stuff on the web, I edited a page &ndash; a single HTML
-file &ndash; by hand.  When the entries on my nascent blog got old, I manually
+<p>When I first started writing stuff on the web, I edited a page &mdash; a single HTML
+file &mdash; by hand.  When the entries on my nascent blog got old, I manually
 cut-and-pasted them to archive files with names like <code>old_main97.html</code>, which
 held all of the stuff I&rsquo;d written in 1997.</p>
 
@@ -1563,18 +1567,18 @@ filenames, but I wind up using it quite a bit.</p>
 
 
 <pre><code>$ find ~/p1k3/archives/2012/ -type f | xargs perl -ne 'print "$1\n" if m{&lt;h2&gt;(.*?)&lt;/h2&gt;}'
-pursuit
-fragment
-this poem again
-i'll do better next time
-timebinding animals
-more observations on gear nerdery &amp;amp; utility fetishism
-thrift
 A miracle, in fact, means work
 &lt;em&gt;technical notes for late october&lt;/em&gt;, or &lt;em&gt;it gets dork out earlier these days&lt;/em&gt;
-radio
+more observations on gear nerdery &amp;amp; utility fetishism
+timebinding animals
+fragment
+this poem again
+pursuit
+thrift
+i'll do better next time
 light enough to travel
 12:06am
+radio
 "figures like Heinlein and Gingrich"
 </code></pre>
 
@@ -1845,7 +1849,7 @@ important:</p>
 
 
 <pre><code>$ ls -l okpoems
--rwxrwxr-x 1 brennen brennen 163 Apr 19 00:08 okpoems
+-rwxr-xr-x 1 brennen brennen 163 Apr 17 15:16 okpoems
 </code></pre>
 
 <!-- end -->
@@ -1865,9 +1869,8 @@ accomplish this by saying something like:</p>
 
 
 <pre><code>$ ./okpoems
-/home/brennen/p1k3/archives/2013/2/9
 /home/brennen/p1k3/archives/2012/3/17
-/home/brennen/p1k3/archives/2012/3/26
+/home/brennen/p1k3/archives/2012/2/9
 </code></pre>
 
 <!-- end -->
@@ -2068,15 +2071,15 @@ enough be skipped.  It&rsquo;s more in the way of philosophical rambling than
 concrete instruction, and will be of most use to those with an existing
 background in writing code.</p>
 
-<p style="text-align:center;"> *</p>
+<p style="text-align:center;"> ✢</p>
 
 <p>If you&rsquo;ve used computers for more than a few years, you&rsquo;re probably viscerally
 aware that most software is fragile and most systems decay.  In the time since
 I took my first tentative steps into the little world of a computer (a friend&rsquo;s
 dad&rsquo;s unidentifiable gaming machine, my own father&rsquo;s blue monochrome Zenith
 laptop, the Apple II) the churn has been overwhelming.  By now I&rsquo;ve learned my
-way around vastly more software &ndash; operating systems, programming languages and
-development environments, games, editors, chat clients, mail systems &ndash; than I
+way around vastly more software &mdash; operating systems, programming languages and
+development environments, games, editors, chat clients, mail systems &mdash; than I
 presently could use if I wanted to.  Most of it has gone the way of some
 ancient civilization, surviving (if at all) only in faint, half-understood
 cultural echoes and occasional museum-piece displays.  Every user of technology
@@ -2092,7 +2095,7 @@ technological dominance ca. 2014 of companies like Apple, Google, and Facebook.<
 
 <p>Why is this, exactly?</p>
 
-<p style="text-align:center;"> *</p>
+<p style="text-align:center;"> ✣</p>
 
 <p>As I&rsquo;ve said (and hopefully shown), the commands you write in your shell
 are essentially little programs.  Like other programs, they can be stored
@@ -2132,7 +2135,7 @@ about, in fact, is putting a file (or three) in a particular place.  And this
 is in keeping with a basic insight of Unix:  Pieces of software that do one
 very simple thing generalize well.  Good command line tools are like a hex
 wrench, a hammer, a utility knife:  They embody knowledge of turning, of
-striking, of cutting &ndash; and with this kind of knowledge at hand, the user can
+striking, of cutting &mdash; and with this kind of knowledge at hand, the user can
 change the world even though no individual tool is made with complete knowledge
 of the world as a whole.  There&rsquo;s a lot of power in the accumulation of small
 competencies.</p>
@@ -2147,7 +2150,7 @@ you think about most of these things, they have some very rough edges, but they
 give otherwise simple tools ways to communicate without becoming
 super-complicated along the way.</p>
 
-<p style="text-align:center;"> *</p>
+<p style="text-align:center;"> ✤</p>
 
 <p>What is the command line?</p>
 
@@ -2155,7 +2158,7 @@ super-complicated along the way.</p>
 
 <p>So are kitchens, workshops, libraries, and programming languages.</p>
 
-<p style="text-align:center;"> *</p>
+<p style="text-align:center;"> ✥</p>
 
 <p>Here&rsquo;s a confession:  I don&rsquo;t like writing shell scripts very much, and I
 can&rsquo;t blame anyone else for feeling the same way.</p>
@@ -2356,8 +2359,8 @@ one of these with <code>diff -u</code>:</p>
 
 
 <pre><code>$ diff -u ../script/okpoems ../script/findprop
---- ../script/okpoems   2014-04-19 00:08:03.321230818 -0600
-+++ ../script/findprop  2014-04-21 21:51:29.360846449 -0600
+--- ../script/okpoems   2014-04-17 15:16:59.852962836 -0600
++++ ../script/findprop  2014-05-12 15:50:27.358501804 -0600
 @@ -1,7 +1,13 @@
  #!/bin/bash
 
@@ -2492,8 +2495,8 @@ called Night.  And there was evening and there was morning, the first day.
 
 
 <pre><code>$ diff -u genesis_nkj genesis_nrsv
---- genesis_nkj 2014-05-11 16:28:29.692508461 -0600
-+++ genesis_nrsv    2014-05-11 16:28:29.744508459 -0600
+--- genesis_nkj 2014-05-12 15:50:27.346501744 -0600
++++ genesis_nrsv    2014-05-12 15:50:27.346501744 -0600
 @@ -1,6 +1,6 @@
 -In the beginning God created the heavens and the earth.  The earth was without
 -form, and void; and darkness was on the face of the deep.  And the Spirit of
@@ -2529,8 +2532,8 @@ one-line-per-verse, and try again:</p>
 
 
 <pre><code>$ diff -u genesis_nkj_by_verse genesis_nrsv_by_verse
---- genesis_nkj_by_verse    2014-05-11 16:51:14.312457198 -0600
-+++ genesis_nrsv_by_verse   2014-05-11 16:53:02.484453134 -0600
+--- genesis_nkj_by_verse    2014-05-12 15:50:27.346501744 -0600
++++ genesis_nrsv_by_verse   2014-05-12 15:50:27.346501744 -0600
 @@ -1,5 +1,5 @@
 -In the beginning God created the heavens and the earth.
 -The earth was without form, and void; and darkness was on the face of the deep.  And the Spirit of God was hovering over the face of the waters.
@@ -2597,13 +2600,11 @@ called Night.  <del>So the</del>  <ins>And there was</ins> evening and <del>the 
 
 <hr />
 
-<p>lynx: Invalid Option: -linksonly</p>
-
-<h1><a name=the-internet-for-humans-and-how-the-command-line-can-help href=#the-internet-for-humans-and-how-the-command-line-can-help>#</a> 7. the internet for humans, and how the command line can help</h1>
+<h1><a name=the-command-line-and-the-web href=#the-command-line-and-the-web>#</a> 7. the command line and the web</h1>
 
 <p>Web browsers are really complicated these days.  They&rsquo;re full of rendering
 engines, audio and video players, programming languages, development tools,
-databases &ndash; you name it, and there&rsquo;s a fair chance it&rsquo;s in there somewhere.
+databases &mdash; you name it, and there&rsquo;s a fair chance it&rsquo;s in there somewhere.
 The modern web browser is kitchen sink software, and to make matters worse, it
 is <em>totally surrounded</em> by technobabble.  It can take <em>years</em> to come to terms
 with the ocean of words about web stuff and sort out the meaningful ones from
@@ -2640,8 +2641,8 @@ your browser sends some text to the server and waits to see what it says back.</
 &lt;/html&gt;
 </code></pre>
 
-<p><code>curl</code> is a program with lots and lots of features &ndash; it too is a little bit of
-a kitchen sink &ndash; but it has one core purpose, which is to grab things from
+<p><code>curl</code> is a program with lots and lots of features &mdash; it too is a little bit of
+a kitchen sink &mdash; but it has one core purpose, which is to grab things from
 URLs and spit them back out.  It&rsquo;s a little bit like <code>cat</code> for things on the
 web.  Try the above command with just about any URL you can think of, and
 you&rsquo;ll probably get <em>something</em> back.  Let&rsquo;s try this book:</p>
@@ -2659,11 +2660,10 @@ you&rsquo;ll probably get <em>something</em> back.  Let&rsquo;s try this book:</
 &lt;body&gt;
 </code></pre>
 
-<p><code>hello_world.html</code> and <code>p1k3.com/userland-book</code> are both <strong>H</strong>yper<strong>T</strong>ext
-<strong>M</strong>arkup <strong>L</strong>anguage.  HTML has been around for quite a while now, and it&rsquo;s
-undergone a huge amount of politicking and overengineering, but at heart it
-still looks a lot <a href="http://info.cern.ch/hypertext/WWW/TheProject.html">like it did in
-1991</a>.</p>
+<p><code>hello_world.html</code> and <code>userland-book</code> are both HyperText Markup Language.
+HTML has been around for quite a while now, and it&rsquo;s undergone a huge amount of
+politicking in the last 20 years, but at heart it still looks a lot <a href="http://info.cern.ch/hypertext/WWW/TheProject.html">like it
+did in 1991</a>.</p>
 
 <p>The basic idea is that the contents of a web page are marked up with tags.
 A tag looks like this:</p>
@@ -2675,15 +2675,23 @@ A tag looks like this:</p>
  `-opening tag
 </code></pre>
 
-<p>Most HTML these days is generated by software that pulls stuff out of databases
-and stitches it together into something your browser will recognize, but it&rsquo;s
-still entirely possible to write simple HTML documents in your text editor of
-choice, and tools that work with text can operate on HTML documents.</p>
+<p>Sometimes you&rsquo;ll see tags with what are known as &ldquo;attributes&rdquo;:</p>
 
-<p>While the browser you use day-to-day is (probably) a graphical interface which
+<pre><code>&lt;a href="http://p1k3.com/userland-book"&gt;userland&lt;/a&gt;
+</code></pre>
+
+<p>This is how links are written in HTML.  <code>href="..."</code> tells the browser where to
+go when the user clicks on &ldquo;userland&rdquo;.</p>
+
+<p>Tags are a way to describe not so much what something should <em>look like</em> as
+what something <em>means</em>.  Browsers are, in large part, big collections of
+knowledge about the meanings of tags and ways to represent those meanings.</p>
+
+<p>While the browser you use day-to-day is (probably) a graphical interface and
 does all sorts of things impossible to render in a terminal, some of the
-earliest web browsers were entirely text-based, and options still exist.  Lynx,
-which originated at the University of Kansas in the early 1990s, still works:</p>
+earliest web browsers were entirely text-based, and text-mode browsers still
+exist.  Lynx, which originated at the University of Kansas in the early 1990s,
+is still actively maintained:</p>
 
 <pre><code>$ lynx -dump 'http://p1k3.com/userland-book/' | head
                                     userland
@@ -2697,12 +2705,12 @@ which originated at the University of Kansas in the early 1990s, still works:</p
    with an audience of mixed technical background.
 </code></pre>
 
-<p>If you invoke Lynx <em>without</em> the <code>-dump</code> option, it&rsquo;ll start up in interactive
-mode, and you can navigate between links with the arrow keys.  <code>-dump</code> spits a
-rendered version of the page to standard output, with links annotated as
-<code>[1]</code>-style footnotes and printed at the bottom of the output.  Another useful
-option here is <code>-listonly</code>, which will output just the list of links contained
-within a page:</p>
+<p>If you invoke Lynx without any options, it&rsquo;ll start up in interactive mode, and
+you can navigate between links with the arrow keys.  <code>-dump</code> spits a rendered
+version of a page to standard output, with links annotated as <code>[1]</code>-style
+footnotes and printed at the bottom of the output.  Another useful option here
+is <code>-listonly</code>, which will print just the list of links contained within a
+page:</p>
 
 <pre><code>$ lynx -dump -listonly 'http://p1k3.com/userland-book/' | head
 
@@ -2717,8 +2725,8 @@ References
   10. http://p1k3.com/userland-book/#copying
 </code></pre>
 
-<p>Another option is w3m, which copes a little more gracefully with some of
-the complexities of modern web layout.</p>
+<p>An alternative to Lynx is w3m, which copes a little more gracefully with of the
+complexities of modern web layout.</p>
 
 <pre><code>$ w3m -dump 'http://p1k3.com/userland-book/' | head
 userland
@@ -2733,9 +2741,26 @@ hook for talking about the tools I use every day with an audience of mixed
 technical background.
 </code></pre>
 
+<p>Neither of these options are going to replace enormously capable applications
+like Chrome or Firefox for most users, but they have their place in the toolbox,
+and help to demonstrate how the web is built (in part) on principles we&rsquo;ve already
+seen at work.</p>
+
 <h2><a name=writing-the-web href=#writing-the-web>#</a> writing the web</h2>
 
-<p>{to come}</p>
+<p>Most of the web that you interact with is generated by software that pulls data
+out of databases and stitches it together into something your browser will
+recognize, but it&rsquo;s still entirely possible to write complete HTML documents in
+your text editor of choice.</p>
+
+<p>{more to come}</p>
+
+<h2><a name=writing-the-web-easier href=#writing-the-web-easier>#</a> writing the web, easier</h2>
+
+<p>I&rsquo;m pretty comfortable writing HTML by hand.  It&rsquo;s part of my day job, and I&rsquo;ve
+been doing it for quite a while now.</p>
+
+<p>{more to come}</p>
 
 <hr />
 

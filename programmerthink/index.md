@@ -47,8 +47,8 @@ the same tools for other problems and other data.
 
 -> ★ <-
 
-When I first started writing stuff on the web, I edited a page -- a single HTML
-file -- by hand.  When the entries on my nascent blog got old, I manually
+When I first started writing stuff on the web, I edited a page --- a single HTML
+file --- by hand.  When the entries on my nascent blog got old, I manually
 cut-and-pasted them to archive files with names like `old_main97.html`, which
 held all of the stuff I'd written in 1997.
 
