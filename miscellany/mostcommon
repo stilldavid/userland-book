@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Optionally specify number of lines to show, defaulting to 10:
+TOSHOW=$1
+if [[ ! $TOSHOW ]]; then
+  TOSHOW=10
+fi
+
+# sort and then uniqify STDIN,
+# sort numerically on the first field,
+# chop off everything but $TOSHOW lines of input
+
+sort < /dev/stdin | uniq -c | sort -k1 -nr | head -$TOSHOW
