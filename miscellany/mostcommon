@@ -1,13 +1,30 @@
 #!/usr/bin/env bash
 
 # Optionally specify number of lines to show, defaulting to 10:
-TOSHOW=$1
-if [[ ! $TOSHOW ]]; then
-  TOSHOW=10
-fi
+TOSHOW=10
+CASEOPT=""
+
+while getopts ":in:" opt; do
+  case $opt in
+    i)
+      CASEOPT="-i"
+      ;;
+    n)
+      TOSHOW=$OPTARG
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
+done
 
 # sort and then uniqify STDIN,
 # sort numerically on the first field,
 # chop off everything but $TOSHOW lines of input
 
-sort < /dev/stdin | uniq -c | sort -k1 -nr | head -$TOSHOW
+sort < /dev/stdin | uniq -c $CASEOPT | sort -k1 -nr | head -$TOSHOW

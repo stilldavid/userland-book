@@ -29,12 +29,12 @@ Just want a list of potentially-misspelled words in a given file?
 
 <!-- exec -->
 
-    $ aspell list < index.md | sort | uniq -c | sort -nr | head -5
-          7 TOSHOW
-          6 aspell
-          5 ncal
-          4 figlet
-          4 del
+    $ aspell list < ../literary_environment/index.md | sort | uniq -ci | sort -nr | head -5
+         40 td
+         24 Veselka
+         17 Reuel
+         16 Brunner
+         15 Tiptree
 
 <!-- end -->
 
@@ -47,12 +47,12 @@ a little script to be less repetitive about it.
 
 <!-- exec -->
 
-    $ aspell list < index.md | ./mostcommon 5
-          7 TOSHOW
-          6 aspell
-          5 ncal
-          4 figlet
-          4 del
+    $ aspell list < ../literary_environment/index.md | ./mostcommon -i -n5
+         40 td
+         24 Veselka
+         17 Reuel
+         16 Brunner
+         15 Tiptree
 
 <!-- end -->
 
@@ -64,23 +64,44 @@ This turns out to be pretty simple:
     #!/usr/bin/env bash
     
     # Optionally specify number of lines to show, defaulting to 10:
-    TOSHOW=$1
-    if [[ ! $TOSHOW ]]; then
-      TOSHOW=10
-    fi
+    TOSHOW=10
+    CASEOPT=""
+    
+    while getopts ":in:" opt; do
+      case $opt in
+        i)
+          CASEOPT="-i"
+          ;;
+        n)
+          TOSHOW=$OPTARG
+          ;;
+        \?)
+          echo "Invalid option: -$OPTARG" >&2
+          exit 1
+          ;;
+        :)
+          echo "Option -$OPTARG requires an argument." >&2
+          exit 1
+          ;;
+      esac
+    done
     
     # sort and then uniqify STDIN,
     # sort numerically on the first field,
     # chop off everything but $TOSHOW lines of input
     
-    sort < /dev/stdin | uniq -c | sort -k1 -nr | head -$TOSHOW
+    sort < /dev/stdin | uniq -c $CASEOPT | sort -k1 -nr | head -$TOSHOW
 
 <!-- end -->
 
 Notice, though, that it doesn't handle opening files directly.  If you wanted
 to find the most common lines in a file with it, you'd have to say something
 like `mostcommon < filename` in order to redirect the file to `mostcommon`'s
-standard input.
+input.
+
+Also notice that most of the script is boilerplate for handling a couple of
+options.  The work is all done in a oneliner.  Worth it?  Maybe not, but an
+interesting exercise.
 
 cal and ncal
 ------------
