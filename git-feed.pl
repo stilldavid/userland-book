@@ -15,7 +15,6 @@ my $feed = XML::Atom::SimpleFeed->new(
   title     => "userland: a book about the command line for humans",
   link      => $book_url,
   link      => { rel => 'self', href => $feed_url, },
-  # icon      => $self->favicon_url,
   author    => 'Brennen Bearnes',
   id        => $book_url,
   generator => 'XML::Atom::SimpleFeed',
@@ -33,8 +32,7 @@ while ($log =~ m/^([a-z0-9]+) _ (.*) _ (.*)$/gm) {
     title     => $subj,
     link      => $book_url,
     id        => $hash,
-    # content   => { content => `git show $hash`, type => 'text' },
-    # content   => $formatted_commit,
+    content   => $formatted_commit,
     updated   => $date,
   );
 }
