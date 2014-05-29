@@ -866,8 +866,8 @@ You've probably noticed that this result doesn't contain filenames (and thus
 isn't very useful to us).  That's because all `grep` saw was the lines in the
 files, not the names of the files themselves.
 
-now you have n problems: regex and rabbit holes
------------------------------------------------
+now you have n problems
+-----------------------
 
 To close out this introductory chapter, let's spend a little time on a topic
 that will likely vex, confound, and (occasionally) delight you for as long as

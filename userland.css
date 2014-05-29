@@ -14,6 +14,9 @@ body {
   list-style: none;
 }
 
+.contents ul li li {
+}
+
 ul li {
   list-style: square;
 }
@@ -37,11 +40,11 @@ button.clicker-button:active {
 
 .details .full {
   background-color: white;
-  border-left: 2px solid #ddc;
   border-bottom: 2px solid #ddc;
+  border-left: 2px solid #ddc;
+  border-radius: 3px;
   border-right: 2px solid #ddc;
   border-top: 2px solid #ddc;
-  border-radius: 3px;
   padding: 1.5em;
 }
 
@@ -74,22 +77,22 @@ a {
 }
 
 pre {
-  color: black;
   background-color: white;
-  margin-top: 2em;
+  border: 1px solid #ddc;
+  border-radius: 3px;
+  color: black;
   margin-bottom: 2em;
   margin-left: 2em;
+  margin-top: 2em;
   max-width: 56em;
   padding: 1em;
   white-space: pre-wrap;
-  border: 1px solid #ddc;
-  border-radius: 3px;
 }
 
 p code {
-  font-size: normal;
   border: 1px solid #ddc;
   border-radius: 3px;
+  font-size: normal;
   padding: 2px;
 }
 
@@ -108,11 +111,11 @@ img {
 }
 
 blockquote.callout {
-  margin-top: 0;
-  margin-left: 2em;
-  margin-right: 0;
   float: right;
   font-size: 1.1em;
+  margin-left: 2em;
+  margin-right: 0;
+  margin-top: 0;
   width: 30%;
 }
 
