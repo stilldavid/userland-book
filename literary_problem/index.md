@@ -32,11 +32,11 @@ it what type of file we're looking at, such as a trailing / for directories.
 Each of the directories here holds other directories.  The ones for each year
 have sub-directories for the months of the year, which in turn contain files
 for the days.  The files are just little pieces of HTML and Markdown and some
-other stuff.  Many years ago, before I really knew how to program, I wrote a
-script to glue them all together into a web page and serve them up to visitors.
-This sounds complicated, but all it really means is that if I want to write a
-blog entry, I just open a file and type some stuff.  Here's an example for
-March 1st:
+other stuff.  Many years ago, before I had much of an idea how to program, I
+wrote a script to glue them all together into a web page and serve them up to
+visitors.  This all sounds complicated, but all it really means is that if I
+want to write a blog entry, I just open a file and type some stuff.  Here's an
+example for March 1st:
 
 <!-- exec -->
 

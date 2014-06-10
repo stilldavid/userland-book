@@ -11,7 +11,7 @@ up some good examples:
     $ grep -E '\$ [a-z]+.*\| ' ../literary_environment/index.md
         $ sort authors_* | uniq -c
         $ sort authors_* | uniq > ./all_authors
-        $ find ~/p1k3/archives/2010/11 -regextype egrep -regex '.*([0-9]+|index)' -type f | xargs wc -w | grep total
+        $ find ~/p1k3/archives/2010/11 -regextype egrep -regex '.*([0-9]+|index)' -type f | xargs wc -w | tail -1
         $ sort authors_* | uniq | wc -l
         $ sort colors | uniq -i | tail -1
         $ cut -d' ' -f1 ./authors_* | sort | uniq -ci | sort -n | tail -3
