@@ -1,4 +1,4 @@
-10. a miscellany of tools and techniques
+8. a miscellany of tools and techniques
 =======================================
 
 dict
