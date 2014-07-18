@@ -142,6 +142,38 @@ Need to know the date of Easter this year?
 
 <!-- end -->
 
+seq
+---
+
+Need the numbers 1-5?
+
+<!-- exec -->
+
+    $ seq 1 5
+    1
+    2
+    3
+    4
+    5
+
+<!-- end -->
+
+shuf
+----
+
+Want to shuffle some lines?
+
+<!-- exec -->
+
+    $ seq 1 5 | shuf
+    2
+    1
+    4
+    3
+    5
+
+<!-- end -->
+
 ptx
 ---
 
