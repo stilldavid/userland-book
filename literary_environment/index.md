@@ -58,10 +58,18 @@ incredibly powerful and expressive piece of software.
 get you a shell
 ---------------
 
-{TODO: Make this section useful.}
+Not very long ago, it was common for schools, employers, and ISPs to hand out
+shell accounts on big shared systems.  Lots of people were exposed to the
+command line as a side effect of needing to read e-mail.
+
+That doesn't happen as much as it used to, which in some ways is kind of a
+drag, but in the mean time computers have gotten a lot cheaper and there's a
+lot more free software in circulation than there used to be.
 
 twisty little passages
 ----------------------
+
+Back to what the shell _is_.
 
 Have you ever played a text-based adventure game or MUD, of the kind that
 describes a setting and takes commands for movement and so on?  Readers of a
@@ -84,12 +92,11 @@ _Adventure_, the great-granddaddy of text adventure games:
 
     THERE IS A BOTTLE OF WATER HERE.
 
-In much the same way, you can think of the shell as a kind of environment you
-inhabit, the same way your character might inhabit an adventure game.  Or as a
-sort of vehicle for getting around inside of computers.  The difference is that
-instead of navigating around virtual rooms and hallways with commands like
-`LOOK` and `EAST`, you navigate between directories by typing commands like
-`ls` and `cd notes`:
+You can think of the shell as a kind of environment you inhabit, in much the
+way your character inhabits an adventure game.  The difference is that instead
+of navigating around virtual rooms and hallways with commands like `LOOK` and
+`EAST`, you navigate between directories by typing commands like `ls` and `cd
+notes`:
 
     $ ls
     code  Downloads  notes  p1k3  photos  scraps  userland-book

@@ -1,5 +1,7 @@
 #!/usr/bin/env perl
 
+# TODO: this really just ought to be a general-purpose utility
+
 use warnings;
 use strict;
 use 5.10.0;

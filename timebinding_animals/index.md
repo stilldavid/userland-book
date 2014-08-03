@@ -5,8 +5,8 @@ When I was a kid, I read pretty much all of Robert A. Heinlein's Science
 Fiction (the short stories, the early novels, the late novels, everything).
 Heinlein was something of a disciple of a guy named Alfred Korzybski, who had
 built up one of those elaborate intellectual systems where the whole thing may
-be kind of cracked, but there are some useful ideas in there.  You can get a
-sense of the flavor of his work from the fact that he wrote a book called
+be kind of cracked, but there are some interesting ideas in there.  You can get
+a sense of the flavor of his work from the fact that he wrote a book called
 _Science and Sanity: An Introduction to Non-Aristotelian Systems and General
 Semantics_.
 
@@ -30,9 +30,9 @@ There's an important
 
 To cover:
 
-* heinlein
-* korzybski
-* timebinding animals
 * scripting
 * makefiles
 * memory
+* command history
+* Ctrl-R
+* version control and that sorta stuff
