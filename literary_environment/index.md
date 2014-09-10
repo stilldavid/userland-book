@@ -58,13 +58,35 @@ incredibly powerful and expressive piece of software.
 get you a shell
 ---------------
 
-Not very long ago, it was common for schools, employers, and ISPs to hand out
-shell accounts on big shared systems.  Lots of people were exposed to the
-command line as a side effect of needing to read e-mail.
+(Don't feel guilty about skipping this section.  It will be here later if you
+need it.)
 
-That doesn't happen as much as it used to, which in some ways is kind of a
-drag, but in the mean time computers have gotten a lot cheaper and there's a
-lot more free software in circulation than there used to be.
+Not so long ago, it was common for schools, employers, and ISPs to hand out
+shell accounts on big shared systems.  People learned the command line as a
+side effect of reading e-mail.
+
+That doesn't happen as often now, but in the meanwhile computers have become
+cheap and free software abundant.  If you're reading this on the web, you can
+probably get access to a shell.
+
+You don't have to have a shell at hand to get something out of this book, but
+as with most practical subjects you'll learn more if you try things out as you
+go.  There are a handful of good options for those of you not already running
+Linux on your main computer.
+
+1. _Use your Raspberry Pi or BeagleBone._ Have a single-board computer laying
+   around?  Perfect.  If you already run the standard Raspbian, Debian on a
+   BeagleBone, or a similar-enough Linux, you don't need much else.  I wrote
+   much of this text on a Raspberry Pi, and the example commands should all
+   work there.
+
+2. _Run Linux in a virtual machine._ It's pretty easy these days to get your
+   computer to simulate other computers.  You can have it simulate the one I'm
+   writing this on, if you want.  First, [download and install the version of
+   VirtualBox][virtualbox] for your system (it should work on Windows, OS X,
+   Linux, and others).  Once that's running, download [this
+   image][userland-debian-image] and open it in VirtualBox by clicking the File
+   menu, then Import Appliance.
 
 twisty little passages
 ----------------------
