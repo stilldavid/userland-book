@@ -1,4 +1,5 @@
 ./introduction/index.md
+./get_shell/index.md
 ./literary_environment/index.md
 ./literary_problem/index.md
 ./programmerthink/index.md
@@ -7,5 +8,5 @@
 ./diff/index.md
 ./web/index.md
 ./miscellany/index.md
-./further_reading/index.md
+./endmatter/index.md
 ./links.md

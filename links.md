@@ -4,3 +4,5 @@
 [www]: http://info.cern.ch/hypertext/WWW/TheProject.html
 [virtualbox]: https://www.virtualbox.org/wiki/Downloads
 [userland-debian-image]: https://getyouashell.com/
+[squiggle]: http://squiggle.city/
+[tildeclub]: http://tilde.club/
