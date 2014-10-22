@@ -6,6 +6,7 @@ further reading
 
 - _The Unix Programming Environment_ - Brian W. Kernighan, Rob Pike
 - [AT&T Archives: The UNIX Operating System](https://www.youtube.com/watch?v=tc4ROCJYbm0) (YouTube)
+- [I had a couple drinks and woke up with 1,000 nerds](https://medium.com/message/tilde-club-i-had-a-couple-drinks-and-woke-up-with-1-000-nerds-a8904f0a2ebf) - Paul Ford
 
 code
 ----
