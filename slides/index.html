@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset="utf-8">
+  <title>get you a shell</title>
+  <link rel=stylesheet href="slides.css" />
+  <link rel="alternate" type="application/atom+xml" title="changes" href="//p1k3.com/userland-book/feed.xml" />
+  <script src="../js/jquery.js" type="text/javascript"></script>
+</head>
+
+<body>
+
+<h1 class=bigtitle>get you a shell</h1>
+<p>Hi!</p>
+
+<hr />
+
+<p>How&rsquo;s it going?</p>
+
+<hr />
+<script>
+$(document).ready(function () {
+  // ☜ ☝ ☞ ☟ ☆ ✠ ✡ ✢ ✣ ✤ ✥ ✦ ✧ ✩ ✪ 
+  var closed_sigil = 'show';
+  var open_sigil = 'hide';
+
+  var togglesigil = function (elem) {
+    var sigil = $(elem).html();
+    if (sigil === closed_sigil) {
+      $(elem).html(open_sigil);
+    } else {
+      $(elem).html(closed_sigil);
+    }
+  };
+
+  $("section").each(function () {
+    console.log(this);
+    var $this = $(this);
+    var $button = $('<button class=clicker-button>' + closed_sigil + '</button>');
+    var $details_full = $(this).find('.full');
+
+    $button.click(function (e) {
+      e.preventDefault();
+      $details_full.toggle({
+        duration: 550
+      });
+      togglesigil(this);
+    });
+
+    $(this).find('.clicker').append($button);
+    $button.show();
+  });
+
+  $('.details .full').hide();
+});
+</script>
+</body>
+</html>
