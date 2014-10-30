@@ -82,7 +82,7 @@ a {
 
 pre {
   background-color: white;
-  border: 1px solid #ddc;
+  /* border: 1px solid #ddc; */
   border-radius: 3px;
   color: black;
   margin-bottom: 2em;
