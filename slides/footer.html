@@ -50,6 +50,20 @@ $(document).ready(function () {
     transit(-1);
   });
 
+  $(document).keydown(function(e) {
+    switch(e.which) {
+      case 37: // left
+        $bwd_button.click();
+        break;
+      case 39: // right
+        $fwd_button.click();
+        break;
+      default:
+        return;
+    }
+    e.preventDefault();
+  });
+
   $('body').append($bwd_button);
   $('body').append($fwd_button);
 });

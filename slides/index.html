@@ -11,13 +11,46 @@
 <body>
 
 <section>
+<p style="font-size: 3em; margin-bottom: 0;">get you a shell</p>
+<pre class=noborder>
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+</pre>
+</section>
+<section>
 
-
-<h1><a name=get-you-a-shell href=#get-you-a-shell></a> get you a shell</h1>
 
 <p>https://p1k3.com/userland-book/slides/</p>
 
 <p>&hellip;in case you want to follow along with links.</p>
+
+</section>
+
+
+<section>
+
+
+
+
+<!-- exec -->
+
+
+<pre><code>$ cowthink I should write a book.
+ ________________________
+( I should write a book. )
+ ------------------------
+        o   ^__^
+         o  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+</code></pre>
+
+<!-- end -->
+
 
 </section>
 
@@ -172,6 +205,20 @@ $(document).ready(function () {
   $bwd_button.click(function (e) {
     e.preventDefault();
     transit(-1);
+  });
+
+  $(document).keydown(function(e) {
+    switch(e.which) {
+      case 37: // left
+        $bwd_button.click();
+        break;
+      case 39: // right
+        $fwd_button.click();
+        break;
+      default:
+        return;
+    }
+    e.preventDefault();
   });
 
   $('body').append($bwd_button);
