@@ -209,9 +209,11 @@ $(document).ready(function () {
 
   $(document).keydown(function(e) {
     switch(e.which) {
+      case 8:  // backspace
       case 37: // left
         $bwd_button.click();
         break;
+      case 32: // spacebar
       case 39: // right
         $fwd_button.click();
         break;
