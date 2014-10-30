@@ -93,6 +93,14 @@ pre {
   white-space: pre-wrap;
 }
 
+pre.noborder {
+  border: none;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 p code {
   border: 1px solid #ddc;
   border-radius: 3px;

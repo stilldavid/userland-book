@@ -1,3 +1,17 @@
+<section>
+
+  <p style="font-size: 3em; margin-bottom: 0;">fin.</p>
+
+  <pre class=noborder>
+  \   ^__^
+   \  (oo)\_______
+      (__)\       )\/\
+          ||----w |
+          ||     ||
+  </pre>
+
+</section>
+
 <script>
 $(document).ready(function () {
   // ☜ ☝ ☞ ☟ ☆ ✠ ✡ ✢ ✣ ✤ ✥ ✦ ✧ ✩ ✪ 
@@ -11,14 +25,16 @@ $(document).ready(function () {
   $cur_section.toggle(); // show first slide
 
   var transit = function (jump) {
+    $('button').hide();
     $cur_section.hide();
     section_number += jump;
-    if (section_number > $sections.length) {
+    if (section_number > ($sections.length - 1)) {
       section_number = 0;
     }
     $cur_section = $( $sections.get(section_number) );
     $cur_section.toggle({
-      duration: 450
+      duration: 250,
+      done: function () { $('button').show(); }
     });
   };
 
