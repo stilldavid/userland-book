@@ -1,4 +1,5 @@
 body {
+  font-size: 28px;
   background: white;
   color: #000000;
   font-family: sans-serif;
@@ -63,13 +64,16 @@ td {
 h1, h2, h3, h4, h5, h6 {
   font-family: "Georgia", "DejaVu Serif", "Bitstream Vera Serif", "Lucida Bright", serif;
   font-weight: normal;
-}
-
-h1.bigtitle {
-  font-size: 3em;
   margin-left: auto;
   margin-right: auto;
 }
+
+.center {
+  text-align: center;
+}
+
+h1 { font-size: 3em; }
+h2 { font-size: 2.5em; }
 
 a {
   font-style: none;

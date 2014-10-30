@@ -1,37 +1,41 @@
 <script>
 $(document).ready(function () {
   // ☜ ☝ ☞ ☟ ☆ ✠ ✡ ✢ ✣ ✤ ✥ ✦ ✧ ✩ ✪ 
-  var closed_sigil = 'show';
-  var open_sigil = 'hide';
 
-  var togglesigil = function (elem) {
-    var sigil = $(elem).html();
-    if (sigil === closed_sigil) {
-      $(elem).html(open_sigil);
-    } else {
-      $(elem).html(closed_sigil);
+  // get all the "slides", hide them
+  $sections = $('section');
+  $sections.hide();
+
+  var section_number = 0;
+  var $cur_section = $( $sections.get(section_number) );
+  $cur_section.toggle(); // show first slide
+
+  var transit = function (jump) {
+    $cur_section.hide();
+    section_number += jump;
+    if (section_number > $sections.length) {
+      section_number = 0;
     }
+    $cur_section = $( $sections.get(section_number) );
+    $cur_section.toggle({
+      duration: 450
+    });
   };
 
-  $("section").each(function () {
-    console.log(this);
-    var $this = $(this);
-    var $button = $('<button class=clicker-button>' + closed_sigil + '</button>');
-    var $details_full = $(this).find('.full');
+  var $fwd_button = $('<button class=clicker-button>next</button>');
+  var $bwd_button = $('<button class=clicker-button>prev</button>');
 
-    $button.click(function (e) {
-      e.preventDefault();
-      $details_full.toggle({
-        duration: 550
-      });
-      togglesigil(this);
-    });
-
-    $(this).find('.clicker').append($button);
-    $button.show();
+  $fwd_button.click(function (e) {
+    e.preventDefault();
+    transit(1);
+  });
+  $bwd_button.click(function (e) {
+    e.preventDefault();
+    transit(-1);
   });
 
-  $('.details .full').hide();
+  $('body').append($bwd_button);
+  $('body').append($fwd_button);
 });
 </script>
 </body>

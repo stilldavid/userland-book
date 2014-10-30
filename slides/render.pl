@@ -25,7 +25,8 @@ while (my $source = get_input()) {
   $source =~ s{<!-- exec -->(.*?)<!-- end -->}{handle_block($1);}egs;
   chdir $cwd;
 
-  $full_source .= $source . "\n\n----\n\n";
+  $full_source .= "<!-- {{{ -->\n\n" . $source . "<!-- }}} -->";
+  # $full_source .= "\n\n<div class=slide>\n\n" . $source . "\n\n</div>\n\n";
 
 }
 
@@ -61,6 +62,9 @@ sub replace_some_stuff {
 
   # bold first "$ command" string in a code block
   # $markup =~ s{<code>(\$ .*?)$}{<code><b>$1</b>}gm;
+  
+  # my $content_link_marker = '#';
+  my $content_link_marker = '';
 
   my @contents;
 
@@ -71,13 +75,16 @@ sub replace_some_stuff {
     $a_name =~ s/[^a-z]+/-/ig;
     $a_name =~ s/^-|-$//g;
     push @contents, make_contents_link($tag, $a_name, $text);
-    "<$tag$attributes><a name=$a_name href=#$a_name>#</a> $text</$tag>";
+    "<$tag$attributes><a name=$a_name href=#$a_name>$content_link_marker</a> $text</$tag>";
   }iesg;
 
   my $contents_text = '<div class=contents>'
                     . $markdown->markdown((join "\n", @contents), $flags)
                     . '</div>';
   $markup =~ s/{{contents}}/$contents_text/g;
+
+  $markup =~ s/<!-- {{{ -->/<section>/g;
+  $markup =~ s/<!-- }}} -->/<\/section>/g;
 
   return $markup;
 }
